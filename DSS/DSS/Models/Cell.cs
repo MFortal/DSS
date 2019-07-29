@@ -10,7 +10,7 @@ namespace DSS.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int ComponentsId { get; set; }
+        public int ComponentId { get; set; }
         public int PropertyId { get; set; }
         public int? ValueId { get; set; }
         [Column("Value")]
