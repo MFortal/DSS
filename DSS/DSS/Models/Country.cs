@@ -15,6 +15,6 @@ namespace DSS.Models
         public string Name { get; set; }
         public byte[] Flag { get; set; }
 
-        public virtual Component Component { get; set; }
+        public virtual ICollection<Component> Component { get; set; }
     }
 }
