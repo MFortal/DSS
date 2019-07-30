@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using DSS.Models;
-using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
+﻿using System.Data.Entity;
 
-
-namespace DSS.DAL
+namespace DSS.Models
 {
     public class DssContext : DbContext
     {
@@ -22,7 +15,7 @@ namespace DSS.DAL
         public DbSet<Subcategory> Subcategories { get; set; }
         public DbSet<SubcategoryProperty> SubcategoryProperties { get; set; }
         public DbSet<Value> Values { get; set; }
-        public DbSet<Сategory> Categories { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -16,7 +16,7 @@ namespace DSS.Models
         public byte[] Image { get; set; }
         public int CategoryId { get; set; }
 
-        public virtual Сategory Categories { get; set; }
+        public virtual Category Categories { get; set; }
         public virtual ICollection<SubcategoryProperty> SubcategoryProperties { get; set; }
         public virtual ICollection<Component> Components { get; set; }
     }
