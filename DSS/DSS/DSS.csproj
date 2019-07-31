@@ -175,6 +175,10 @@
     <Compile Include="Migrations\201907301102181_Migration1.Designer.cs">
       <DependentUpon>201907301102181_Migration1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907310938074_ChangeTypeImage.cs" />
+    <Compile Include="Migrations\201907310938074_ChangeTypeImage.Designer.cs">
+      <DependentUpon>201907310938074_ChangeTypeImage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\DssContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -284,6 +288,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907301102181_Migration1.resx">
       <DependentUpon>201907301102181_Migration1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907310938074_ChangeTypeImage.resx">
+      <DependentUpon>201907310938074_ChangeTypeImage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

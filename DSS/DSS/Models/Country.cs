@@ -10,7 +10,7 @@ namespace DSS.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public byte[] Flag { get; set; }
+        public string Flag { get; set; }
 
         public virtual ICollection<Component> Component { get; set; }
     }

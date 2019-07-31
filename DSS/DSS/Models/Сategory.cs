@@ -10,7 +10,7 @@ namespace DSS.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
 
         public virtual ICollection<Subcategory> Subcategories { get; set; }
     }
