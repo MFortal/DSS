@@ -179,6 +179,10 @@
     <Compile Include="Migrations\201907310938074_ChangeTypeImage.Designer.cs">
       <DependentUpon>201907310938074_ChangeTypeImage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907311740507_ColumnProperty.cs" />
+    <Compile Include="Migrations\201907311740507_ColumnProperty.Designer.cs">
+      <DependentUpon>201907311740507_ColumnProperty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\DssContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -201,7 +205,13 @@
     <Compile Include="Models\Сategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SourceSeed\CategoriesInitializer.cs" />
+    <Compile Include="SourceSeed\CellsInitializer.cs" />
+    <Compile Include="SourceSeed\ComponentsInitializer.cs" />
+    <Compile Include="SourceSeed\CountriesInitializer.cs" />
+    <Compile Include="SourceSeed\PropertiesInitializer.cs" />
     <Compile Include="SourceSeed\SubcategoriesInitializer.cs" />
+    <Compile Include="SourceSeed\SubcategoryPropertiesInitializer.cs" />
+    <Compile Include="SourceSeed\ValuesInitializer.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -292,6 +302,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907310938074_ChangeTypeImage.resx">
       <DependentUpon>201907310938074_ChangeTypeImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907311740507_ColumnProperty.resx">
+      <DependentUpon>201907311740507_ColumnProperty.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

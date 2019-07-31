@@ -12,7 +12,7 @@ namespace DSS.Models
         public string Name { get; set; }
         public string Image { get; set; }
         public int CountryId { get; set; }
-        public int CategoryId { get; set; }
+        public int SubcategoryId { get; set; }
 
 
         public virtual Country Country { get; set; }
