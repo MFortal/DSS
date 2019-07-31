@@ -8,8 +8,8 @@ namespace DSS.SourceSeed
         {
             return new Category[]
             {
-                new Category{Id=1, Name="Интегральные микросхемы", Image=null },
-                new Category{Id=2, Name="Конденсаторы", Image=null }
+                new Category{Id=1, Name="Интегральные микросхемы", Image="1.gif" },
+                new Category{Id=2, Name="Конденсаторы", Image="2.gif"  }
             };
         }
     }

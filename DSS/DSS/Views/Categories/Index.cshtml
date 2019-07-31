@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<DSS.Models.Category>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Каталог компонентов";
 }
 
 <h2>Каталог компонентов</h2>
@@ -26,7 +26,7 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Image)
+            <img src="../../Image/Categories/@Html.DisplayFor(modelItem => item.Image)" width="50" height="50"/> 
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
