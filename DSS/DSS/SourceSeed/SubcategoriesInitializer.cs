@@ -10,7 +10,7 @@ namespace DSS.SourceSeed
             {
                 new Subcategory{Id=1, Name="Аудио усилители", Image=null, CategoryId=1 },
                 new Subcategory{Id=2, Name="Видео усилители, модули", Image=null, CategoryId= 1 },
-                new Subcategory{Id=3, Name="Модул", Image=null, CategoryId=2 }
+                new Subcategory{Id=3, Name="Модульные", Image=null, CategoryId=2 }
             };
         }
     }

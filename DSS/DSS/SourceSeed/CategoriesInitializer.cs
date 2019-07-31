@@ -9,7 +9,7 @@ namespace DSS.SourceSeed
             return new Category[]
             {
                 new Category{Id=1, Name="Интегральные микросхемы", Image=null },
-                new Category{Id=2, Name="саторы", Image=null }
+                new Category{Id=2, Name="Конденсаторы", Image=null }
             };
         }
     }
