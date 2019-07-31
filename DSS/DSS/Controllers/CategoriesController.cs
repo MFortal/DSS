@@ -13,7 +13,8 @@ namespace DSS.Controllers
         // GET: Categories
         public ActionResult Index()
         {
-            return View(db.Categories.ToList());
+            var categories = db.Categories.Include(p => p.Subcategories);
+            return View(categories.ToList());
         }
 
         // GET: Categories/Details/5

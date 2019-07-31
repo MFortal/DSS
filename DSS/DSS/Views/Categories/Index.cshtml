@@ -1,8 +1,20 @@
-﻿@model IEnumerable<DSS.Models.Category>
+﻿@using DSS.Models
+@model IEnumerable<DSS.Models.Category>
 
 @{
     ViewBag.Title = "Каталог компонентов";
 }
+
+<style>
+    .category-title {
+        cursor: pointer;
+    }
+
+    .subcategory-list {
+        display: none;
+        background: #f1f1f1;
+    }
+</style>
 
 <h2>Каталог компонентов</h2>
 
@@ -20,20 +32,40 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            <img src="../../Image/Categories/@Html.DisplayFor(modelItem => item.Image)" width="50" height="50"/> 
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="#" class="category-title">@Html.DisplayFor(modelItem => item.Name)</a>
+                <div class="subcategory-list">
+                    <ul>
+                        @foreach (var subItem in item.Subcategories)
+                        {
+                            <li>
+                                <a href="#">@Html.DisplayFor(modelItem => subItem.Name)</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </td>
+            <td>
+                <img src="../../Image/Categories/@Html.DisplayFor(modelItem => item.Image)" width="50" height="50" />
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.category-title').click(function () {
+            $(this).parent().children('.subcategory-list').slideToggle();
+            return false;
+        });
+    });
+</script>
