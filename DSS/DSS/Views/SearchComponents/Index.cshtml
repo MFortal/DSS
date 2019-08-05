@@ -26,6 +26,10 @@
         font-size: 16px;
         text-align: center;
     }
+
+    sup {
+        cursor:help;
+    }
 </style>
 <h2>Поиск компонентов</h2>
 
@@ -38,8 +42,16 @@
         @foreach (var item in Model)
         {
             <div class="flex-itm">
-
-                <p class="nameProperty">@Html.Label(item.PropertyName)</p>
+                <p class="nameProperty">
+                    @Html.Label(item.PropertyName)
+                    @if (item.Description != null)
+                    {
+                        <sup>
+                            <img src="../../Image/Blobs/question.png"
+                                 width="15px" height="15px" title="@item.Description"/>
+                        </sup>
+                    }
+                </p>
                 @foreach (var value in item.Values)
                 {
                     <p> @Html.CheckBox("Values", value) @value </p>

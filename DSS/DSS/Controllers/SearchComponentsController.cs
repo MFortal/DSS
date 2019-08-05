@@ -28,7 +28,8 @@ namespace DSS.Controllers
                 new PropertyValuesSubcategories
                 {
                     PropertyName = x.Name,
-                    Values = x.Values.Select(y => y.PropertyValue)
+                    Values = x.Values.Select(y => y.PropertyValue),
+                    Description = x.Description
                 }).ToList();
 
             //Поиск производителей
@@ -37,7 +38,8 @@ namespace DSS.Controllers
                 new PropertyValuesSubcategories
                 {
                     PropertyName = "Производитель",
-                    Values = db.Countries.Select(f => f.Name)
+                    Values = db.Countries.Select(f => f.Name),
+                    Description = "Made in, как говорится"
                 }
             }.AsEnumerable();
 
@@ -50,6 +52,7 @@ namespace DSS.Controllers
         {
             public string PropertyName { get; set; }
             public IEnumerable<string> Values { get; set; }
+            public string Description { get; set; }
         }
 
         // GET: SearchComponents/Details/5
