@@ -4,38 +4,56 @@
     ViewBag.Title = "Поиск компонентов";
 }
 
-    <h2>Поиск компонентов</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.PropertyName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Values)
-        </th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PropertyName)
-            <td>
-                @foreach (var value in item.Values)
-                {
-                    @Html.CheckBox("Values", value) @Html.Label("Values",  value)
-                    <br />
-                }
-            </td>
-            @*@Html.ActionLink("Edit", "Edit", new { id = item.PropertyName }) |
-            @Html.ActionLink("Details", "Details", new { id = item.PropertyName }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.PropertyName })*@
-            </td>
-        </tr>
+<style>
+    .flex, .flexButtons {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 5px;
     }
 
-</table>
+    .flex-itm {
+        margin: 5px;
+        padding: 15px;
+    }
+
+    .flex-btn {
+        margin: 5px;
+    }
+
+    .nameProperty {
+        font-size: 16px;
+        text-align: center;
+    }
+</style>
+<h2>Поиск компонентов</h2>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+@using (Html.BeginForm())
+{
+    <div class="flex">
+        @foreach (var item in Model)
+        {
+            <div class="flex-itm">
+
+                <p class="nameProperty">@Html.Label(item.PropertyName)</p>
+                @foreach (var value in item.Values)
+                {
+                    <p> @Html.CheckBox("Values", value) @value </p>
+                }
+
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.PropertyName }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.PropertyName }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.PropertyName })*@
+            </div>
+        }
+    </div>
+    <div class="flexButtons">
+        <input class="btn btn-success flex-btn" type="submit" value="Искать" />
+        <input class="btn btn-default flex-btn" type="reset" value="Сбросить" />
+    </div>
+}
+

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using DSS.Models;
 
@@ -27,13 +24,14 @@ namespace DSS.Controllers
 
             var propertiesWithValues = db.Properties
                 .Where(x => propertyIds.Contains(x.Id))
-                .Select(x => 
+                .Select(x =>
                 new PropertyValuesSubcategories
                 {
                     PropertyName = x.Name,
                     Values = x.Values.Select(y => y.PropertyValue)
                 }).ToList();
 
+            //Поиск производителей
             var makerWithValues = new List<PropertyValuesSubcategories>
             {
                 new PropertyValuesSubcategories
@@ -42,22 +40,8 @@ namespace DSS.Controllers
                     Values = db.Countries.Select(f => f.Name)
                 }
             }.AsEnumerable();
-            makerWithValues = makerWithValues.Concat(propertiesWithValues);
-            
-            //propertiesWithValues = propertiesWithValues.Union(makerWithValues);
-            //Поиск производителей
-           
-            var result = propertiesWithValues.Union(makerWithValues);
 
-            //var propertiesWithValues = db.Properties
-            //    .Where(x => propertyIds.Contains(x.Id))
-            //    .Select(x =>
-            //   new PropertyValuesSubcategories
-            //   {
-            //       PropertyName = x.Name,
-            //       Values = x.Values.Select(y => y.PropertyValue)
-            //   })
-            //    .ToList();
+            var result = propertiesWithValues.Union(makerWithValues);
 
             return View(result);
         }
