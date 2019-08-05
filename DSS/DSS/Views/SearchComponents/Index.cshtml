@@ -1,0 +1,41 @@
+﻿@model IEnumerable<DSS.Controllers.SearchComponentsController.PropertyValuesSubcategories>
+
+@{
+    ViewBag.Title = "Поиск компонентов";
+}
+
+    <h2>Поиск компонентов</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PropertyName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Values)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PropertyName)
+            <td>
+                @foreach (var value in item.Values)
+                {
+                    @Html.CheckBox("Values", value) @Html.Label("Values",  value)
+                    <br />
+                }
+            </td>
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.PropertyName }) |
+            @Html.ActionLink("Details", "Details", new { id = item.PropertyName }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.PropertyName })*@
+            </td>
+        </tr>
+    }
+
+</table>

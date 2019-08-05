@@ -42,7 +42,7 @@
                         @foreach (var subItem in item.Subcategories)
                         {
                             <li>
-                                <a href="#">@Html.DisplayFor(modelItem => subItem.Name)</a>
+                               <a href="@Url.Action("Index", "SearchComponents", new {subId = subItem.Id})">@Html.DisplayFor(modelItem => subItem.Name)</a>
                             </li>
                         }
                     </ul>

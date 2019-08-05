@@ -171,7 +171,7 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\SubcategoriesController.cs" />
+    <Compile Include="Controllers\SearchComponentsController.cs" />
     <Compile Include="Migrations\201907301102181_Migration1.cs" />
     <Compile Include="Migrations\201907301102181_Migration1.Designer.cs">
       <DependentUpon>201907301102181_Migration1.cs</DependentUpon>
@@ -183,6 +183,10 @@
     <Compile Include="Migrations\201907311740507_ColumnProperty.cs" />
     <Compile Include="Migrations\201907311740507_ColumnProperty.Designer.cs">
       <DependentUpon>201907311740507_ColumnProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908021143176_PropertyUnitNull.cs" />
+    <Compile Include="Migrations\201908021143176_PropertyUnitNull.Designer.cs">
+      <DependentUpon>201908021143176_PropertyUnitNull.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\DssContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -202,6 +206,7 @@
     <Compile Include="Models\Property.cs" />
     <Compile Include="Models\Subcategory.cs" />
     <Compile Include="Models\SubcategoryProperty.cs" />
+    <Compile Include="Models\SearchComponents.cs" />
     <Compile Include="Models\Value.cs" />
     <Compile Include="Models\Сategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -276,11 +281,11 @@
     <Content Include="Views\Categories\Details.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
-    <Content Include="Views\Subcategories\Create.cshtml" />
-    <Content Include="Views\Subcategories\Delete.cshtml" />
-    <Content Include="Views\Subcategories\Details.cshtml" />
-    <Content Include="Views\Subcategories\Edit.cshtml" />
-    <Content Include="Views\Subcategories\Index.cshtml" />
+    <Content Include="Views\SearchComponents\Create.cshtml" />
+    <Content Include="Views\SearchComponents\Delete.cshtml" />
+    <Content Include="Views\SearchComponents\Details.cshtml" />
+    <Content Include="Views\SearchComponents\Edit.cshtml" />
+    <Content Include="Views\SearchComponents\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -311,6 +316,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907311740507_ColumnProperty.resx">
       <DependentUpon>201907311740507_ColumnProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908021143176_PropertyUnitNull.resx">
+      <DependentUpon>201908021143176_PropertyUnitNull.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

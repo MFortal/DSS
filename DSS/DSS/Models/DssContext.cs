@@ -21,5 +21,7 @@ namespace DSS.Models
         {
             modelBuilder.Entity<Cell>().HasIndex(x => new { x.ComponentId, x.PropertyId }).IsUnique();
         }
+
+        public System.Data.Entity.DbSet<DSS.Models.SearchComponents> SearchComponents { get; set; }
     }
 }
