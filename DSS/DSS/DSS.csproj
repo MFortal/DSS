@@ -219,6 +219,9 @@
     <Compile Include="SourceSeed\SubcategoryPropertiesInitializer.cs" />
     <Compile Include="SourceSeed\ValuesInitializer.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ComponentsSubcategory.cs" />
+    <Compile Include="ViewModels\PropertyValuesSubcategories.cs" />
+    <Compile Include="ViewModels\ViewSearch.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

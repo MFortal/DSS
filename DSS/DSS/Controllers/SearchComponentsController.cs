@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using DSS.Models;
+using DSS.ViewModels;
 
 namespace DSS.Controllers
 {
@@ -41,18 +42,32 @@ namespace DSS.Controllers
                     Values = db.Countries.Select(f => f.Name),
                     Description = "Made in, как говорится"
                 }
-            }.AsEnumerable();
+            };
 
-            var result = propertiesWithValues.Union(makerWithValues);
+            var propertyResult = propertiesWithValues.Union(makerWithValues);
 
-            return View(result);
-        }
 
-        public class PropertyValuesSubcategories
-        {
-            public string PropertyName { get; set; }
-            public IEnumerable<string> Values { get; set; }
-            public string Description { get; set; }
+            //Поиск всех компонентов в подкатегории
+            var components = db.Components
+                .Where(x => x.SubcategoryId == subId)
+                .Select(x =>
+                new ComponentsSubcategory
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    CountryName = x.Country.Name,
+                    //db.Countries
+                        //.Where(y => y.Id == x.CountryId)
+                        //.Select(y => y.Name).ToString(),
+                    CountryFlag = x.Country.Flag
+                    //db.Countries
+                    //    .Where(y => y.Id == x.CountryId)
+                    //    .Select(y => y.Flag).ToString()
+                });
+
+            var viewSearch = new ViewSearch { PropertyValuesSubcategories = propertyResult, ComponentsSubcategory = components };
+
+            return View(viewSearch);
         }
 
         // GET: SearchComponents/Details/5

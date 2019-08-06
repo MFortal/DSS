@@ -1,10 +1,11 @@
-﻿@model IEnumerable<DSS.Controllers.SearchComponentsController.PropertyValuesSubcategories>
+﻿@model  DSS.ViewModels.ViewSearch
 
 @{
     ViewBag.Title = "Поиск компонентов";
 }
 
 <style>
+    /*Стили для формы поиска*/
     .flex, .flexButtons {
         display: flex;
         flex-direction: row;
@@ -28,18 +29,21 @@
     }
 
     sup {
-        cursor:help;
+        cursor: help;
+    }
+
+    table {
+        margin-top: 50px;
     }
 </style>
 <h2>Поиск компонентов</h2>
-
 @*<p>
         @Html.ActionLink("Create New", "Create")
     </p>*@
-@using (Html.BeginForm())
+@using (Html.BeginForm("Show", "SearchComponents"))
 {
     <div class="flex">
-        @foreach (var item in Model)
+        @foreach (var item in Model.PropertyValuesSubcategories)
         {
             <div class="flex-itm">
                 <p class="nameProperty">
@@ -48,7 +52,7 @@
                     {
                         <sup>
                             <img src="../../Image/Blobs/question.png"
-                                 width="15px" height="15px" title="@item.Description"/>
+                                 width="15px" height="15px" title="@item.Description" />
                         </sup>
                     }
                 </p>
@@ -69,3 +73,25 @@
     </div>
 }
 
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Наименование")
+        </th>
+        <th>
+            @Html.DisplayName("Производитель")
+        </th>
+    </tr>
+    @foreach (var item in Model.ComponentsSubcategory)
+    {
+        <tr>
+            <td>
+                <a href="@Url.Action("Details", "SearchComponents", new { component = item })">@Html.DisplayFor(modelItem => item.Name)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CountryName)
+                <img src="../../Image/Countries/@Html.DisplayFor(modelItem => item.CountryFlag)" width="20" height="20" />
+            </td>
+        </tr>
+    }
+</table>
