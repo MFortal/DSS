@@ -56,13 +56,7 @@ namespace DSS.Controllers
                     Id = x.Id,
                     Name = x.Name,
                     CountryName = x.Country.Name,
-                    //db.Countries
-                        //.Where(y => y.Id == x.CountryId)
-                        //.Select(y => y.Name).ToString(),
                     CountryFlag = x.Country.Flag
-                    //db.Countries
-                    //    .Where(y => y.Id == x.CountryId)
-                    //    .Select(y => y.Flag).ToString()
                 });
 
             var viewSearch = new ViewSearch { PropertyValuesSubcategories = propertyResult, ComponentsSubcategory = components };

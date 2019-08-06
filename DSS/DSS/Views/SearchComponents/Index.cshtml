@@ -15,6 +15,11 @@
     }
 
     .flex-itm {
+        border: 1px solid gray;
+        border-radius: 10px 0 0 10px;
+        height: 200px;
+        width: auto;
+        overflow-y: scroll; /* прокрутка по вертикали */
         margin: 5px;
         padding: 15px;
     }
@@ -34,6 +39,11 @@
 
     table {
         margin-top: 50px;
+    }
+
+    .component {
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 16px;
     }
 </style>
 <h2>Поиск компонентов</h2>
@@ -86,11 +96,13 @@
     {
         <tr>
             <td>
-                <a href="@Url.Action("Details", "SearchComponents", new { component = item })">@Html.DisplayFor(modelItem => item.Name)</a>
+                <a href="@Url.Action("Details", "SearchComponents", new { component = item })" class="component">@Html.DisplayFor(modelItem => item.Name)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CountryName)
-                <img src="../../Image/Countries/@Html.DisplayFor(modelItem => item.CountryFlag)" width="20" height="20" />
+                <sup>
+                    <img src="../../Image/Countries/@Html.DisplayFor(modelItem => item.CountryFlag)" width="20" height="20" />
+                </sup>
             </td>
         </tr>
     }

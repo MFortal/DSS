@@ -2,7 +2,6 @@ namespace DSS.Migrations
 {
     using Models;
     using SourceSeed;
-    using System;
     using System.Data.Entity.Migrations;
 
     internal sealed class Configuration : DbMigrationsConfiguration<DssContext>

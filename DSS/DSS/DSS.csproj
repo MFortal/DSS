@@ -188,6 +188,10 @@
     <Compile Include="Migrations\201908021143176_PropertyUnitNull.Designer.cs">
       <DependentUpon>201908021143176_PropertyUnitNull.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908062108265_Add_AK_SubcategoryProperty.cs" />
+    <Compile Include="Migrations\201908062108265_Add_AK_SubcategoryProperty.Designer.cs">
+      <DependentUpon>201908062108265_Add_AK_SubcategoryProperty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\DssContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -206,7 +210,7 @@
     <Compile Include="Models\Property.cs" />
     <Compile Include="Models\Subcategory.cs" />
     <Compile Include="Models\SubcategoryProperty.cs" />
-    <Compile Include="Models\SearchComponents.cs" />
+    <Compile Include="ViewModels\SearchComponents.cs" />
     <Compile Include="Models\Value.cs" />
     <Compile Include="Models\Сategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -322,6 +326,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908021143176_PropertyUnitNull.resx">
       <DependentUpon>201908021143176_PropertyUnitNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908062108265_Add_AK_SubcategoryProperty.resx">
+      <DependentUpon>201908062108265_Add_AK_SubcategoryProperty.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -20,8 +20,9 @@ namespace DSS.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Cell>().HasIndex(x => new { x.ComponentId, x.PropertyId }).IsUnique();
+            modelBuilder.Entity<SubcategoryProperty>().HasIndex(x => new { x.SubcategoryId, x.PropertyId }).IsUnique();
         }
 
-        public System.Data.Entity.DbSet<DSS.Models.SearchComponents> SearchComponents { get; set; }
+        public DbSet<SearchComponents> SearchComponents { get; set; }
     }
 }
