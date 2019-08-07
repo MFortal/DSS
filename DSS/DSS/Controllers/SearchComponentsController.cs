@@ -16,6 +16,7 @@ namespace DSS.Controllers
         // GET: SearchComponents
         public ActionResult Index(int? categoryId, int? subcategoryId)
         {
+            #region CheckIds
             if (subcategoryId == null && categoryId == null)
             {
                 subcategoryId = 1;
@@ -30,7 +31,9 @@ namespace DSS.Controllers
             }
 
             ViewBag.categoryId = categoryId;
+            #endregion
 
+            #region DropDown
             //Передача текущих значений для dropDown
             var categoryThis = db.Categories
                 .Where(x => x.Id == categoryId)
@@ -75,39 +78,9 @@ namespace DSS.Controllers
 
             ViewBag.Categories = categoriesWithoutThis;
             ViewBag.Subcategories = subcategoriesCategoryWithoutThis;
+            #endregion
 
-            //Поиск свойств подкатегории в сущности Properties - Values
-            var propertyIds = db.SubcategoryProperties
-                .Where(x => x.SubcategoryId == subcategoryId)
-                .Select(x => x.PropertyId);
-
-            //Перечисление свойств и их значений
-            var propertiesWithValues = db.Properties
-                .Where(x => propertyIds.Contains(x.Id))
-                .Select(x =>
-                new PropertyValuesSubcategories
-                {
-                    PropertyName = x.Name,
-                    Values = x.Values.Select(y => y.PropertyValue),
-                    Description = x.Description,
-                    Unit = x.Unit
-                }).ToList();
-
-            //Поиск производителей
-            var makerWithValues = new List<PropertyValuesSubcategories>
-            {
-                new PropertyValuesSubcategories
-                {
-                    PropertyName = "Производитель",
-                    Values = db.Countries.Select(f => f.Name),
-                    Description = "Made in, как говорится"
-                }
-            };
-
-            var propertyResult = propertiesWithValues.Union(makerWithValues);
-
-
-
+            #region SeachAllComponents
             //Поиск всех компонентов в подкатегории
             var components = db.Components
                 .Where(x => x.SubcategoryId == subcategoryId)
@@ -119,6 +92,58 @@ namespace DSS.Controllers
                     CountryName = x.Country.Name,
                     CountryFlag = x.Country.Flag
                 });
+            #endregion
+
+            #region SearchField
+            //Поиск свойств подкатегории в сущности Properties - Values
+            var propertyIds = db.SubcategoryProperties
+                .Where(x => x.SubcategoryId == subcategoryId)
+                .Select(x => x.PropertyId);
+
+            //Поиск всех Id компонентов в этой подкатегории
+            var componentIds = db.Components
+                .Where(x => x.SubcategoryId == subcategoryId)
+                .Select(x => x.Id);
+
+            //Все свойства, присутствующие в Cells
+            var valuesCells = db.Cells
+                .Where(x => componentIds.Contains(x.ComponentId))
+                .Select(x => x.ValueId);
+
+            //Перечисление свойств и их значений
+            var propertiesWithValues = db.Properties
+                .Where(x => propertyIds.Contains(x.Id))
+                .Select(x =>
+                new PropertyValuesSubcategories
+                {
+                    PropertyName = x.Name,
+                    Values = x.Values
+                        .Where(y => valuesCells.Contains(y.Id))
+                        .Select(y => y.PropertyValue),
+                    Description = x.Description,
+                    Unit = x.Unit
+                }).ToList();
+
+            //Все страны, присутствующие в Cells
+            var countyIds = db.Components
+                .Where(x => componentIds.Contains(x.Id))
+                .Select(x => x.CountryId);
+
+            //Поиск производителей присутствующих у компонентов этой подкатегори
+            var makerWithValues = new List<PropertyValuesSubcategories>
+            {
+                new PropertyValuesSubcategories
+                {
+                    PropertyName = "Производитель",
+                    Values = db.Countries
+                        .Where(f=>countyIds.Contains(f.Id))
+                        .Select(f => f.Name),
+                    Description = "Made in, как говорится"
+                }
+            };
+
+            var propertyResult = propertiesWithValues.Union(makerWithValues);
+            #endregion
 
             var viewSearch = new ViewSearch { PropertyValuesSubcategories = propertyResult, ComponentsSubcategory = components };
 
