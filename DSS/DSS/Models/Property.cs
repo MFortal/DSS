@@ -17,6 +17,5 @@ namespace DSS.Models
 
         public virtual ICollection<SubcategoryProperty> SubcategoryProperties { get; set; }
         public virtual ICollection<Value> Values { get; set; }
-        public virtual ICollection<Cell> Cells { get; set; }
     }
 }

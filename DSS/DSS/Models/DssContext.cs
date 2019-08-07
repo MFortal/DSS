@@ -19,7 +19,7 @@ namespace DSS.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Cell>().HasIndex(x => new { x.ComponentId, x.PropertyId }).IsUnique();
+            modelBuilder.Entity<Cell>().HasIndex(x => new { x.ComponentId, x.ValueId }).IsUnique();
             modelBuilder.Entity<SubcategoryProperty>().HasIndex(x => new { x.SubcategoryId, x.PropertyId }).IsUnique();
         }
 

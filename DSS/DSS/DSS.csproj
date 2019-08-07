@@ -192,6 +192,10 @@
     <Compile Include="Migrations\201908062108265_Add_AK_SubcategoryProperty.Designer.cs">
       <DependentUpon>201908062108265_Add_AK_SubcategoryProperty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908071308402_RefactoringArchitecture.cs" />
+    <Compile Include="Migrations\201908071308402_RefactoringArchitecture.Designer.cs">
+      <DependentUpon>201908071308402_RefactoringArchitecture.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\DssContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -330,6 +334,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908062108265_Add_AK_SubcategoryProperty.resx">
       <DependentUpon>201908062108265_Add_AK_SubcategoryProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908071308402_RefactoringArchitecture.resx">
+      <DependentUpon>201908071308402_RefactoringArchitecture.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
