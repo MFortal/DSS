@@ -210,6 +210,7 @@
     <Compile Include="Models\Property.cs" />
     <Compile Include="Models\Subcategory.cs" />
     <Compile Include="Models\SubcategoryProperty.cs" />
+    <Compile Include="ViewModels\DropDownSearch.cs" />
     <Compile Include="ViewModels\SearchComponents.cs" />
     <Compile Include="Models\Value.cs" />
     <Compile Include="Models\Сategory.cs" />

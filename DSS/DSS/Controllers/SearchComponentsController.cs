@@ -14,15 +14,74 @@ namespace DSS.Controllers
         private DssContext db = new DssContext();
 
         // GET: SearchComponents
-        public ActionResult Index(int? subId)
+        public ActionResult Index(int? categoryId, int? subcategoryId)
         {
-            subId = subId ?? 1;
+            if (subcategoryId == null && categoryId == null)
+            {
+                subcategoryId = 1;
+                categoryId = 1;
+            }
+            if (subcategoryId == -1)
+            {
+                subcategoryId = db.Subcategories
+                    .Where(x => x.CategoryId == categoryId)
+                    .Select(x => x.Id)
+                    .First();
+            }
+
+            ViewBag.categoryId = categoryId;
+
+            //Передача текущих значений для dropDown
+            var categoryThis = db.Categories
+                .Where(x => x.Id == categoryId)
+                .Select(x =>
+                new DropDownSearch
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                });
+
+            ViewBag.categoryThis = categoryThis;
+
+            var subcategoriesThis = db.Subcategories
+                .Where(x => x.Id == subcategoryId)
+                .Select(x =>
+                new DropDownSearch
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                });
+
+            ViewBag.subcategoryThis = subcategoriesThis;
+
+            //Все значения кроме текущих
+            var categoriesWithoutThis = db.Categories
+                .Where(x => x.Id != categoryId)
+                .Select(x =>
+                new DropDownSearch
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                });
+
+            var subcategoriesCategoryWithoutThis = db.Subcategories
+               .Where(x => x.CategoryId == categoryId && x.Id != subcategoryId)
+               .Select(x =>
+               new DropDownSearch
+               {
+                   Id = x.Id,
+                   Name = x.Name
+               });
+
+            ViewBag.Categories = categoriesWithoutThis;
+            ViewBag.Subcategories = subcategoriesCategoryWithoutThis;
 
             //Поиск свойств подкатегории в сущности Properties - Values
             var propertyIds = db.SubcategoryProperties
-                .Where(x => x.SubcategoryId == subId)
+                .Where(x => x.SubcategoryId == subcategoryId)
                 .Select(x => x.PropertyId);
 
+            //Перечисление свойств и их значений
             var propertiesWithValues = db.Properties
                 .Where(x => propertyIds.Contains(x.Id))
                 .Select(x =>
@@ -47,9 +106,10 @@ namespace DSS.Controllers
             var propertyResult = propertiesWithValues.Union(makerWithValues);
 
 
+
             //Поиск всех компонентов в подкатегории
             var components = db.Components
-                .Where(x => x.SubcategoryId == subId)
+                .Where(x => x.SubcategoryId == subcategoryId)
                 .Select(x =>
                 new ComponentsSubcategory
                 {

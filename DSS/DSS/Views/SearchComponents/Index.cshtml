@@ -45,11 +45,86 @@
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         font-size: 16px;
     }
+
+    /*DropDownLists*/
+    <style >
+    /* Style The Dropdown Button */
+    .dropbtn {
+        padding: 16px;
+        font-size: 16px;
+        cursor: pointer;
+        display: block;
+    }
+
+    /* The container <div> - needed to position the dropdown content */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+            .dropdown-content a:hover {
+                background-color: antiquewhite;
+            }
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
 </style>
-<h2>Поиск компонентов</h2>
-@*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
+
+<h3>Поиск компонентов</h3>
+
+<div class="dropdown">
+    <div class="dropbtn">
+        @foreach (var thisCat in @ViewBag.categoryThis)
+        {
+            @thisCat.Name
+        }
+    </div>
+    <div class="dropdown-content">
+        @foreach (var category in ViewBag.Categories)
+        {
+            <a href="@Url.Action("Index", "SearchComponents", new { categoryId = category.Id, subcategoryId = -1 })">
+                @category.Name
+            </a>
+        }
+    </div>
+</div>
+<div class="dropdown">>></div>
+<div class="dropdown">
+    <div class="dropbtn">
+        @foreach (var thisSub in @ViewBag.subcategoryThis)
+        {
+            @thisSub.Name
+        }
+    </div>
+    <div class="dropdown-content">
+        @foreach (var subcategory in ViewBag.Subcategories)
+        {
+            <a href="@Url.Action("Index", "SearchComponents", new { categoryId = ViewBag.categoryId, subcategoryId = subcategory.Id})">
+                @subcategory.Name
+            </a>
+        }
+    </div>
+</div>
+
 @using (Html.BeginForm("Show", "SearchComponents"))
 {
     <div class="flex">

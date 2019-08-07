@@ -22,16 +22,6 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Image)
-        </th>
-        <th></th>
-    </tr>
-
     @foreach (var item in Model)
     {
         <tr>
@@ -42,7 +32,7 @@
                         @foreach (var subItem in item.Subcategories)
                         {
                             <li>
-                               <a href="@Url.Action("Index", "SearchComponents", new {subId = subItem.Id})">@Html.DisplayFor(modelItem => subItem.Name)</a>
+                               <a href="@Url.Action("Index", "SearchComponents", new {categoryId = item.Id, subcategoryId = subItem.Id})">@Html.DisplayFor(modelItem => subItem.Name)</a>
                             </li>
                         }
                     </ul>
