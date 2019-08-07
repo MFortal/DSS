@@ -89,7 +89,8 @@ namespace DSS.Controllers
                 {
                     PropertyName = x.Name,
                     Values = x.Values.Select(y => y.PropertyValue),
-                    Description = x.Description
+                    Description = x.Description,
+                    Unit = x.Unit
                 }).ToList();
 
             //Поиск производителей

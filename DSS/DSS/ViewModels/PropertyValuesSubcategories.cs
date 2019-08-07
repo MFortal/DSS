@@ -7,5 +7,7 @@ namespace DSS.ViewModels
         public string PropertyName { get; set; }
         public IEnumerable<string> Values { get; set; }
         public string Description { get; set; }
+        public string Unit { get; set; }
+
     }
 }

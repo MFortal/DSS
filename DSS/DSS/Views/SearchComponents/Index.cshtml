@@ -143,7 +143,7 @@
                 </p>
                 @foreach (var value in item.Values)
                 {
-                    <p> @Html.CheckBox("Values", value) @value </p>
+                    <p> @Html.CheckBox("Values", value) @value @item.Unit </p>
                 }
 
                 @*@Html.ActionLink("Edit", "Edit", new { id = item.PropertyName }) |
