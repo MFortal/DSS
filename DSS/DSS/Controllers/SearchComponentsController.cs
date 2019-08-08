@@ -81,6 +81,20 @@ namespace DSS.Controllers
             #endregion
 
             #region SeachAllComponents
+
+            //Объединение таблиц Cells и Values для вывода значений в таблицу с компонентами
+            var cellValuesJoin = db.Cells.Join(db.Values,
+                c => c.ValueId,
+                v => v.Id,
+                (c, v) => new ValueTable
+                {
+                    Id = v.Id,
+                    ComponentId = c.ComponentId,
+                    PropertyId = v.PropertyId,
+                    Value = v.PropertyValue,
+                    Unit = v.Property.Unit
+                });
+
             //Поиск всех компонентов в подкатегории
             var components = db.Components
                 .Where(x => x.SubcategoryId == subcategoryId)
@@ -90,7 +104,9 @@ namespace DSS.Controllers
                     Id = x.Id,
                     Name = x.Name,
                     CountryName = x.Country.Name,
-                    CountryFlag = x.Country.Flag
+                    CountryFlag = x.Country.Flag,
+                    Values = cellValuesJoin
+                        .Where(u => u.ComponentId == x.Id)
                 });
             #endregion
 
@@ -105,8 +121,8 @@ namespace DSS.Controllers
                 .Where(x => x.SubcategoryId == subcategoryId)
                 .Select(x => x.Id);
 
-            //Все свойства, присутствующие в Cells
-            var valuesCells = db.Cells
+            //Все Id свойств, присутствующих в Cells
+            var valuesIdCells = db.Cells
                 .Where(x => componentIds.Contains(x.ComponentId))
                 .Select(x => x.ValueId);
 
@@ -116,15 +132,16 @@ namespace DSS.Controllers
                 .Select(x =>
                 new PropertyValuesSubcategories
                 {
+                    PropertyId = x.Id,
                     PropertyName = x.Name,
                     Values = x.Values
-                        .Where(y => valuesCells.Contains(y.Id))
-                        .Select(y => y.PropertyValue),
-                    Description = x.Description,
-                    Unit = x.Unit
-                }).ToList();
+                        .Where(y => valuesIdCells
+                        .Contains(y.Id))
+                        .Select(y=>y.PropertyValue)
+                })
+                .ToList();
 
-            //Все страны, присутствующие в Cells
+            //Все страны, присутствующие в Components
             var countyIds = db.Components
                 .Where(x => componentIds.Contains(x.Id))
                 .Select(x => x.CountryId);
@@ -134,11 +151,11 @@ namespace DSS.Controllers
             {
                 new PropertyValuesSubcategories
                 {
+                    PropertyId = -1,
                     PropertyName = "Производитель",
                     Values = db.Countries
                         .Where(f=>countyIds.Contains(f.Id))
-                        .Select(f => f.Name),
-                    Description = "Made in, как говорится"
+                        .Select(f => f.Name)
                 }
             };
 

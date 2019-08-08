@@ -87,6 +87,11 @@
     .dropdown:hover .dropdown-content {
         display: block;
     }
+
+    .notFound {
+        font-size: 14px;
+        color: darkgray;
+    }
 </style>
 
 <h3>Поиск компонентов</h3>
@@ -159,26 +164,96 @@
 }
 
 <table class="table">
+    @*Вывод наименований всех свойств компонентов*@
     <tr>
         <th>
-            @Html.DisplayName("Наименование")
+            @Html.Label("Наименование")
         </th>
-        <th>
-            @Html.DisplayName("Производитель")
-        </th>
+        @foreach (var subItem in Model.PropertyValuesSubcategories)
+        {
+            <th>
+                @Html.Label(subItem.PropertyName)
+            </th>
+        }
     </tr>
+
     @foreach (var item in Model.ComponentsSubcategory)
     {
         <tr>
+            @*Вывод наименования компонента*@
             <td>
                 <a href="@Url.Action("Details", "SearchComponents", new { component = item })" class="component">@Html.DisplayFor(modelItem => item.Name)</a>
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CountryName)
-                <sup>
-                    <img src="../../Image/Countries/@Html.DisplayFor(modelItem => item.CountryFlag)" width="20" height="20" />
-                </sup>
-            </td>
+            @foreach (var subItem in Model.PropertyValuesSubcategories)
+            {
+                <td>
+                    @{
+                        var count = item.Values.Where(x => x.PropertyId == subItem.PropertyId).Select(x => x.PropertyId).Count();
+                    }
+                    @if (count == 1)
+                    {
+                        foreach (var value in item.Values)
+                        {
+                            if (value.PropertyId == subItem.PropertyId)
+                            {
+                                @value.Value
+                            }
+                        }
+                    }
+                    else
+                    if (subItem.PropertyId == -1)
+                    {
+                        <sup>
+                            <img src="../../Image/Countries/@Html.DisplayFor(modelItem => item.CountryFlag)" width="20" height="20" />
+                        </sup>
+                        @item.CountryName
+                    }
+                    else
+                    {
+                        <p class="notFound">нет значения</p>
+                    }
+                </td>
+            }
         </tr>
     }
+
+
+
+
+    @*@*Вывод значений свойств
+        @foreach (var item in Model.ComponentsSubcategory)
+        {
+            <tr>
+
+
+                @foreach (var value in item.Values)
+                {
+                    foreach (var propertyItem in Model.PropertyValuesSubcategories)
+                    {
+                        <td>
+                            @if (value.PropertyId.Equals(propertyItem.PropertyId))
+                            {
+                                @value.Value @value.Unit
+                            }
+                            else
+                            {
+                                <p>нет значения</p>
+                            }
+                        </td>
+                    }
+                }
+            </tr>
+        }
+
+
+        foreach (var item in Model.PropertyValuesSubcategories)
+        {
+            foreach (var item2 in item.Values)
+            {
+                foreach (var comp in Model.ComponentsSubcategory)
+                {
+
+                }
+            }
+        }*@
 </table>

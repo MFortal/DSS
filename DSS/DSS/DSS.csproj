@@ -230,6 +230,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ComponentsSubcategory.cs" />
     <Compile Include="ViewModels\PropertyValuesSubcategories.cs" />
+    <Compile Include="ViewModels\ValueTable.cs" />
     <Compile Include="ViewModels\ViewSearch.cs" />
   </ItemGroup>
   <ItemGroup>
