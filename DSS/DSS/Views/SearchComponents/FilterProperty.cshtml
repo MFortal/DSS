@@ -1,0 +1,19 @@
+﻿@model DSS.ViewModels.FilterPropertyViewModel
+
+    <div class="flex-itm">
+        <p class="nameProperty">
+            @Html.Label(Model.PropertyName)
+            @if (Model.Description != null)
+            {
+                <sup>
+                    <img src="../../Image/Blobs/question.png"
+                         width="15px" height="15px" title="@Model.Description" />
+                </sup>
+            }
+        </p>
+        @foreach (var value in Model.ValueChecked.ToList())
+        {
+            <p> @Html.CheckBox(value.Key.ToString(), value.Value.Checked) @value.Value.Name @Model.Unit</p>
+        }
+
+    </div>

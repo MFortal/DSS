@@ -167,6 +167,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Common\DefaultNames.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -196,6 +197,10 @@
     <Compile Include="Migrations\201908071308402_RefactoringArchitecture.Designer.cs">
       <DependentUpon>201908071308402_RefactoringArchitecture.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908101047375_DropSearchComponentModel.cs" />
+    <Compile Include="Migrations\201908101047375_DropSearchComponentModel.Designer.cs">
+      <DependentUpon>201908101047375_DropSearchComponentModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\DssContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -214,8 +219,8 @@
     <Compile Include="Models\Property.cs" />
     <Compile Include="Models\Subcategory.cs" />
     <Compile Include="Models\SubcategoryProperty.cs" />
-    <Compile Include="ViewModels\DropDownSearch.cs" />
-    <Compile Include="ViewModels\SearchComponents.cs" />
+    <Compile Include="ViewModels\DropDownSearchViewModel.cs" />
+    <Compile Include="ViewModels\SearchFilterViewModel.cs" />
     <Compile Include="Models\Value.cs" />
     <Compile Include="Models\Сategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -228,10 +233,13 @@
     <Compile Include="SourceSeed\SubcategoryPropertiesInitializer.cs" />
     <Compile Include="SourceSeed\ValuesInitializer.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\ComponentsSubcategory.cs" />
-    <Compile Include="ViewModels\PropertyValuesSubcategories.cs" />
-    <Compile Include="ViewModels\ValueTable.cs" />
-    <Compile Include="ViewModels\ViewSearch.cs" />
+    <Compile Include="ViewModels\SearchResultViewModel.cs" />
+    <Compile Include="ViewModels\FilterPropertyViewModel.cs" />
+    <Compile Include="ViewModels\SelectionViewModel.cs" />
+    <Compile Include="ViewModels\CellValueViewModel.cs" />
+    <Compile Include="ViewModels\SearchViewModel.cs" />
+    <Compile Include="ViewModels\TableHeaderViewModel.cs" />
+    <Compile Include="ViewModels\TableRowViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -250,6 +258,8 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -299,6 +309,8 @@
     <Content Include="Views\SearchComponents\Details.cshtml" />
     <Content Include="Views\SearchComponents\Edit.cshtml" />
     <Content Include="Views\SearchComponents\Index.cshtml" />
+    <Content Include="Views\SearchComponents\FilterProperty.cshtml" />
+    <Content Include="Views\SearchComponents\ShowResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -338,6 +350,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908071308402_RefactoringArchitecture.resx">
       <DependentUpon>201908071308402_RefactoringArchitecture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908101047375_DropSearchComponentModel.resx">
+      <DependentUpon>201908101047375_DropSearchComponentModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

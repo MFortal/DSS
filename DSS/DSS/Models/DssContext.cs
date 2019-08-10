@@ -23,6 +23,6 @@ namespace DSS.Models
             modelBuilder.Entity<SubcategoryProperty>().HasIndex(x => new { x.SubcategoryId, x.PropertyId }).IsUnique();
         }
 
-        public DbSet<SearchComponents> SearchComponents { get; set; }
+        //public DbSet<SearchComponents> SearchComponents { get; set; }
     }
 }

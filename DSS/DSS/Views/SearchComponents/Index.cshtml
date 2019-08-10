@@ -1,4 +1,4 @@
-﻿@model  DSS.ViewModels.ViewSearch
+﻿@model  DSS.ViewModels.SearchViewModel
 
 @{
     ViewBag.Title = "Поиск компонентов";
@@ -106,7 +106,7 @@
     <div class="dropdown-content">
         @foreach (var category in ViewBag.Categories)
         {
-            <a href="@Url.Action("Index", "SearchComponents", new { categoryId = category.Id, subcategoryId = -1 })">
+            <a href="@Url.Action("Index", "SearchComponents", new { categoryId = category.Id })">
                 @category.Name
             </a>
         }
@@ -123,38 +123,21 @@
     <div class="dropdown-content">
         @foreach (var subcategory in ViewBag.Subcategories)
         {
-            <a href="@Url.Action("Index", "SearchComponents", new { categoryId = ViewBag.categoryId, subcategoryId = subcategory.Id})">
+            <a href="@Url.Action("Index", "SearchComponents", new { categoryId = ViewBag.categoryId, subcategoryId = subcategory.Id })">
                 @subcategory.Name
             </a>
         }
     </div>
 </div>
 
-@using (Html.BeginForm("Show", "SearchComponents"))
+@using (Ajax.BeginForm("ShowResult", "SearchComponents", new AjaxOptions { UpdateTargetId = "results" }))
 {
     <div class="flex">
-        @foreach (var item in Model.PropertyValuesSubcategories)
-        {
-            <div class="flex-itm">
-                <p class="nameProperty">
-                    @Html.Label(item.PropertyName)
-                    @if (item.Description != null)
-                    {
-                        <sup>
-                            <img src="../../Image/Blobs/question.png"
-                                 width="15px" height="15px" title="@item.Description" />
-                        </sup>
-                    }
-                </p>
-                @foreach (var value in item.Values)
-                {
-                    <p> @Html.CheckBox("Values", value) @value @item.Unit </p>
-                }
 
-                @*@Html.ActionLink("Edit", "Edit", new { id = item.PropertyName }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.PropertyName }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.PropertyName })*@
-            </div>
+        @Html.Partial("FilterProperty", Model.Filter.CountryProperty)
+        @foreach (var filterPropertyViewModel in Model.Filter.Properties)
+        {
+            @Html.Partial("FilterProperty", filterPropertyViewModel)
         }
     </div>
     <div class="flexButtons">
@@ -163,97 +146,51 @@
     </div>
 }
 
-<table class="table">
+<table class="table" id="results">
     @*Вывод наименований всех свойств компонентов*@
     <tr>
         <th>
-            @Html.Label("Наименование")
+            @Html.Label(Model.Result.TableHeader.ComponentNameColumnName)
         </th>
-        @foreach (var subItem in Model.PropertyValuesSubcategories)
+        <th>
+            @Html.Label(Model.Result.TableHeader.CountryColumnName)
+        </th>
+        @foreach (var propertyName in Model.Result.TableHeader.PropertyColumnNames)
         {
             <th>
-                @Html.Label(subItem.PropertyName)
+                @Html.Label(propertyName)
             </th>
         }
     </tr>
 
-    @foreach (var item in Model.ComponentsSubcategory)
+    @foreach (var row in Model.Result.Rows)
     {
         <tr>
-            @*Вывод наименования компонента*@
             <td>
-                <a href="@Url.Action("Details", "SearchComponents", new { component = item })" class="component">@Html.DisplayFor(modelItem => item.Name)</a>
+                <a href="@Url.Action("Details", "SearchComponents", new { id = row.ComponentId })" class="component">
+                    @Html.DisplayFor(x => row.ComponentName)
+                </a>
             </td>
-            @foreach (var subItem in Model.PropertyValuesSubcategories)
+            <td>
+                <sup>
+                    <img src="../../Image/Countries/@Html.DisplayFor(x => row.CountryFlag)" width="20" height="20" />
+                </sup>
+                @row.CountryName
+            </td>
+
+            @foreach (var cell in row.Cells)
             {
                 <td>
-                    @{
-                        var count = item.Values.Where(x => x.PropertyId == subItem.PropertyId).Select(x => x.PropertyId).Count();
-                    }
-                    @if (count == 1)
+                    @cell.Value
+                    @if (@cell.Unit != null)
                     {
-                        foreach (var value in item.Values)
-                        {
-                            if (value.PropertyId == subItem.PropertyId)
-                            {
-                                @value.Value
-                            }
-                        }
-                    }
-                    else
-                    if (subItem.PropertyId == -1)
-                    {
-                        <sup>
-                            <img src="../../Image/Countries/@Html.DisplayFor(modelItem => item.CountryFlag)" width="20" height="20" />
-                        </sup>
-                        @item.CountryName
-                    }
-                    else
-                    {
-                        <p class="notFound">нет значения</p>
+                        <span> [@cell.Unit]</span>
                     }
                 </td>
             }
         </tr>
     }
-
-
-
-
-    @*@*Вывод значений свойств
-        @foreach (var item in Model.ComponentsSubcategory)
-        {
-            <tr>
-
-
-                @foreach (var value in item.Values)
-                {
-                    foreach (var propertyItem in Model.PropertyValuesSubcategories)
-                    {
-                        <td>
-                            @if (value.PropertyId.Equals(propertyItem.PropertyId))
-                            {
-                                @value.Value @value.Unit
-                            }
-                            else
-                            {
-                                <p>нет значения</p>
-                            }
-                        </td>
-                    }
-                }
-            </tr>
-        }
-
-
-        foreach (var item in Model.PropertyValuesSubcategories)
-        {
-            foreach (var item2 in item.Values)
-            {
-                foreach (var comp in Model.ComponentsSubcategory)
-                {
-
-                }
-            }
-        }*@
 </table>
+
+@Scripts.Render("~/scripts/jquery-3.3.1.js")
+@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")

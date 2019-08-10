@@ -5,7 +5,7 @@ using System.Web;
 
 namespace DSS.ViewModels
 {
-    public class DropDownSearch
+    public class DropDownSearchViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

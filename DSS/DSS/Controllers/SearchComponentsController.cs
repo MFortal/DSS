@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using DSS.Common;
 using DSS.Models;
 using DSS.ViewModels;
 
@@ -16,18 +17,15 @@ namespace DSS.Controllers
         // GET: SearchComponents
         public ActionResult Index(int? categoryId, int? subcategoryId)
         {
-            #region CheckIds
-            if (subcategoryId == null && categoryId == null)
+            #region CheckIds           
+            if (categoryId == null)
             {
-                subcategoryId = 1;
-                categoryId = 1;
+                categoryId = db.Categories.First().Id;
             }
-            if (subcategoryId == -1)
+
+            if (subcategoryId == null)
             {
-                subcategoryId = db.Subcategories
-                    .Where(x => x.CategoryId == categoryId)
-                    .Select(x => x.Id)
-                    .First();
+                subcategoryId = db.Categories.First(x => x.Id == categoryId).Subcategories.First().Id;
             }
 
             ViewBag.categoryId = categoryId;
@@ -38,7 +36,7 @@ namespace DSS.Controllers
             var categoryThis = db.Categories
                 .Where(x => x.Id == categoryId)
                 .Select(x =>
-                new DropDownSearch
+                new DropDownSearchViewModel
                 {
                     Id = x.Id,
                     Name = x.Name
@@ -49,7 +47,7 @@ namespace DSS.Controllers
             var subcategoriesThis = db.Subcategories
                 .Where(x => x.Id == subcategoryId)
                 .Select(x =>
-                new DropDownSearch
+                new DropDownSearchViewModel
                 {
                     Id = x.Id,
                     Name = x.Name
@@ -61,7 +59,7 @@ namespace DSS.Controllers
             var categoriesWithoutThis = db.Categories
                 .Where(x => x.Id != categoryId)
                 .Select(x =>
-                new DropDownSearch
+                new DropDownSearchViewModel
                 {
                     Id = x.Id,
                     Name = x.Name
@@ -70,7 +68,7 @@ namespace DSS.Controllers
             var subcategoriesCategoryWithoutThis = db.Subcategories
                .Where(x => x.CategoryId == categoryId && x.Id != subcategoryId)
                .Select(x =>
-               new DropDownSearch
+               new DropDownSearchViewModel
                {
                    Id = x.Id,
                    Name = x.Name
@@ -80,187 +78,215 @@ namespace DSS.Controllers
             ViewBag.Subcategories = subcategoriesCategoryWithoutThis;
             #endregion
 
-            #region SeachAllComponents
-
-            //Объединение таблиц Cells и Values для вывода значений в таблицу с компонентами
-            var cellValuesJoin = db.Cells.Join(db.Values,
-                c => c.ValueId,
-                v => v.Id,
-                (c, v) => new ValueTable
-                {
-                    Id = v.Id,
-                    ComponentId = c.ComponentId,
-                    PropertyId = v.PropertyId,
-                    Value = v.PropertyValue,
-                    Unit = v.Property.Unit
-                });
-
-            //Поиск всех компонентов в подкатегории
             var components = db.Components
-                .Where(x => x.SubcategoryId == subcategoryId)
-                .Select(x =>
-                new ComponentsSubcategory
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    CountryName = x.Country.Name,
-                    CountryFlag = x.Country.Flag,
-                    Values = cellValuesJoin
-                        .Where(u => u.ComponentId == x.Id)
-                });
-            #endregion
+                .Where(x => x.SubcategoryId == subcategoryId);                
 
-            #region SearchField
-            //Поиск свойств подкатегории в сущности Properties - Values
-            var propertyIds = db.SubcategoryProperties
-                .Where(x => x.SubcategoryId == subcategoryId)
-                .Select(x => x.PropertyId);
+            var countries = components
+                .Select(x => x.Country)
+                .Distinct();                
 
-            //Поиск всех Id компонентов в этой подкатегории
-            var componentIds = db.Components
-                .Where(x => x.SubcategoryId == subcategoryId)
-                .Select(x => x.Id);
-
-            //Все Id свойств, присутствующих в Cells
-            var valuesIdCells = db.Cells
-                .Where(x => componentIds.Contains(x.ComponentId))
-                .Select(x => x.ValueId);
-
-            //Перечисление свойств и их значений
-            var propertiesWithValues = db.Properties
-                .Where(x => propertyIds.Contains(x.Id))
-                .Select(x =>
-                new PropertyValuesSubcategories
-                {
-                    PropertyId = x.Id,
-                    PropertyName = x.Name,
-                    Values = x.Values
-                        .Where(y => valuesIdCells
-                        .Contains(y.Id))
-                        .Select(y=>y.PropertyValue)
-                })
-                .ToList();
-
-            //Все страны, присутствующие в Components
-            var countyIds = db.Components
-                .Where(x => componentIds.Contains(x.Id))
-                .Select(x => x.CountryId);
-
-            //Поиск производителей присутствующих у компонентов этой подкатегори
-            var makerWithValues = new List<PropertyValuesSubcategories>
+            var countryProperty = new FilterPropertyViewModel
             {
-                new PropertyValuesSubcategories
+                PropertyId = null,
+                Description = null,
+                PropertyName = DefaultNames.CountryColumnName,
+                Unit = null,
+                ValueChecked = countries.ToDictionary(k => k.Id, v => new SelectionViewModel
                 {
-                    PropertyId = -1,
-                    PropertyName = "Производитель",
-                    Values = db.Countries
-                        .Where(f=>countyIds.Contains(f.Id))
-                        .Select(f => f.Name)
-                }
+                    Name = v.Name,
+                    Checked = false
+                })
             };
 
-            var propertyResult = propertiesWithValues.Union(makerWithValues);
-            #endregion
+            var properties = components
+                .SelectMany(x => x.Cells)
+                .Select(x => x.Value.Property)
+                .Distinct()
+                .OrderBy(x => x.Id);
 
-            var viewSearch = new ViewSearch { PropertyValuesSubcategories = propertyResult, ComponentsSubcategory = components };
+            var values = components
+                .SelectMany(x => x.Cells)
+                .Select(x => x.Value)
+                .Distinct();
 
-            return View(viewSearch);
+            var filterProperties = properties
+                .AsEnumerable()
+                .Select(x => new FilterPropertyViewModel
+                {
+                    PropertyId = x.Id,
+                    Description = x.Description,
+                    PropertyName = x.Name,
+                    Unit = x.Unit,
+                    ValueChecked = values
+                        .Where(v => v.PropertyId == x.Id)
+                        .ToDictionary(k => k.Id, v => new SelectionViewModel
+                        {
+                            Name = v.PropertyValue,
+                            Checked = false
+                        })
+                });
+
+            var filterViewModel = new SearchFilterViewModel
+            {
+                CountryProperty = countryProperty,
+                Properties = filterProperties
+            };
+
+            var tableHeader = new TableHeaderViewModel
+            {
+                ComponentNameColumnName = DefaultNames.ComponentColumnName,
+                CountryColumnName = DefaultNames.CountryColumnName,
+                PropertyColumnNames = properties
+                    .Select(x => x.Name)
+                    .ToArray()
+            };
+
+            var rows = new List<TableRowViewModel>();
+            foreach (var component in components)
+            {
+                var cells = new CellValueViewModel[properties.Count()];
+                var indexCounter = 0;
+                foreach (var property in properties)
+                {
+                    var cell = component.Cells.FirstOrDefault(x => x.Value.PropertyId == property.Id);
+                    cells[indexCounter] = new CellValueViewModel
+                    {
+                        Value = cell?.Value.PropertyValue,
+                        Unit = cell?.Value.Property.Unit
+                    };
+                    indexCounter++;
+                }
+                var row = new TableRowViewModel
+                {
+                    ComponentId = component.Id,
+                    ComponentName = component.Name,
+                    CountryName = component.Country.Name,
+                    CountryFlag = component.Country.Flag,
+                    Cells = cells
+                };
+                rows.Add(row);
+            }
+
+            var searchResult = new SearchResultViewModel
+            {
+                TableHeader = tableHeader,
+                Rows = rows
+            };
+
+            var searchViewModel = new SearchViewModel
+            {
+                Filter = filterViewModel,
+                Result = searchResult
+            };
+
+            return View(searchViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult ShowResult(SearchFilterViewModel searchFilter)
+        {
+            return PartialView();
+        }
+
+        public ActionResult FilterProperty(FilterPropertyViewModel filterPropertyViewModel)
+        {
+            return PartialView(filterPropertyViewModel);
         }
 
         // GET: SearchComponents/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SearchComponents searchComponents = db.SearchComponents.Find(id);
-            if (searchComponents == null)
+            Component component = db.Components.Find(id);
+            if (component == null)
             {
                 return HttpNotFound();
             }
-            return View(searchComponents);
+            return View(component);
         }
 
         // GET: SearchComponents/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
         // POST: SearchComponents/Create
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PropertyName")] SearchComponents searchComponents)
-        {
-            if (ModelState.IsValid)
-            {
-                db.SearchComponents.Add(searchComponents);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "PropertyName")] SearchComponents searchComponents)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.SearchComponents.Add(searchComponents);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            return View(searchComponents);
-        }
+        //    return View(searchComponents);
+        //}
 
         // GET: SearchComponents/Edit/5
-        public ActionResult Edit(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            SearchComponents searchComponents = db.SearchComponents.Find(id);
-            if (searchComponents == null)
-            {
-                return HttpNotFound();
-            }
-            return View(searchComponents);
-        }
+        //public ActionResult Edit(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    SearchComponents searchComponents = db.SearchComponents.Find(id);
+        //    if (searchComponents == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(searchComponents);
+        //}
 
         // POST: SearchComponents/Edit/5
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PropertyName")] SearchComponents searchComponents)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(searchComponents).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(searchComponents);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "PropertyName")] SearchComponents searchComponents)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(searchComponents).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(searchComponents);
+        //}
 
         // GET: SearchComponents/Delete/5
-        public ActionResult Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            SearchComponents searchComponents = db.SearchComponents.Find(id);
-            if (searchComponents == null)
-            {
-                return HttpNotFound();
-            }
-            return View(searchComponents);
-        }
+        //public ActionResult Delete(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    SearchComponents searchComponents = db.SearchComponents.Find(id);
+        //    if (searchComponents == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(searchComponents);
+        //}
 
         // POST: SearchComponents/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            SearchComponents searchComponents = db.SearchComponents.Find(id);
-            db.SearchComponents.Remove(searchComponents);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(string id)
+        //{
+        //    SearchComponents searchComponents = db.SearchComponents.Find(id);
+        //    db.SearchComponents.Remove(searchComponents);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {
