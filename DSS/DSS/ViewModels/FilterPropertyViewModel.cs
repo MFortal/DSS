@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace DSS.ViewModels
+﻿namespace DSS.ViewModels
 {
     public class FilterPropertyViewModel
     {
@@ -8,7 +6,7 @@ namespace DSS.ViewModels
 
         public string PropertyName { get; set; }
 
-        public Dictionary<int, SelectionViewModel> ValueChecked { get; set; }
+        public SelectionViewModel[] ValueChecked { get; set; }
 
         public string Description { get; set; }
 

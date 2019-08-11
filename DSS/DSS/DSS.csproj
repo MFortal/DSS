@@ -309,7 +309,6 @@
     <Content Include="Views\SearchComponents\Details.cshtml" />
     <Content Include="Views\SearchComponents\Edit.cshtml" />
     <Content Include="Views\SearchComponents\Index.cshtml" />
-    <Content Include="Views\SearchComponents\FilterProperty.cshtml" />
     <Content Include="Views\SearchComponents\ShowResult.cshtml" />
   </ItemGroup>
   <ItemGroup>

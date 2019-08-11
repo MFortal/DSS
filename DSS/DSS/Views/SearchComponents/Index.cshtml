@@ -1,4 +1,4 @@
-﻿@model  DSS.ViewModels.SearchViewModel
+﻿@model  DSS.ViewModels.SearchFilterViewModel
 
 @{
     ViewBag.Title = "Поиск компонентов";
@@ -47,7 +47,6 @@
     }
 
     /*DropDownLists*/
-    <style >
     /* Style The Dropdown Button */
     .dropbtn {
         padding: 16px;
@@ -98,13 +97,10 @@
 
 <div class="dropdown">
     <div class="dropbtn">
-        @foreach (var thisCat in @ViewBag.categoryThis)
-        {
-            @thisCat.Name
-        }
+        @Model.DropDown.ThisCategory.Name
     </div>
     <div class="dropdown-content">
-        @foreach (var category in ViewBag.Categories)
+        @foreach (var category in Model.DropDown.OtherCategories)
         {
             <a href="@Url.Action("Index", "SearchComponents", new { categoryId = category.Id })">
                 @category.Name
@@ -115,13 +111,10 @@
 <div class="dropdown">>></div>
 <div class="dropdown">
     <div class="dropbtn">
-        @foreach (var thisSub in @ViewBag.subcategoryThis)
-        {
-            @thisSub.Name
-        }
+        @Model.DropDown.ThisSubcategory.Name
     </div>
     <div class="dropdown-content">
-        @foreach (var subcategory in ViewBag.Subcategories)
+        @foreach (var subcategory in Model.DropDown.OtherSubcategories)
         {
             <a href="@Url.Action("Index", "SearchComponents", new { categoryId = ViewBag.categoryId, subcategoryId = subcategory.Id })">
                 @subcategory.Name
@@ -130,67 +123,67 @@
     </div>
 </div>
 
-@using (Ajax.BeginForm("ShowResult", "SearchComponents", new AjaxOptions { UpdateTargetId = "results" }))
+@using (Ajax.BeginForm("ShowResult", "SearchComponents", new AjaxOptions { UpdateTargetId = "results"}))
 {
+    @Html.HiddenFor(m => m.DropDown.ThisSubcategory.Id)
     <div class="flex">
+        <div class="flex-itm">
+            <p class="nameProperty">
+                @Html.HiddenFor(m => m.CountryProperty.PropertyName)
+                @Html.Label(Model.CountryProperty.PropertyName)
+                @if (Model.CountryProperty.Description != null)
+                {
+                    <sup>
+                        <img src="../../Image/Blobs/question.png"
+                             width="15px" height="15px" title="@Model.CountryProperty.Description" />
+                    </sup>
+                }
+            </p>
+            @for (var i = 0; i < Model.CountryProperty.ValueChecked.Length; i++)
+            {
+                var value = Model.CountryProperty.ValueChecked[i];
+                <p>
+                    @Html.CheckBoxFor(m => m.CountryProperty.ValueChecked[i].Checked, false)
+                    @Html.LabelFor(m => m.CountryProperty.ValueChecked[i].Checked, value.Name)
+                    @Html.HiddenFor(m => m.CountryProperty.ValueChecked[i].Id)
+                </p>
+            }
+        </div>
 
-        @Html.Partial("FilterProperty", Model.Filter.CountryProperty)
-        @foreach (var filterPropertyViewModel in Model.Filter.Properties)
+        @for (var p = 0; p < Model.Properties.Length; p++)
         {
-            @Html.Partial("FilterProperty", filterPropertyViewModel)
+            <div class="flex-itm">
+                <p class="nameProperty">
+                    @Html.Label(Model.Properties[p].PropertyName)
+                    @Html.HiddenFor(m => m.Properties[p].PropertyId)
+                    @Html.HiddenFor(m => m.Properties[p].PropertyName)
+                    @if (Model.Properties[p].Description != null)
+                    {
+                        <sup>
+                            <img src="../../Image/Blobs/question.png"
+                                 width="15px" height="15px" title="@Model.Properties[p].Description" />
+                        </sup>
+                    }
+                </p>
+                @for (var i = 0; i < Model.Properties[p].ValueChecked.Length; i++)
+                {
+                    var value = Model.Properties[p].ValueChecked[i];
+                    <p>
+                        @Html.CheckBoxFor(m => m.Properties[p].ValueChecked[i].Checked, false)
+                        @Html.LabelFor(m => m.Properties[p].ValueChecked[i].Checked, value.Name)
+                        @Html.HiddenFor(m => m.Properties[p].ValueChecked[i].Id)
+                    </p>
+                }
+            </div>
         }
     </div>
     <div class="flexButtons">
         <input class="btn btn-success flex-btn" type="submit" value="Искать" />
         <input class="btn btn-default flex-btn" type="reset" value="Сбросить" />
     </div>
+
 }
-
-<table class="table" id="results">
-    @*Вывод наименований всех свойств компонентов*@
-    <tr>
-        <th>
-            @Html.Label(Model.Result.TableHeader.ComponentNameColumnName)
-        </th>
-        <th>
-            @Html.Label(Model.Result.TableHeader.CountryColumnName)
-        </th>
-        @foreach (var propertyName in Model.Result.TableHeader.PropertyColumnNames)
-        {
-            <th>
-                @Html.Label(propertyName)
-            </th>
-        }
-    </tr>
-
-    @foreach (var row in Model.Result.Rows)
-    {
-        <tr>
-            <td>
-                <a href="@Url.Action("Details", "SearchComponents", new { id = row.ComponentId })" class="component">
-                    @Html.DisplayFor(x => row.ComponentName)
-                </a>
-            </td>
-            <td>
-                <sup>
-                    <img src="../../Image/Countries/@Html.DisplayFor(x => row.CountryFlag)" width="20" height="20" />
-                </sup>
-                @row.CountryName
-            </td>
-
-            @foreach (var cell in row.Cells)
-            {
-                <td>
-                    @cell.Value
-                    @if (@cell.Unit != null)
-                    {
-                        <span> [@cell.Unit]</span>
-                    }
-                </td>
-            }
-        </tr>
-    }
-</table>
+<table class="table" id="results"></table>
 
 @Scripts.Render("~/scripts/jquery-3.3.1.js")
 @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")

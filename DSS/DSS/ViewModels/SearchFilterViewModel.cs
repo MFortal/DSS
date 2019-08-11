@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-
-namespace DSS.ViewModels
+﻿namespace DSS.ViewModels
 {
     public class SearchFilterViewModel
     {
+        public DropDownSearchViewModel DropDown { get; set; }
+
         public FilterPropertyViewModel CountryProperty { get; set; }
 
-        public IEnumerable<FilterPropertyViewModel> Properties { get; set; }
+        public FilterPropertyViewModel[] Properties { get; set; }
     }
 }
