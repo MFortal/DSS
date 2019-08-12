@@ -7,5 +7,8 @@ namespace DSS.ViewModels
         public TableHeaderViewModel TableHeader { get; set; }
 
         public IEnumerable<TableRowViewModel> Rows { get; set; }
+
+        public TableRowViewModel ThisComponentRow { get; set; }
+
     }
 }

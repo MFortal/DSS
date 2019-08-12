@@ -150,8 +150,7 @@ namespace DSS.Controllers
 
             var countryFilter = searchFilterViewModel.CountryProperty;
             var propertiesFilter = searchFilterViewModel.Properties;
-
-
+            
             var filteredComponent = components.AsEnumerable()
                 .Where(x => CheckByCountry(x, countryFilter))
                 .Where(x => propertiesFilter.All(p => CheckByProperty(x, p)));                

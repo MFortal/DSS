@@ -22,7 +22,5 @@ namespace DSS.Models
             modelBuilder.Entity<Cell>().HasIndex(x => new { x.ComponentId, x.ValueId }).IsUnique();
             modelBuilder.Entity<SubcategoryProperty>().HasIndex(x => new { x.SubcategoryId, x.PropertyId }).IsUnique();
         }
-
-        //public DbSet<SearchComponents> SearchComponents { get; set; }
     }
 }

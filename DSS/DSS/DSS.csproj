@@ -172,6 +172,7 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SearchAnalogsController.cs" />
     <Compile Include="Controllers\SearchComponentsController.cs" />
     <Compile Include="Migrations\201907301102181_Migration1.cs" />
     <Compile Include="Migrations\201907301102181_Migration1.Designer.cs">
@@ -201,6 +202,7 @@
     <Compile Include="Migrations\201908101047375_DropSearchComponentModel.Designer.cs">
       <DependentUpon>201908101047375_DropSearchComponentModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\City.cs" />
     <Compile Include="Models\DssContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -220,6 +222,7 @@
     <Compile Include="Models\Subcategory.cs" />
     <Compile Include="Models\SubcategoryProperty.cs" />
     <Compile Include="ViewModels\DropDownSearchViewModel.cs" />
+    <Compile Include="ViewModels\SearchAnalogsViewModel.cs" />
     <Compile Include="ViewModels\SearchFilterViewModel.cs" />
     <Compile Include="Models\Value.cs" />
     <Compile Include="Models\Сategory.cs" />
@@ -276,7 +279,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
@@ -310,6 +312,8 @@
     <Content Include="Views\SearchComponents\Edit.cshtml" />
     <Content Include="Views\SearchComponents\Index.cshtml" />
     <Content Include="Views\SearchComponents\ShowResult.cshtml" />
+    <Content Include="Views\SearchAnalogs\Index.cshtml" />
+    <Content Include="Views\SearchAnalogs\ShowResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
