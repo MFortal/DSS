@@ -1,8 +1,8 @@
-﻿@using DSS.Models
+﻿@using DSS.Common
 @model IEnumerable<DSS.Models.Category>
 
 @{
-    ViewBag.Title = "Каталог компонентов";
+    ViewBag.Title = DefaultNames.CatalogComponents;
 }
 
 <style>
@@ -16,10 +16,10 @@
     }
 </style>
 
-<h2>Каталог компонентов</h2>
+<h2>@DefaultNames.CatalogComponents</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink(DefaultNames.CreateCategory, "Create")
 </p>
 <table class="table">
     @foreach (var item in Model)
@@ -42,9 +42,9 @@
                 <img src="../../Image/Categories/@Html.DisplayFor(modelItem => item.Image)" width="50" height="50" />
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink(DefaultNames.Edit, "Edit", new { id = item.Id }) |
+                @Html.ActionLink(DefaultNames.Details, "Details", new { id = item.Id }) |
+                @Html.ActionLink(DefaultNames.Delete, "Delete", new { id = item.Id })
             </td>
         </tr>
     }

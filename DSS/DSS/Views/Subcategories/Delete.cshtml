@@ -1,15 +1,23 @@
 ﻿@using DSS.Common
-@model DSS.Models.Category
+@model DSS.Models.Subcategory
 
 @{
-    ViewBag.Title = DefaultNames.DeleteCategory;
+    ViewBag.Title = DefaultNames.DeleteSubcategory;
 }
 
-<h2>@DefaultNames.DeleteCategory</h2>
+    <h2>@DefaultNames.DeleteSubcategory</h2>
 
 <div>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @DefaultNames.Category
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categories.Name)
+        </dd>
+
         <dt>
             @DefaultNames.Name
         </dt>
@@ -19,7 +27,7 @@
         </dd>
 
         <dt>
-            @DefaultNames.Name
+            @DefaultNames.Image
         </dt>
 
         <dd>
@@ -28,13 +36,11 @@
 
     </dl>
 
-    @using (Html.BeginForm())
-    {
+    @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" /> |
-            @Html.ActionLink(DefaultNames.Back, "Index")
+            <input type="submit" value="Delete" class="btn btn-danger" />
         </div>
     }
 </div>

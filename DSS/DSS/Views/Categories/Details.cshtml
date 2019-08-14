@@ -1,17 +1,17 @@
-﻿@model DSS.Models.Category
+﻿@using DSS.Common
+@model DSS.Models.Category
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = DefaultNames.Details;
 }
 
-<h2>Details</h2>
+<h2>@DefaultNames.Details</h2>
 
 <div>
-    <h4>Category</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @DefaultNames.Name
         </dt>
 
         <dd>
@@ -19,16 +19,34 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Image)
+            @DefaultNames.Image
         </dt>
 
         <dd>
             <img src="../../Image/Categories/@Html.DisplayFor(model => model.Image)" width="50" height="50" />
         </dd>
 
+        <dt>
+            @DefaultNames.Subcategories
+        </dt>
+
+        <dd>
+            <ul>
+                @foreach (var subcategory in Model.Subcategories)
+                {
+                    <li>
+                        @subcategory.Name
+                    </li>
+                    <p>
+                        <a href="@Url.Action("Edit", "Subcategories", new { id = subcategory.Id})">@DefaultNames.Edit</a> |
+                        <a href="@Url.Action("Delete", "Subcategories", new {Id = subcategory.Id})">@DefaultNames.Delete</a>
+                    </p>
+                }
+            </ul>
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink(DefaultNames.CreateSubcategory, "Create", "Subcategories")
 </p>

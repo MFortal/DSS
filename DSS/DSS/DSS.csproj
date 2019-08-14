@@ -174,6 +174,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SearchAnalogsController.cs" />
     <Compile Include="Controllers\SearchComponentsController.cs" />
+    <Compile Include="Controllers\SubcategoriesController.cs" />
     <Compile Include="Migrations\201907301102181_Migration1.cs" />
     <Compile Include="Migrations\201907301102181_Migration1.Designer.cs">
       <DependentUpon>201907301102181_Migration1.cs</DependentUpon>
@@ -202,7 +203,6 @@
     <Compile Include="Migrations\201908101047375_DropSearchComponentModel.Designer.cs">
       <DependentUpon>201908101047375_DropSearchComponentModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\City.cs" />
     <Compile Include="Models\DssContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -314,6 +314,9 @@
     <Content Include="Views\SearchComponents\ShowResult.cshtml" />
     <Content Include="Views\SearchAnalogs\Index.cshtml" />
     <Content Include="Views\SearchAnalogs\ShowResult.cshtml" />
+    <Content Include="Views\Subcategories\Create.cshtml" />
+    <Content Include="Views\Subcategories\Delete.cshtml" />
+    <Content Include="Views\Subcategories\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
