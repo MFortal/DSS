@@ -45,5 +45,9 @@
 
         public const string Subcategories = "Подкатегории";
 
+        public const string Index = "ИЕС";
+
+        public const string Contact = "Контакты";
+
     }
 }
