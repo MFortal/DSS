@@ -1,17 +1,78 @@
-﻿@{
-    ViewBag.Title = "Contact";
+﻿@using DSS.Common
+@{
+    ViewBag.Title = DefaultNames.Contact;
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<style>
+    .flex-cntct {
+        display: flex;
+        padding: 5px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+    .flex-cntct-tm {
+        margin: 5px;
+        padding: 15px;
+        width: 230px;
+    }
+
+        .flex-cntct-tm img {
+            width: 200px;
+            height: 200px;
+            border-radius: 100px;
+        }
+
+        .flex-cntct-tm p {
+            text-align: center;
+            font-size: 16px;
+        }
+
+    .worker {
+        margin-top: 10px;
+        font-style: italic;
+    }
+
+    h3 {
+        margin-top: 10px;
+    }
+
+    .address {
+        margin-top: 20px;
+    }
+</style>
+
+<h2>@DefaultNames.Contact</h2>
+
+<div class="flex-cntct">
+    <div class="flex-cntct-tm">
+        <img src="../../Image/Blobs/contact1.jpg" />
+        <p class="worker">Менеджер по закупкам</p>
+        <p class="mail">custom@mail.ru</p>
+    </div>
+
+    <div class="flex-cntct-tm">
+        <img src="../../Image/Blobs/contact2.jpg" />
+        <p class="worker">Руководитель отдела импортозамещения</p>
+        <p class="mail">import_substitution@mail.ru</p>
+    </div>
+
+    <div class="flex-cntct-tm">
+        <img src="../../Image/Blobs/contact3.jpg" />
+        <p class="worker">Менеждер по развитию</p>
+        <p class="email">development@mail.ru</p>
+    </div>
+</div>
+
+<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ae2476b1cc30fce7b3b67f1d1ca90c0c1db937459725739d79c9433b3a5c46889&amp;width=100%25&amp;height=400&amp;lang=ru_RU&amp;scroll=true"></script>
+
+<div class="address">
+    <hr />
+    <h3>Адрес</h3> <hr />
+    <p>142500, Россия</p>
+    <p>Павлсокий Посад</p>
+    <p>ул. Каляева, 2</p>
+    <p><strong>Тел.: </strong>+7 (800) 555-35-35</p>
+    <p><strong>Часы работы: </strong>10:00 - 19:00</p>
+</div>
