@@ -11,7 +11,7 @@ namespace DSS.Controllers
 {
     public class SearchComponentsController : Controller
     {
-        private DssContext db = new DssContext();
+        private readonly DssContext db = new DssContext();
 
         // GET: SearchComponents
         public ActionResult Index(int? categoryId, int? subcategoryId)

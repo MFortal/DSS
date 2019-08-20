@@ -10,6 +10,7 @@ namespace DSS.Controllers
         private DssContext db = new DssContext();
 
         // GET: Subcategories/Create
+        [Authorize(Roles ="admin")]
         public ActionResult Create()
         {
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");

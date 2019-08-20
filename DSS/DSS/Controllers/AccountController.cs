@@ -25,7 +25,7 @@ namespace DSS.Controllers
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
-            SignInManager = signInManager;
+            SignInManager = signInManager;            
         }
 
         public ApplicationSignInManager SignInManager
@@ -156,7 +156,8 @@ namespace DSS.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    UserManager.AddToRole(user.Id, "user");
+
                     // Дополнительные сведения о включении подтверждения учетной записи и сброса пароля см. на странице https://go.microsoft.com/fwlink/?LinkID=320771.
                     // Отправка сообщения электронной почты с этой ссылкой
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

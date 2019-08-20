@@ -221,6 +221,7 @@
     <Compile Include="Models\Property.cs" />
     <Compile Include="Models\Subcategory.cs" />
     <Compile Include="Models\SubcategoryProperty.cs" />
+    <Compile Include="SourceSeed\UsersRolesInitializer.cs" />
     <Compile Include="ViewModels\DropDownSearchViewModel.cs" />
     <Compile Include="ViewModels\SearchAnalogsViewModel.cs" />
     <Compile Include="ViewModels\SearchFilterViewModel.cs" />

@@ -21,7 +21,7 @@ namespace DSS.Models
     {
         public ApplicationDbContext()
             : base("DssContext", throwIfV1Schema: false)
-        {
+        {            
         }
 
         public static ApplicationDbContext Create()

@@ -18,9 +18,14 @@
 
 <h2>@DefaultNames.CatalogComponents</h2>
 
-<p>
-    @Html.ActionLink(DefaultNames.CreateCategory, "Create")
-</p>
+
+@if (User.IsInRole("admin"))
+{
+    <p>
+        @Html.ActionLink(DefaultNames.CreateCategory, "Create")
+    </p>
+}
+
 <table class="table">
     @foreach (var item in Model)
     {
@@ -32,7 +37,7 @@
                         @foreach (var subItem in item.Subcategories)
                         {
                             <li>
-                               <a href="@Url.Action("Index", "SearchComponents", new {subcategoryId = subItem.Id})">@Html.DisplayFor(modelItem => subItem.Name)</a>
+                                <a href="@Url.Action("Index", "SearchComponents", new {subcategoryId = subItem.Id})">@Html.DisplayFor(modelItem => subItem.Name)</a>
                             </li>
                         }
                     </ul>

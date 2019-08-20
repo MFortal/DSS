@@ -20,7 +20,7 @@ namespace DSS.Migrations
             context.Properties.AddOrUpdate(PropertiesInitializer.Initialize());
             context.SubcategoryProperties.AddOrUpdate(SubcategoryPropertiesInitializer.Initialize());
             context.Values.AddOrUpdate(ValuesInitializer.Initialize());
-            context.Cells.AddOrUpdate(CellsInitializer.Initialize());
+            context.Cells.AddOrUpdate(CellsInitializer.Initialize());            
 
             context.SaveChanges();
         }

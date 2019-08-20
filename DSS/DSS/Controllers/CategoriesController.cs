@@ -33,6 +33,7 @@ namespace DSS.Controllers
         }
 
         // GET: Categories/Create
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
             return View();
