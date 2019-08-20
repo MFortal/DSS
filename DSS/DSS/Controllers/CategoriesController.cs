@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using DSS.Common;
 using DSS.Models;
@@ -45,10 +46,11 @@ namespace DSS.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Image")] Category category)
+        public ActionResult Create(Category category, HttpPostedFileBase postedFile)
         {
             if (ModelState.IsValid)
             {
+                category.Image = SavePostedFile(postedFile);
                 db.Categories.Add(category);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -77,10 +79,12 @@ namespace DSS.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Image")] Category category)
+        public ActionResult Edit([Bind(Include = "Id,Name,Image")] Category category, HttpPostedFileBase postedFile)
         {
             if (ModelState.IsValid)
             {
+                category.Image = category.Image = SavePostedFile(postedFile);
+
                 db.Entry(category).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -121,6 +125,19 @@ namespace DSS.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private string SavePostedFile(HttpPostedFileBase postedFile)
+        {
+            if (postedFile != null)
+            {
+                var fileName = System.IO.Path.GetFileName(postedFile.FileName);
+                Utils.ClearOldFile(DefaultPaths.CategoriesImagesPath + fileName);
+                postedFile.SaveAs(Server.MapPath(DefaultPaths.CategoriesImagesPath.ToRootPath() + fileName));
+                return fileName;
+            }
+
+            return null;
         }
     }
 }

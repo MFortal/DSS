@@ -44,7 +44,7 @@
                 </div>
             </td>
             <td>
-                <img src="../../Image/Categories/@Html.DisplayFor(modelItem => item.Image)" width="50" height="50" />
+                <img src="@DefaultPaths.CategoriesImagesPath@Html.DisplayFor(modelItem => item.Image)" width="50" height="50" />
             </td>
             <td>
                 @Html.ActionLink(DefaultNames.Edit, "Edit", new { id = item.Id }) |

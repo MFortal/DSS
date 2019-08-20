@@ -7,7 +7,7 @@
 
 <h2>@DefaultNames.EditCategory</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Categories", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -31,8 +31,10 @@
             @DefaultNames.Image
         </p>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            <div>
+                <input type="file" name="postedFile" id="postedFile" class="form-control" />
+                <br />
+            </div>
         </div>
     </div>
     

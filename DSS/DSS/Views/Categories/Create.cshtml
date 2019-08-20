@@ -8,7 +8,7 @@
 <h2>@DefaultNames.CreateCategory</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Categories", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -16,7 +16,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            <p class = "control-label col-md-2" >
+            <p class="control-label col-md-2">
                 @DefaultNames.Name
             </p>
             <div class="col-md-10">
@@ -30,14 +30,14 @@
                 @DefaultNames.Image
             </p>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                <input type="file" name="postedFile" id="postedFile" class = "form-control"/>
+                <br />
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-success" />
+                <input type="submit" id="submit" value="Create" class="btn btn-success" />
             </div>
         </div>
     </div>
