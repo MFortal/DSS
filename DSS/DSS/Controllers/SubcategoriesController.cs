@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Net;
 using System.Web.Mvc;
+using DSS.Common;
 using DSS.Models;
 
 namespace DSS.Controllers
@@ -10,7 +11,7 @@ namespace DSS.Controllers
         private DssContext db = new DssContext();
 
         // GET: Subcategories/Create
-        [Authorize(Roles ="admin")]
+        [Authorize(Roles = DefaultRoles.Admin)]
         public ActionResult Create()
         {
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");

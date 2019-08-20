@@ -19,7 +19,7 @@
 <h2>@DefaultNames.CatalogComponents</h2>
 
 
-@if (User.IsInRole("admin"))
+@if (User.IsInRole(DefaultRoles.Admin))
 {
     <p>
         @Html.ActionLink(DefaultNames.CreateCategory, "Create")

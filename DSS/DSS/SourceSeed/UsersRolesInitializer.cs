@@ -1,4 +1,5 @@
-﻿using DSS.Models;
+﻿using DSS.Common;
+using DSS.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
@@ -13,8 +14,8 @@ namespace DSS.SourceSeed
             var roleManager = new RoleManager<IdentityRole>(roleStore);
 
             var identityRoles = new List<IdentityRole>();
-            identityRoles.Add(new IdentityRole() { Name = "admin"});            
-            identityRoles.Add(new IdentityRole() { Name = "user" });
+            identityRoles.Add(new IdentityRole() { Name = DefaultRoles.Admin});
+            identityRoles.Add(new IdentityRole() { Name = DefaultRoles.User });
 
             foreach (IdentityRole role in identityRoles)
             {
@@ -35,7 +36,7 @@ namespace DSS.SourceSeed
             if (userManager.FindByName(admin.UserName) == null)
             {
                 userManager.Create(admin, "1Admin!");
-                userManager.AddToRole(admin.Id, "admin");
+                userManager.AddToRole(admin.Id, DefaultRoles.Admin);
             }                       
         }
     }
