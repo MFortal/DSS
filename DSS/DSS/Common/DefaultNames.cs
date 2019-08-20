@@ -45,5 +45,9 @@
 
         public const string Subcategories = "Подкатегории";
 
+        public const string Index = "Главная";
+
+        public const string Contact = "Контакты";
+
     }
 }

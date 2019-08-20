@@ -1,31 +1,50 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@using DSS.Common
+@{
+    ViewBag.Title = DefaultNames.Index;
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<style>
+    .flex-ndx {
+        display: flex;
+        padding: 5px;
+        justify-content: center;
+        flex-direction: column;
+    }
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
+    .flex-ndx-tm {
+        font-size: 18px;
+        margin: 5px;
+        padding: 15px;
+        width: auto;
+        height: auto;
+    }
+
+     .flex-ndx-tm img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+
+    p {
+        text-indent: 25px;
+    }
+</style>
+
+<h2>@DefaultNames.Index</h2>
+
+
+<div class="flex-ndx">
+
+    <div class="flex-ndx-tm">
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            Наша страна зависит от импорта и проблема замены иностранных товаров на отечественные существовала и прежде. Однако, санкции 2014 года, введенные западными странами, заставили правительство взглянуть на проблему серьезнее.
         </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <p>
+            Так, уже в конце 2014 года была утверждена масштабная программа, охватывающая значительное количество отраслей. Одной из главных задач госпрограммы, рассчитанной до 2020 года, заявлено снижение доли импорта продукции, в том числе используемой отечественными производителями, в нашу страну.
+        </p>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+
+    <div class="flex-ndx-tm">
+        <img src="../../Image/Blobs/image.jpg" />
     </div>
 </div>
