@@ -8,13 +8,15 @@ namespace DSS.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
         [Required]
         public string Name { get; set; }
-        public string Image { get; set; }
-        public int CategoryId { get; set; }
 
+        public int CategoryId { get; set; }
         public virtual Category Categories { get; set; }
+
         public virtual ICollection<SubcategoryProperty> SubcategoryProperties { get; set; }
+
         public virtual ICollection<Component> Components { get; set; }
     }
 }

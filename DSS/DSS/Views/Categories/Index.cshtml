@@ -29,29 +29,32 @@
 <table class="table">
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                <a href="#" class="category-title">@Html.DisplayFor(modelItem => item.Name)</a>
-                <div class="subcategory-list">
-                    <ul>
-                        @foreach (var subItem in item.Subcategories)
-                        {
-                            <li>
-                                <a href="@Url.Action("Index", "SearchComponents", new {subcategoryId = subItem.Id})">@Html.DisplayFor(modelItem => subItem.Name)</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </td>
-            <td>
-                <img src="@DefaultPaths.CategoriesImagesPath@Html.DisplayFor(modelItem => item.Image)" width="50" height="50" />
-            </td>
+    <tr>
+        <td>
+            <a href="#" class="category-title">@Html.DisplayFor(modelItem => item.Name)</a>
+            <div class="subcategory-list">
+                <ul>
+                    @foreach (var subItem in item.Subcategories)
+                    {
+                        <li>
+                            <a href="@Url.Action("Index", "SearchComponents", new {subcategoryId = subItem.Id})">@Html.DisplayFor(modelItem => subItem.Name)</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </td>
+        <td>
+            <img src="@DefaultPaths.CategoriesImagesPath@Html.DisplayFor(modelItem => item.Image)" width="50" height="50" />
+        </td>
+        @if (User.IsInRole(DefaultRoles.Admin))
+        {
             <td>
                 @Html.ActionLink(DefaultNames.Edit, "Edit", new { id = item.Id }) |
                 @Html.ActionLink(DefaultNames.Details, "Details", new { id = item.Id }) |
                 @Html.ActionLink(DefaultNames.Delete, "Delete", new { id = item.Id })
             </td>
-        </tr>
+        }
+    </tr>
     }
 
 </table>
