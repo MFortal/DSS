@@ -26,7 +26,7 @@ namespace DSS.Controllers
         public ActionResult Create([Bind(Include = "Id,Name,Image,CategoryId")] Subcategory subcategory)
         {
             if (ModelState.IsValid)
-            {
+            {                
                 db.Subcategories.Add(subcategory);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Categories");
@@ -36,7 +36,7 @@ namespace DSS.Controllers
             return View(subcategory);
         }
 
-        // GET: Subcategories/Edit/5
+        [Authorize(Roles = DefaultRoles.Admin)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -69,7 +69,7 @@ namespace DSS.Controllers
             return View(subcategory);
         }
 
-        // GET: Subcategories/Delete/5
+        [Authorize(Roles = DefaultRoles.Admin)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -102,6 +102,6 @@ namespace DSS.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
+        }        
     }
 }

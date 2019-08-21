@@ -210,6 +210,10 @@
     <Compile Include="Migrations\201908101047375_DropSearchComponentModel.Designer.cs">
       <DependentUpon>201908101047375_DropSearchComponentModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908211155083_DeleteImageFromSubCategory.cs" />
+    <Compile Include="Migrations\201908211155083_DeleteImageFromSubCategory.Designer.cs">
+      <DependentUpon>201908211155083_DeleteImageFromSubCategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\DssContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -369,6 +373,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908101047375_DropSearchComponentModel.resx">
       <DependentUpon>201908101047375_DropSearchComponentModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908211155083_DeleteImageFromSubCategory.resx">
+      <DependentUpon>201908211155083_DeleteImageFromSubCategory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

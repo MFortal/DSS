@@ -20,6 +20,7 @@ namespace DSS.Controllers
         }
 
         // GET: Categories/Details/5
+        [Authorize(Roles = DefaultRoles.Admin)]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -59,7 +60,7 @@ namespace DSS.Controllers
             return View(category);
         }
 
-        // GET: Categories/Edit/5
+        [Authorize(Roles = DefaultRoles.Admin)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -93,6 +94,7 @@ namespace DSS.Controllers
         }
 
         // GET: Categories/Delete/5
+        [Authorize(Roles = DefaultRoles.Admin)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
