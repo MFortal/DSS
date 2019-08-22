@@ -171,14 +171,18 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Common\HeaderTexts.cs" />
+    <Compile Include="Common\ButtonTexts.cs" />
     <Compile Include="Common\DefaultPaths.cs" />
     <Compile Include="Common\DefaultRoles.cs" />
     <Compile Include="Common\DefaultNames.cs" />
     <Compile Include="Common\Utils.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\ComponentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PropertiesController.cs" />
     <Compile Include="Controllers\SearchAnalogsController.cs" />
     <Compile Include="Controllers\SearchComponentsController.cs" />
     <Compile Include="Controllers\SubcategoriesController.cs" />
@@ -253,6 +257,8 @@
     <Compile Include="ViewModels\SelectionViewModel.cs" />
     <Compile Include="ViewModels\CellValueViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
+    <Compile Include="ViewModels\Subcategory\DetailsSubcategoryViewModel.cs" />
+    <Compile Include="ViewModels\Subcategory\CreateSubcategoryViewModel.cs" />
     <Compile Include="ViewModels\TableHeaderViewModel.cs" />
     <Compile Include="ViewModels\TableRowViewModel.cs" />
   </ItemGroup>
@@ -330,10 +336,20 @@
     <Content Include="Views\Subcategories\Create.cshtml" />
     <Content Include="Views\Subcategories\Delete.cshtml" />
     <Content Include="Views\Subcategories\Edit.cshtml" />
+    <Content Include="Views\Properties\Create.cshtml" />
+    <Content Include="Views\Properties\Delete.cshtml" />
+    <Content Include="Views\Properties\Details.cshtml" />
+    <Content Include="Views\Properties\Edit.cshtml" />
+    <Content Include="Views\Properties\Index.cshtml" />
+    <Content Include="Views\Subcategories\Details.cshtml" />
+    <Content Include="Views\Components\Create.cshtml" />
+    <Content Include="Views\Components\Delete.cshtml" />
+    <Content Include="Views\Components\Details.cshtml" />
+    <Content Include="Views\Components\Edit.cshtml" />
+    <Content Include="Views\Components\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewModels\Category\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

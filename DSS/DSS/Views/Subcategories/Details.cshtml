@@ -1,0 +1,59 @@
+﻿@using DSS.Common
+@model DSS.ViewModels.Subcategory.DetailsSubcategoryViewModel
+
+@{
+    ViewBag.Title = HeaderTexts.Details + HeaderTexts.ForSubcategory;
+}
+
+<h2>@HeaderTexts.Details@HeaderTexts.ForSubcategory</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @DefaultNames.Name @HeaderTexts.ForCategory
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+
+        <dt>
+            @DefaultNames.Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @DefaultNames.Properties
+        </dt>
+
+        <dd>
+            <ul>
+                @foreach (var property in Model.Properties)
+                {
+                    <li>
+                        <div class="col-md-10">
+                            <span>@property.Name</span>
+                            @if (!string.IsNullOrEmpty(property.Unit))
+                            {
+                                <span>[@property.Unit]</span>
+                            }
+                            @if (!string.IsNullOrEmpty(property.Description))
+                            {
+                                <span> - @property.Description</span>
+                            }
+                        </div>
+                    </li>
+                }
+            </ul>
+        </dd>
+
+    </dl>
+    <div>
+        <a href="@Url.Action("Details", "Categories", new { id =  Model.Category.Id })">@ButtonTexts.Back</a>
+    </div>
+</div>

@@ -2,10 +2,10 @@
 @model DSS.Models.Category
 
 @{
-    ViewBag.Title = DefaultNames.EditCategory;
+    ViewBag.Title = HeaderTexts.Edit + HeaderTexts.ForCategory;
 }
 
-<h2>@DefaultNames.EditCategory</h2>
+<h2>@HeaderTexts.Edit@HeaderTexts.ForCategory</h2>
 
 @using (Html.BeginForm("Edit", "Categories", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -47,7 +47,7 @@
 }
 
 <div>
-    @Html.ActionLink(DefaultNames.Back, "Index")
+    @Html.ActionLink(ButtonTexts.Back, "Index")
 </div>
 
 @section Scripts {
