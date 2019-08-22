@@ -4,95 +4,6 @@
     ViewBag.Title = "Поиск компонентов";
 }
 
-<style>
-    /*Стили для формы поиска*/
-    .flex, .flexButtons {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        padding: 5px;
-    }
-
-    .flex-itm {
-        border: 1px solid gray;
-        border-radius: 10px 0 0 10px;
-        height: 200px;
-        width: auto;
-        overflow-y: scroll; /* прокрутка по вертикали */
-        margin: 5px;
-        padding: 15px;
-    }
-
-    .flex-btn {
-        margin: 5px;
-    }
-
-    .nameProperty {
-        font-size: 16px;
-        text-align: center;
-    }
-
-    sup {
-        cursor: help;
-    }
-
-    table {
-        margin-top: 50px;
-    }
-
-    .component {
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-size: 16px;
-    }
-
-    /*DropDownLists*/
-    /* Style The Dropdown Button */
-    .dropbtn {
-        padding: 16px;
-        font-size: 16px;
-        cursor: pointer;
-        display: block;
-    }
-
-    /* The container <div> - needed to position the dropdown content */
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-
-    /* Dropdown Content (Hidden by Default) */
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-    }
-
-        /* Links inside the dropdown */
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-            .dropdown-content a:hover {
-                background-color: antiquewhite;
-            }
-    /* Show the dropdown menu on hover */
-    .dropdown:hover .dropdown-content {
-        display: block;
-    }
-
-    .notFound {
-        font-size: 14px;
-        color: darkgray;
-    }
-</style>
-
 <h3>Поиск компонентов</h3>
 
 <div class="dropdown">
@@ -184,6 +95,3 @@
 
 }
 <table class="table" id="results"></table>
-
-@Scripts.Render("~/scripts/jquery-3.3.1.js")
-@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")

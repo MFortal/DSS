@@ -6,78 +6,13 @@
 
 <h2>Поиск аналогов</h2>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">  
-<style>
-    .flex-itm-nlg {
-        display: flex;
-        margin: 5px;
-        padding: 5px;
-        flex-direction: row;
-    }
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
-    .flex-fld {
-        margin: 5px;
-        padding: 15px;
-        display: flex;
-        flex-direction: row;
-    }
+@*@Scripts.Render("~/scripts/jquery-3.3.1.js")*@
 
-    .flex-fld-itm {
-        margin: 10px;
-    }
-
-    .search-fld {
-        width: 2000px;
-    }
-
-    .search {
-        margin: 0 auto;
-    }
-
-    p {
-        font-size: 16px;
-    }
-
-    .thisComponent {
-        background-color:Lavender;
-    }
-</style>
-
-
-@Scripts.Render("~/scripts/jquery-3.3.1.js")
-@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")
-
-<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.8.0.js"></script>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.22/jquery-ui.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#Name").autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: "/SearchAnalogs/Index",
-                    type: "POST",
-                    dataType: "json",
-                    data: { Prefix: request.term },
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return { label: item.Name, value: item.Id };
-                        }))
-
-                    }
-                })
-            },
-            messages: {
-                noResults: "", results: ""
-            }
-        });
-    })
-</script>
 
 
 <div class="flex-nlg">
-    <div class="flex-itm-nlg">
-        <p>Импортозамещение и все такое</p>
-    </div>
     <div class="flex-itm-nlg">
         <p>Аналогом является компонент, удовлетворяющий условиям: </p>
     </div>
@@ -107,3 +42,37 @@
 
     <table class="table" id="results"></table>
 </div>
+
+
+@*<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.8.0.js"></script>*@
+@*<script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.22/jquery-ui.js"></script>*@
+
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/jquery-ui.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Name").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/SearchAnalogs/Index",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.Name, value: item.Id };
+                        }))
+
+                    }
+                })
+            },
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+    })
+</script>
+
+@*@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")*@

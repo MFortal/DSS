@@ -22,3 +22,214 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+/*Styles for Home/Index*/
+.flex-ndx {
+    display: flex;
+    padding: 5px;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.flex-ndx-tm {
+    font-size: 18px;
+    margin: 5px;
+    padding: 15px;
+    width: auto;
+    height: auto;
+}
+
+    .flex-ndx-tm img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .flex-ndx-tm p {
+        text-indent: 25px;
+    }
+
+h2 {
+    margin-top: 35px;
+}
+
+
+/*Styles for Home/Contact*/
+.flex-cntct {
+    display: flex;
+    padding: 5px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.flex-cntct-tm {
+    margin: 5px;
+    padding: 15px;
+    width: 230px;
+}
+
+    .flex-cntct-tm img {
+        width: 200px;
+        height: 200px;
+        border-radius: 100px;
+    }
+
+    .flex-cntct-tm p {
+        text-align: center;
+        font-size: 16px;
+    }
+
+.worker {
+    margin-top: 10px;
+    font-style: italic;
+}
+
+h3 {
+    margin-top: 10px;
+}
+
+.address {
+    margin-top: 20px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+
+/*Styles for Categories/Index*/
+.category-title {
+    cursor: pointer;
+}
+
+.subcategory-list {
+    display: none;
+    background: #f1f1f1;
+}
+
+
+
+/*Styles for SearchAnalogs/Index*/
+.flex-itm-nlg {
+    display: flex;
+    margin: 5px;
+    padding: 5px;
+    flex-direction: row;
+}
+
+.flex-fld {
+    margin: 5px;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-fld-itm {
+    margin: 10px;
+}
+
+.search-fld {
+    width: 2000px;
+}
+
+.search {
+    margin: 0 auto;
+}
+
+p {
+    font-size: 16px;
+}
+
+.thisComponent {
+    background-color: Lavender;
+}
+
+
+/*Styles for SearchComponents/Index*/
+/*Стили для формы поиска*/
+.flex, .flexButtons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 5px;
+}
+
+.flex-itm {
+    border: 1px solid gray;
+    border-radius: 10px 0 0 10px;
+    height: 200px;
+    width: auto;
+    overflow-y: scroll; /* прокрутка по вертикали */
+    margin: 5px;
+    padding: 15px;
+}
+
+.flex-btn {
+    margin: 5px;
+}
+
+.nameProperty {
+    font-size: 16px;
+    text-align: center;
+}
+
+sup {
+    cursor: help;
+}
+
+#results {
+    margin-top: 50px;
+}
+
+.component {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 16px;
+}
+
+/*DropDownLists*/
+/* Style The Dropdown Button */
+.dropbtn {
+    padding: 16px;
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+    /* Links inside the dropdown */
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+        .dropdown-content a:hover {
+            background-color: antiquewhite;
+        }
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.notFound {
+    font-size: 14px;
+    color: darkgray;
+}
