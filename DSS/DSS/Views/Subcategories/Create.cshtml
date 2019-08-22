@@ -1,11 +1,11 @@
 ﻿@using DSS.Common
-@model DSS.Models.Subcategory
+@model DSS.ViewModels.Subcategory.CreateSubcategoryViewModel
 
 @{
-    ViewBag.Title = DefaultNames.CreateSubcategory;
+    ViewBag.Title = HeaderTexts.Create + HeaderTexts.ForSubcategory;
 }
 
-<h2>@DefaultNames.CreateSubcategory</h2>
+<h2>@HeaderTexts.Create@HeaderTexts.ForSubcategory</h2>
 
 @using (Html.BeginForm())
 {
@@ -29,14 +29,30 @@
                 @DefaultNames.Category
             </p>
             <div class="col-md-10">
-                @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(x => x.SelectedCategoryId, @Model.Categories, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Categories, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-2">
+                @DefaultNames.Properties
+            </p>
+            <div class="col-md-10">
+                @Html.ListBoxFor(x => x.SelectedPropertyIds, @Model.Properties, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Properties, "", new { @class = "text-danger" })
+                
+                <div>
+                    <button type="button" class="btn btn-light">
+                        @Html.ActionLink(ButtonTexts.Create + ButtonTexts.ForProperty, "Create", "Properties")
+                    </button>
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-success" />
+                <input type="submit" value="@ButtonTexts.Create" class="btn btn-success" />
             </div>
         </div>
     </div>

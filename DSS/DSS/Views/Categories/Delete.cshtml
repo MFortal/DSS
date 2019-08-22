@@ -2,10 +2,10 @@
 @model DSS.Models.Category
 
 @{
-    ViewBag.Title = DefaultNames.DeleteCategory;
+    ViewBag.Title = HeaderTexts.Delete + HeaderTexts.ForCategory;
 }
 
-<h2>@DefaultNames.DeleteCategory</h2>
+<h2>@HeaderTexts.Delete@HeaderTexts.ForCategory</h2>
 
 <div>
     <hr />
@@ -34,7 +34,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-danger" /> |
-            @Html.ActionLink(DefaultNames.Back, "Index")
+            @Html.ActionLink(ButtonTexts.Back, "Index")
         </div>
     }
 </div>

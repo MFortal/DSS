@@ -24,9 +24,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Каталог компонентов", "Index", "Categories")</li>
-                    <li>@Html.ActionLink("Поиск аналогов", "Index", "SearchAnalogs")</li>
-                    <li>@Html.ActionLink("Контакты", "Contact", "Home")</li>
+                    <li>@Html.ActionLink(DefaultNames.CatalogComponents, "Index", "Categories")</li>
+                    <li>@Html.ActionLink(DefaultNames.SearchAnalogs, "Index", "SearchAnalogs")</li>
+                    <li>@Html.ActionLink(DefaultNames.AddComponent, "Create", "Components")</li>
+                    <li>@Html.ActionLink(DefaultNames.Contact, "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

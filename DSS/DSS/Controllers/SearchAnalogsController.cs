@@ -21,12 +21,11 @@ namespace DSS.Controllers
         }
 
         [HttpPost]
-        public JsonResult Index(string Prefix)
+        public JsonResult Index(string prefix)
         {
-            var componentsList = (from c in db.Components
-                                  where c.Name.ToLower().StartsWith(Prefix.ToLower())
-                                  && c.Country.Id != DefaultNames.RusId
-                                  select new { c.Name });
+            var componentsList = db.Components
+                .Where (c => c.Name.ToLower().Contains(prefix.ToLower()) && c.Country.Id != DefaultNames.RusId)
+                .Select(c => c.Name);
 
             return Json(componentsList, JsonRequestBehavior.AllowGet);
         }

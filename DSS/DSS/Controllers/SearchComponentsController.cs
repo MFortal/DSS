@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -222,11 +221,6 @@ namespace DSS.Controllers
             return filterCountry.ValueChecked
                 .Where(x => x.Checked)
                 .Any(x => x.Id == component.CountryId);
-        }
-
-        public ActionResult FilterProperty(FilterPropertyViewModel filterPropertyViewModel)
-        {
-            return PartialView(filterPropertyViewModel);
         }
 
         // GET: SearchComponents/Details/5

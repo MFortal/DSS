@@ -1,8 +1,10 @@
 ﻿using System.Data.Entity;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using DSS.Common;
 using DSS.Models;
+using DSS.ViewModels.Subcategory;
 
 namespace DSS.Controllers
 {
@@ -14,8 +16,12 @@ namespace DSS.Controllers
         [Authorize(Roles = DefaultRoles.Admin)]
         public ActionResult Create()
         {
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
-            return View();
+            var model = new CreateSubcategoryViewModel
+            {
+                Categories = new SelectList(db.Categories, "Id", "Name"),
+                Properties = new SelectList(db.Properties, "Id", "Name"),
+            };
+            return View(model);
         }
 
         // POST: Subcategories/Create
@@ -23,10 +29,26 @@ namespace DSS.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Image,CategoryId")] Subcategory subcategory)
+        public ActionResult Create(CreateSubcategoryViewModel subcategoryViewModel)
         {
+            var subcategory = new Subcategory()
+            {
+                Name = subcategoryViewModel.Name,
+                CategoryId = subcategoryViewModel.SelectedCategoryId
+            };
+
+            foreach (var selectedPropertyId in subcategoryViewModel.SelectedPropertyIds)
+            {
+                db.SubcategoryProperties.Add(
+                    new SubcategoryProperty()
+                    {
+                        PropertyId = selectedPropertyId,
+                        SubcategoryId = subcategory.Id
+                    });
+            }
+
             if (ModelState.IsValid)
-            {                
+            {
                 db.Subcategories.Add(subcategory);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Categories");
@@ -34,6 +56,32 @@ namespace DSS.Controllers
 
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", subcategory.CategoryId);
             return View(subcategory);
+        }
+
+        [Authorize(Roles = DefaultRoles.Admin)]
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Subcategory subcategory = db.Subcategories.Find(id);
+            if (subcategory == null)
+            {
+                return HttpNotFound();
+            }
+
+            var properties = db.Properties
+                .AsEnumerable()
+                .Where(x => subcategory.SubcategoryProperties.Any(y => y.PropertyId == x.Id));
+
+            var model = new DetailsSubcategoryViewModel()
+            {
+                Name = subcategory.Name,
+                Category = subcategory.Category,
+                Properties = properties
+            };
+            return View(model);
         }
 
         [Authorize(Roles = DefaultRoles.Admin)]
@@ -48,25 +96,52 @@ namespace DSS.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", subcategory.CategoryId);
-            return View(subcategory);
+
+            var categoryId = subcategory.CategoryId;
+            var propertyIds = subcategory.SubcategoryProperties.Select(x => x.PropertyId);
+
+            var model = new CreateSubcategoryViewModel
+            {
+                Id = subcategory.Id,
+                Name = subcategory.Name,
+                Categories = new SelectList(db.Categories, "Id", "Name", categoryId),
+                Properties = new SelectList(db.Properties, "Id", "Name", propertyIds),
+                SelectedCategoryId = subcategory.CategoryId,
+                SelectedPropertyIds = propertyIds,
+            };
+
+            return View(model);
         }
 
-        // POST: Subcategories/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Image,CategoryId")] Subcategory subcategory)
+        public ActionResult Edit(CreateSubcategoryViewModel subcategoryViewModel)
         {
-            if (ModelState.IsValid)
+            Subcategory subcategory = db.Subcategories.Find(subcategoryViewModel.Id);
+            if (subcategory == null)
             {
-                db.Entry(subcategory).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index", "Categories");
+                return HttpNotFound();
             }
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", subcategory.CategoryId);
-            return View(subcategory);
+
+            subcategory.CategoryId = subcategoryViewModel.SelectedCategoryId;
+            subcategory.Name = subcategoryViewModel.Name;
+
+            var oldSubcategoryProperties = db.SubcategoryProperties.Where(x => x.SubcategoryId == subcategory.Id);
+            db.SubcategoryProperties.RemoveRange(oldSubcategoryProperties);
+            foreach (var selectedPropertyId in subcategoryViewModel.SelectedPropertyIds)
+            {
+                subcategory.SubcategoryProperties.Add(
+                    new SubcategoryProperty()
+                    {
+                        SubcategoryId = subcategory.Id,
+                        PropertyId = selectedPropertyId
+                    }
+                );
+            }
+
+            db.SaveChanges();
+
+            return RedirectToAction("Details", "Categories", new {id = subcategory.CategoryId});
         }
 
         [Authorize(Roles = DefaultRoles.Admin)]
@@ -102,6 +177,6 @@ namespace DSS.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }        
+        }
     }
 }
