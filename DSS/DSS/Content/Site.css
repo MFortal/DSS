@@ -52,6 +52,7 @@ textarea {
 
 h2 {
     margin-top: 35px;
+    margin-left: 35px;
 }
 
 
@@ -106,6 +107,10 @@ h3 {
 .subcategory-list {
     display: none;
     background: #f1f1f1;
+}
+
+.li-item:hover {
+    background-color: lavender;
 }
 
 

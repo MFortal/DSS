@@ -7,17 +7,18 @@
 
 <h2>@DefaultNames.CatalogComponents</h2>
 
+
 <table class="table">
     @foreach (var item in Model)
     {
         <tr>
             <td>
                 <a href="#" class="category-title">@Html.DisplayFor(modelItem => item.Name)</a>
-                <div class="subcategory-list">
-                    <ul>
+                <div class="subcategory-list list-group">
+                    <ul class="list-group">
                         @foreach (var subItem in item.Subcategories)
                         {
-                            <li>
+                            <li class="list-group-item list-group-item-action li-item">
                                 <a href="@Url.Action("Index", "SearchComponents", new {subcategoryId = subItem.Id})">@Html.DisplayFor(modelItem => subItem.Name)</a>
                             </li>
                         }
