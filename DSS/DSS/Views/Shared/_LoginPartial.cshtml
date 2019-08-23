@@ -4,24 +4,25 @@
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            <a title = "Manage" href="@Url.Action("Index", "Manage", routeValues: null)"><span class="glyphicon glyphicon-user"></span> @User.Identity.GetUserName()</a>
-        </li>
-        <li>            
-            <a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out"></span> Выйти</a>
-        </li>
-    </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="li-menu">
+                <a title="Manage" href="@Url.Action("Index", "Manage", routeValues: null)"><span class="glyphicon glyphicon-user"></span> @User.Identity.GetUserName()</a>
+            </li>
+            <li class="li-menu">
+                <a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out"></span> Выйти</a>
+            </li>
+        </ul>
     }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>
-            <a id = "registerLink" href="@Url.Action("Register", "Account", routeValues: null)"><span class="glyphicon glyphicon-plus"></span> Регистрация</a>
-        <li>
+        <li class="li-menu">
+            <a id="registerLink" href="@Url.Action("Register", "Account", routeValues: null)"><span class="glyphicon glyphicon-plus"></span> Регистрация</a>
+        </li>
+        <li class="li-menu">
             <a id="loginLink" href="@Url.Action("Login", "Account", routeValues: null)"><span class="glyphicon glyphicon-log-in"></span> Вход</a>
         </li>
     </ul>

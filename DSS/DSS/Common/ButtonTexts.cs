@@ -17,5 +17,7 @@
         public const string Back = "Назад";
 
         public const string Details = "Описание";
+
+        public const string Save = "Сохранить";
     }
 }

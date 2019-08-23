@@ -7,32 +7,32 @@
 
 <h2>@DefaultNames.CatalogComponents</h2>
 
-<table class="table">
+<table class="table table-hover">
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                <a href="#" class="category-title">@Html.DisplayFor(modelItem => item.Name)</a>
-                <div class="subcategory-list">
-                    <ul>
+                <a href="#" class="category-title a-category">@Html.DisplayFor(modelItem => item.Name)</a>
+                <div class="subcategory-list list-group">
+                    <ul class="list-group">
                         @foreach (var subItem in item.Subcategories)
                         {
-                            <li>
-                                <a href="@Url.Action("Index", "SearchComponents", new {subcategoryId = subItem.Id})">@Html.DisplayFor(modelItem => subItem.Name)</a>
+                            <li class="list-group-item list-group-item-action li-item">
+                                <a href="@Url.Action("Index", "SearchComponents", new {subcategoryId = subItem.Id})"><span class="glyphicon glyphicon-pushpin"></span> @Html.DisplayFor(modelItem => subItem.Name)</a>
                             </li>
                         }
                     </ul>
                 </div>
             </td>
             <td>
-                <img src="@DefaultPaths.CategoriesImagesPath@Html.DisplayFor(modelItem => item.Image)" width="50" height="50" />
+                <img class="img-category" src="@DefaultPaths.CategoriesImagesPath@Html.DisplayFor(modelItem => item.Image)" />
             </td>
             @if (User.IsInRole(DefaultRoles.Admin))
             {
                 <td>
-                    @Html.ActionLink(ButtonTexts.Edit, "Edit", new { id = item.Id }) |
-                    @Html.ActionLink(ButtonTexts.Details, "Details", new { id = item.Id }) |
-                    @Html.ActionLink(ButtonTexts.Delete, "Delete", new { id = item.Id })
+                    <a class="btn btn-primary a-text" href="@Url.Action("Edit",  new { id = item.Id })">@ButtonTexts.Edit</a>
+                    <a class="btn btn-info a-text" href="@Url.Action("Details",  new { id = item.Id })">@ButtonTexts.Details</a>
+                    <a class="btn btn-danger a-text" href="@Url.Action("Delete",  new { id = item.Id })">@ButtonTexts.Delete</a>
                 </td>
             }
         </tr>
@@ -41,9 +41,7 @@
 @if (User.IsInRole(DefaultRoles.Admin))
 {
     <div>
-        <button type="button" class="btn btn-light">
-            @Html.ActionLink(ButtonTexts.Create + ButtonTexts.ForCategory, "Create")
-        </button>
+        <a class="btn btn-success a-text" href="@Url.Action("Create")">@ButtonTexts.Create @ButtonTexts.ForCategory</a>
     </div>
 }
 

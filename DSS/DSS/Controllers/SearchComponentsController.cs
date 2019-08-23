@@ -18,7 +18,7 @@ namespace DSS.Controllers
             #region CheckIds           
             if (categoryId == null)
             {
-                categoryId = db.Categories.First().Id;
+                categoryId = db.Subcategories.Where(x => x.Id == subcategoryId).First().CategoryId;
             }
 
             if (subcategoryId == null)
@@ -26,7 +26,6 @@ namespace DSS.Controllers
                 subcategoryId = db.Categories.First(x => x.Id == categoryId).Subcategories.First().Id;
             }
 
-            ViewBag.categoryId = categoryId;
             #endregion
 
             #region DropDown
@@ -35,7 +34,7 @@ namespace DSS.Controllers
                 .FirstOrDefault(x => x.Id == categoryId);
 
             var subcategoriesThis = db.Subcategories
-                .FirstOrDefault(x => x.Id == subcategoryId);          
+                .FirstOrDefault(x => x.Id == subcategoryId);
 
             //Все значения кроме текущих
             var categoriesWithoutThis = db.Categories
@@ -134,7 +133,7 @@ namespace DSS.Controllers
                 DropDown = dropDown,
                 CountryProperty = countryProperty,
                 Properties = filterProperties
-            };            
+            };
 
             return View(filterViewModel);
         }
@@ -149,10 +148,10 @@ namespace DSS.Controllers
 
             var countryFilter = searchFilterViewModel.CountryProperty;
             var propertiesFilter = searchFilterViewModel.Properties;
-            
+
             var filteredComponent = components.AsEnumerable()
                 .Where(x => CheckByCountry(x, countryFilter))
-                .Where(x => propertiesFilter.All(p => CheckByProperty(x, p)));                
+                .Where(x => propertiesFilter.All(p => CheckByProperty(x, p)));
 
             var tableHeader = new TableHeaderViewModel
             {
@@ -206,7 +205,7 @@ namespace DSS.Controllers
             }
             var value = component.Cells.FirstOrDefault(x => x.Value.PropertyId == filterProperty.PropertyId)?.Value;
 
-            return value == null 
+            return value == null
                 || filterProperty.ValueChecked
                 .Where(x => x.Checked)
                 .Any(x => x.Id == value.Id);
