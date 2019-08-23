@@ -19,11 +19,11 @@
         </dd>
 
         <dt>
-            @DefaultNames.Name
+            @DefaultNames.Image
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Image)
+            <img class="img-category" src="@DefaultPaths.CategoriesImagesPath@Html.DisplayFor(model => model.Image)" />
         </dd>
 
     </dl>
@@ -31,10 +31,9 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" /> |
-            @Html.ActionLink(ButtonTexts.Back, "Index")
+            @Html.ActionLink(ButtonTexts.Back, "Index") |
+            <input type="submit" value="@ButtonTexts.Delete" class="btn btn-danger" />
         </div>
     }
 </div>
