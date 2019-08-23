@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DSS.Models;
+using DSS.ViewModels.Component;
 
 namespace DSS.Controllers
 {
@@ -37,30 +38,91 @@ namespace DSS.Controllers
         }
 
         // GET: Components/Create
-        public ActionResult Create()
+        public ActionResult Create(int subcategoryId)
         {
-            ViewBag.CountryId = new SelectList(db.Countries, "Id", "Name");
-            ViewBag.SubcategoryId = new SelectList(db.Subcategories, "Id", "Name");
-            return View();
+            var propertyIds = db.SubcategoryProperties
+                .Where(x => x.SubcategoryId == subcategoryId)
+                .Select(x => x.PropertyId);
+
+            var properties = db.Properties
+                .Where(x => propertyIds.Contains(x.Id))
+                .OrderBy(x => x.Id)
+                .Select(x => new PropertyViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    Unit = x.Unit
+                })
+                .ToArray();
+
+            var componentViewModel = new CreateComponentViewModel()
+            {
+                SubcategoryId = subcategoryId,
+                Countries = new SelectList(db.Countries, "Id", "Name"),
+                Properties = properties,
+                PreviousUrl = Request.UrlReferrer.AbsoluteUri                
+            };
+
+            return View(componentViewModel);
         }
 
-        // POST: Components/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Image,CountryId,SubcategoryId")] Component component)
+        public ActionResult Create(CreateComponentViewModel componentViewModel)
         {
+            var cells = new List<Cell>();
+            foreach (var propertyViewModel in componentViewModel.Properties)
+            {
+                var property = db.Properties.Find(propertyViewModel.Id);
+
+                if (string.IsNullOrEmpty(propertyViewModel.Value))
+                {
+                    continue;
+                }
+
+                if (property.IsEnum)
+                {                    
+                    var matchedValue = property.Values
+                        .FirstOrDefault(x => x.PropertyValue.ToLower().Trim() == propertyViewModel.Value.ToLower().Trim());
+
+                    if (matchedValue != null)
+                    {
+                        cells.Add(
+                            new Cell
+                            {
+                                Value = matchedValue
+                            });
+                        continue;
+                    }
+                }
+                cells.Add(
+                    new Cell()
+                    {
+                        Value = new Value()
+                        {
+                            PropertyId = propertyViewModel.Id,
+                            PropertyValue = propertyViewModel.Value
+                        }
+                    });
+            }
+
+            var component = new Component()
+            {
+                Name = componentViewModel.Name,
+                CountryId = componentViewModel.SelectedCountryId,
+                SubcategoryId = componentViewModel.SubcategoryId,
+                Cells = cells
+            };
+
             if (ModelState.IsValid)
             {
                 db.Components.Add(component);
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
-            ViewBag.CountryId = new SelectList(db.Countries, "Id", "Name", component.CountryId);
-            ViewBag.SubcategoryId = new SelectList(db.Subcategories, "Id", "Name", component.SubcategoryId);
-            return View(component);
+                return RedirectPermanent(componentViewModel.PreviousUrl);
+            }
+            return View(componentViewModel);
         }
 
         // GET: Components/Edit/5

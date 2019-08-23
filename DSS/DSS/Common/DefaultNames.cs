@@ -20,9 +20,13 @@
 
         public const string Name = "Наименование";
 
+        public const string Country = "Производитель";
+
         public const string Image = "Изображение";
 
         public const string Category = "Категория";
+
+        public const string Subcategory = "Подкатегория";
 
         public const string Subcategories = "Подкатегории";
 
@@ -31,5 +35,11 @@
         public const string Contact = "Контакты";
 
         public const string Properties = "Характеристики";
+
+        public const string Unit = "Единицы измерения";
+
+        public const string IsEnum = "Перечисляемое";
+
+        public const string Description = "Описание";
     }
 }

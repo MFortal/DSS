@@ -37,17 +37,11 @@ namespace DSS.Controllers
                 .Select(x => x.SubcategoryId)
                 .FirstOrDefault();
 
-            var categoryId = db.Subcategories
-                .Where(x => x.Id == subcategoryId)
-                .Select(x => x.CategoryId)
-                .FirstOrDefault();
-
             var allComponents = db.Components
                 .Where(x => x.SubcategoryId == subcategoryId);
 
             var thisComponent = db.Components
-                .Where(x => x.Name == component.Name)
-                .FirstOrDefault();
+                .FirstOrDefault(x => x.Name == component.Name);
 
             var otherComponents = db.Components
                 .Where(x => x.CountryId == DefaultNames.RusId)
@@ -58,12 +52,6 @@ namespace DSS.Controllers
                 .Select(x => x.Value.Property)
                 .Distinct()
                 .OrderBy(x => x.Id);
-
-            var values = allComponents
-                .SelectMany(x => x.Cells)
-                .Select(x => x.Value)
-                .Distinct();
-
 
             var tableHeader = new TableHeaderViewModel
             {

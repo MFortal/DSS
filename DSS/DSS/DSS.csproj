@@ -218,6 +218,10 @@
     <Compile Include="Migrations\201908211155083_DeleteImageFromSubCategory.Designer.cs">
       <DependentUpon>201908211155083_DeleteImageFromSubCategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908231930437_AddIsEnum.cs" />
+    <Compile Include="Migrations\201908231930437_AddIsEnum.Designer.cs">
+      <DependentUpon>201908231930437_AddIsEnum.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\DssContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -237,8 +241,9 @@
     <Compile Include="Models\Subcategory.cs" />
     <Compile Include="Models\SubcategoryProperty.cs" />
     <Compile Include="SourceSeed\UsersRolesInitializer.cs" />
+    <Compile Include="ViewModels\Component\PropertyViewModel.cs" />
+    <Compile Include="ViewModels\Component\CreateComponentViewModel.cs" />
     <Compile Include="ViewModels\DropDownSearchViewModel.cs" />
-    <Compile Include="ViewModels\SearchAnalogsViewModel.cs" />
     <Compile Include="ViewModels\SearchFilterViewModel.cs" />
     <Compile Include="Models\Value.cs" />
     <Compile Include="Models\Сategory.cs" />
@@ -346,6 +351,7 @@
     <Content Include="Views\Components\Details.cshtml" />
     <Content Include="Views\Components\Edit.cshtml" />
     <Content Include="Views\Components\Index.cshtml" />
+    <Content Include="Views\Components\GetSubcategories.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -392,6 +398,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908211155083_DeleteImageFromSubCategory.resx">
       <DependentUpon>201908211155083_DeleteImageFromSubCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908231930437_AddIsEnum.resx">
+      <DependentUpon>201908231930437_AddIsEnum.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

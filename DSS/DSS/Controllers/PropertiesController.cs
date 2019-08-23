@@ -46,7 +46,7 @@ namespace DSS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Unit,Description")] Property property)
+        public ActionResult Create([Bind(Include = "Id,Name,Unit,IsEnum,Description")] Property property)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace DSS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Unit,Description")] Property property)
+        public ActionResult Edit([Bind(Include = "Id,Name,Unit,IsEnum,Description")] Property property)
         {
             if (ModelState.IsValid)
             {

@@ -8,14 +8,18 @@ namespace DSS.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
         [Required]
         public string Name { get; set; }
+
         public string Unit { get; set; }
+
         public string Description { get; set; }
-        [NotMapped]
-        public bool isEnum { get; set; }
+
+        public bool IsEnum { get; set; }
 
         public virtual ICollection<SubcategoryProperty> SubcategoryProperties { get; set; }
+
         public virtual ICollection<Value> Values { get; set; }
     }
 }
