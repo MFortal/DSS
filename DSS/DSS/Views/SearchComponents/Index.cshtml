@@ -1,4 +1,5 @@
-﻿@model  DSS.ViewModels.SearchFilterViewModel
+﻿@using DSS.Common
+@model  DSS.ViewModels.SearchFilterViewModel
 
 @{
     ViewBag.Title = "Поиск компонентов";
@@ -95,3 +96,9 @@
 
 }
 <table class="table" id="results"></table>
+
+<div>
+    <button type="button" class="btn btn-light">
+        @Html.ActionLink(ButtonTexts.Create + ButtonTexts.ForComponent, "Create", "Components", new { subcategoryId = Model.DropDown.ThisSubcategory.Id}, null)
+    </button>
+</div>
