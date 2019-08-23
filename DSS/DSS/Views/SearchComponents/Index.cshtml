@@ -28,14 +28,14 @@
     <div class="dropdown-content">
         @foreach (var subcategory in Model.DropDown.OtherSubcategories)
         {
-            <a href="@Url.Action("Index", "SearchComponents", new { categoryId = ViewBag.categoryId, subcategoryId = subcategory.Id })">
+            <a href="@Url.Action("Index", "SearchComponents", new {subcategoryId = subcategory.Id })">
                 @subcategory.Name
             </a>
         }
     </div>
 </div>
 
-@using (Ajax.BeginForm("ShowResult", "SearchComponents", new AjaxOptions { UpdateTargetId = "results"}))
+@using (Ajax.BeginForm("ShowResult", "SearchComponents", new AjaxOptions { UpdateTargetId = "results" }))
 {
     @Html.HiddenFor(m => m.DropDown.ThisSubcategory.Id)
     <div class="flex">

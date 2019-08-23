@@ -10,23 +10,37 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    <style>
+        .li-menu:hover {
+            background-color: rgb(66,64,64);
+        }
+
+        .li-brand {
+            padding-left: 15px;
+        }
+    </style>
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <div class="navbar-header">
+            <div class="navbar-header act">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("ИEC", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <ul class="nav navbar-nav nav-divider">
+                    <li class="li-brand li-menu">
+                        @Html.ActionLink("ИEC", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    </li>
+                </ul>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink(DefaultNames.CatalogComponents, "Index", "Categories")</li>
-                    <li>@Html.ActionLink(DefaultNames.SearchAnalogs, "Index", "SearchAnalogs")</li>
-                    <li>@Html.ActionLink(DefaultNames.Contact, "Contact", "Home")</li>
+                    <li class="li-menu">@Html.ActionLink(DefaultNames.CatalogComponents, "Index", "Categories")</li>
+                    <li class="li-menu">@Html.ActionLink(DefaultNames.SearchAnalogs, "Index", "SearchAnalogs")</li>
+                    <li class="li-menu">@Html.ActionLink(DefaultNames.Contact, "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
