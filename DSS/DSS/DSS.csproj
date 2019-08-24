@@ -337,10 +337,6 @@
     <Content Include="Views\Subcategories\Delete.cshtml" />
     <Content Include="Views\Subcategories\Edit.cshtml" />
     <Content Include="Views\Properties\Create.cshtml" />
-    <Content Include="Views\Properties\Delete.cshtml" />
-    <Content Include="Views\Properties\Details.cshtml" />
-    <Content Include="Views\Properties\Edit.cshtml" />
-    <Content Include="Views\Properties\Index.cshtml" />
     <Content Include="Views\Subcategories\Details.cshtml" />
     <Content Include="Views\Components\Create.cshtml" />
     <Content Include="Views\Components\Delete.cshtml" />
