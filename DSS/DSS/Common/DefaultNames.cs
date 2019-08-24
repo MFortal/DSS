@@ -14,6 +14,8 @@
 
         public const string CatalogComponents = "Каталог компонентов";
 
+        public const string SearchComponents = "Поиск компонентов";
+
         public const string SearchAnalogs = "Поиск аналогов";
 
         public const string AddComponent = "Добавление компонента";

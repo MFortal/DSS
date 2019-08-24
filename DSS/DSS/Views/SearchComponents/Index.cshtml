@@ -2,10 +2,10 @@
 @model  DSS.ViewModels.SearchFilterViewModel
 
 @{
-    ViewBag.Title = "Поиск компонентов";
+    ViewBag.Title = DefaultNames.SearchComponents;
 }
 
-<h3>Поиск компонентов</h3>
+<h3>@DefaultNames.SearchComponents</h3>
 
 <div class="dropdown">
     <div class="dropbtn">
@@ -56,7 +56,7 @@
                 var value = Model.CountryProperty.ValueChecked[i];
                 <p>
                     @Html.CheckBoxFor(m => m.CountryProperty.ValueChecked[i].Checked, false)
-                    @Html.LabelFor(m => m.CountryProperty.ValueChecked[i].Checked, value.Name)
+                    @Html.LabelFor(m => m.CountryProperty.ValueChecked[i].Checked, value.Name,  new { @class = "font-weight-normal" } )
                     @Html.HiddenFor(m => m.CountryProperty.ValueChecked[i].Id)
                 </p>
             }
@@ -82,7 +82,7 @@
                     var value = Model.Properties[p].ValueChecked[i];
                     <p>
                         @Html.CheckBoxFor(m => m.Properties[p].ValueChecked[i].Checked, false)
-                        @Html.LabelFor(m => m.Properties[p].ValueChecked[i].Checked, value.Name)
+                        @Html.LabelFor(m => m.Properties[p].ValueChecked[i].Checked, value.Name, new { @class = "font-weight-normal" })
                         @Html.HiddenFor(m => m.Properties[p].ValueChecked[i].Id)
                     </p>
                 }
@@ -98,9 +98,7 @@
 <table class="table" id="results"></table>
 
 <div>
-    <button type="button" class="btn btn-light">
-        @Html.ActionLink(ButtonTexts.Create + ButtonTexts.ForComponent, "Create", "Components", new { subcategoryId = Model.DropDown.ThisSubcategory.Id }, null)
-    </button>
+    <a class="btn btn-primary" href="@Url.Action( "Create", "Components", new { subcategoryId = Model.DropDown.ThisSubcategory.Id })">@ButtonTexts.Create @ButtonTexts.ForComponent</a>
 </div>
 
 @Scripts.Render("~/bundles/jquery")
