@@ -6,6 +6,8 @@
 
         public const string BlobsImagesPath = "../../Images/Blobs/";
 
+        public const string CountriesImagesPath = "../../Images/Countries/";
+
         public const string HomeImageName = "image.jpg";
 
         public const string Contact1ImageName = "contact1.jpg";

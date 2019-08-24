@@ -1,4 +1,5 @@
-﻿@model DSS.ViewModels.SearchResultViewModel
+﻿@using DSS.Common
+@model DSS.ViewModels.SearchResultViewModel
 
 <table id="results">
     <tr>
@@ -20,13 +21,13 @@
     {
         <tr>
             <td>
-                <a href="@Url.Action("Details", "SearchComponents", new { id = row.ComponentId })" class="component">
+                <a href="@Url.Action("Details", "Components", new { id = row.ComponentId })" class="component">
                     @Html.DisplayFor(x => row.ComponentName)
                 </a>
             </td>
             <td>
                 <sup>
-                    <img src="../../Images/Countries/@Html.DisplayFor(x => row.CountryFlag)" width="20" height="20" />
+                    <img src="@DefaultPaths.CountriesImagesPath@Html.DisplayFor(x => row.CountryFlag)" width="20" height="20" />
                 </sup>
                 @row.CountryName
             </td>

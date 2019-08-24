@@ -17,5 +17,7 @@
         public const string ForProperty = " характеристики";
 
         public const string ForComponent = " компонента";
+
+        public const string ConfirmDelete = "Уверены, что хотите удалить этот элемент?";
     }
 }

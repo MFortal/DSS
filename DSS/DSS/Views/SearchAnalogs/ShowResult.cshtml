@@ -1,4 +1,5 @@
-﻿@model DSS.ViewModels.SearchResultViewModel
+﻿@using DSS.Common
+@model DSS.ViewModels.SearchResultViewModel
 
 <table id="results">
     @if (Model != null)
@@ -26,7 +27,7 @@
             </td>
             <td>
                 <sup>
-                    <img src="../../Images/Countries/@Html.DisplayFor(x => Model.ThisComponentRow.CountryFlag)" width="20" height="20" />
+                    <img src="@DefaultPaths.CountriesImagesPath@Html.DisplayFor(x => Model.ThisComponentRow.CountryFlag)" width="20" height="20" />
                 </sup>
                 @Model.ThisComponentRow.CountryName
             </td>

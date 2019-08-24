@@ -1,17 +1,17 @@
-﻿@model DSS.Models.Component
+﻿@using DSS.Common
+@model DSS.Models.Component
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = HeaderTexts.Details + HeaderTexts.ForComponent;
 }
 
-<h2>Details</h2>
+<h2>@HeaderTexts.Details@HeaderTexts.ForComponent</h2>
 
 <div>
-    <h4>Component</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Country.Name)
+            @DefaultNames.Country
         </dt>
 
         <dd>
@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Subcategory.Name)
+            @DefaultNames.Subcategory
         </dt>
 
         <dd>
@@ -27,27 +27,24 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @DefaultNames.Name
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
 
+<td>
+    <a class="btn btn-default a-text" href="@Url.Action("Index", "SearchComponents", new {subcategoryId = Model.SubcategoryId})">@ButtonTexts.Back</a>
+
+    @if (User.IsInRole(DefaultRoles.Admin))
+    {
+        <a class="btn btn-primary a-text" href="@Url.Action("Edit", new {id = Model.Id})">@ButtonTexts.Edit</a>
+        <a class="btn btn-danger a-text" href="@Url.Action("Delete", new {id = Model.Id})">@ButtonTexts.Delete</a>
+    }
+
+</td>
 
 @Scripts.Render("~/bundles/jquery")

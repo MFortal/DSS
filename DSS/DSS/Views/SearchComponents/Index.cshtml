@@ -46,7 +46,7 @@
                 @if (Model.CountryProperty.Description != null)
                 {
                     <sup>
-                        <img src="../../Images/Blobs/question.png"
+                        <img src="@(DefaultPaths.BlobsImagesPath+"question.png")"
                              width="15px" height="15px" title="@Model.CountryProperty.Description" />
                     </sup>
                 }
@@ -72,7 +72,7 @@
                     @if (Model.Properties[p].Description != null)
                     {
                         <sup>
-                            <img src="../../Images/Blobs/question.png"
+                            <img src="@(DefaultPaths.BlobsImagesPath+"question.png")"
                                  width="15px" height="15px" title="@Model.Properties[p].Description" />
                         </sup>
                     }
