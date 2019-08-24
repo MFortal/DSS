@@ -38,9 +38,9 @@
                         @subcategory.Name
                     </li>
                     <p>
-                        <a class="btn btn-primary a-text" href="@Url.Action("Edit", "Subcategories", new { id = subcategory.Id})">@ButtonTexts.Edit</a>
-                        <a class="btn btn-info a-text" href="@Url.Action("Details", "Subcategories", new { id = subcategory.Id})">@ButtonTexts.Details</a>
-                        <a class="btn btn-danger a-text" href="@Url.Action("Delete", "Subcategories", new {id = subcategory.Id})">@ButtonTexts.Delete</a>
+                        <a class="btn btn-primary " href="@Url.Action("Edit", "Subcategories", new { id = subcategory.Id})">@ButtonTexts.Edit</a>
+                        <a class="btn btn-info " href="@Url.Action("Details", "Subcategories", new { id = subcategory.Id})">@ButtonTexts.Details</a>
+                        <a class="btn btn-danger " href="@Url.Action("Delete", "Subcategories", new {id = subcategory.Id})">@ButtonTexts.Delete</a>
                     </p>
                 }
             </ul>
@@ -50,7 +50,7 @@
 </div>
 <div>
     @Html.ActionLink(ButtonTexts.Back, "Index") |
-    <a class="btn btn-success a-text" href="@Url.Action("Create", "Subcategories")">@ButtonTexts.Create @ButtonTexts.ForSubcategory</a>
+    <a class="btn btn-success " href="@Url.Action("Create", "Subcategories")">@ButtonTexts.Create @ButtonTexts.ForSubcategory</a>
 </div>
 
 

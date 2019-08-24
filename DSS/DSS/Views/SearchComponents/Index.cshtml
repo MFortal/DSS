@@ -14,7 +14,7 @@
     <div class="dropdown-content">
         @foreach (var category in Model.DropDown.OtherCategories)
         {
-            <a href="@Url.Action("Index", "SearchComponents", new { categoryId = category.Id })">
+            <a href="@Url.Action("Index", "SearchComponents", new { categoryId = category.Id })" class="a-not-margin">
                 @category.Name
             </a>
         }
@@ -28,7 +28,7 @@
     <div class="dropdown-content">
         @foreach (var subcategory in Model.DropDown.OtherSubcategories)
         {
-            <a href="@Url.Action("Index", "SearchComponents", new {subcategoryId = subcategory.Id })">
+            <a href="@Url.Action("Index", "SearchComponents", new {subcategoryId = subcategory.Id })" class="a-not-margin">
                 @subcategory.Name
             </a>
         }

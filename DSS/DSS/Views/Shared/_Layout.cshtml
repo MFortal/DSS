@@ -22,15 +22,15 @@
                 </button>
                 <ul class="nav navbar-nav nav-divider">
                     <li class="li-brand li-menu">
-                        @Html.ActionLink("ИEC", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                        @Html.ActionLink("ИEC", "Index", "Home", new { area = "" }, new { @class = "navbar-brand a-not-margin" })
                     </li>
                 </ul>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="li-menu">@Html.ActionLink(DefaultNames.CatalogComponents, "Index", "Categories")</li>
-                    <li class="li-menu">@Html.ActionLink(DefaultNames.SearchAnalogs, "Index", "SearchAnalogs")</li>
-                    <li class="li-menu">@Html.ActionLink(DefaultNames.Contact, "Contact", "Home")</li>
+                    <li class="li-menu"><a class="a-not-margin" href="@Url.Action("Index", "Categories")">@DefaultNames.CatalogComponents</a></li>
+                    <li class="li-menu"> <a class="a-not-margin" href="@Url.Action( "Index", "SearchAnalogs")">@DefaultNames.SearchAnalogs</a></li>
+                    <li class="li-menu"><a class="a-not-margin" href="@Url.Action("Contact", "Home")">@DefaultNames.Contact</a></li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

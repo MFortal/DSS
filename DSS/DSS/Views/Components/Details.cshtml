@@ -37,12 +37,12 @@
 </div>
 
 <td>
-    <a class="btn btn-default a-text" href="@Url.Action("Index", "SearchComponents", new {subcategoryId = Model.SubcategoryId})">@ButtonTexts.Back</a>
+    <a class="btn btn-default" href="@Url.Action("Index", "SearchComponents", new {subcategoryId = Model.SubcategoryId})">@ButtonTexts.Back</a>
 
     @if (User.IsInRole(DefaultRoles.Admin))
     {
-        <a class="btn btn-primary a-text" href="@Url.Action("Edit", new {id = Model.Id})">@ButtonTexts.Edit</a>
-        <a class="btn btn-danger a-text" href="@Url.Action("Delete", new {id = Model.Id})">@ButtonTexts.Delete</a>
+        <a class="btn btn-primary" href="@Url.Action("Edit", new {id = Model.Id})">@ButtonTexts.Edit</a>
+        <a class="btn btn-danger" href="@Url.Action("Delete", new {id = Model.Id})">@ButtonTexts.Delete</a>
     }
 
 </td>

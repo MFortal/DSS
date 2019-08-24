@@ -54,9 +54,6 @@ h2, h3 {
     margin: 35px;
 }
 
-h3{
-    margin-top:150px;
-}
 
 /*Styles for Home/Contact*/
 .flex-cntct {
@@ -89,9 +86,6 @@ h3{
     font-style: italic;
 }
 
-h3 {
-    margin-top: 10px;
-}
 
 .address {
     margin-top: 20px;
@@ -122,15 +116,6 @@ h3 {
 
     .a-category:hover {
         color: darkblue;
-    }
-
-.a-text {
-    color: white;
-    font-weight: bold;
-}
-
-    .a-text:hover {
-        color: azure;
     }
 
 .img-category {
@@ -213,7 +198,7 @@ sup {
 }
 
 .font-weight-normal {
-    font-weight:normal;
+    font-weight: normal;
 }
 
 .component {
@@ -280,4 +265,12 @@ dd, dt {
 
 .li-brand {
     padding-left: 15px;
+}
+
+a {
+    margin: 5px;
+}
+
+a.a-not-margin {
+    margin: 0;
 }
