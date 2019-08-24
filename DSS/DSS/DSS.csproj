@@ -329,10 +329,6 @@
     <Content Include="Views\Categories\Details.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
-    <Content Include="Views\SearchComponents\Create.cshtml" />
-    <Content Include="Views\SearchComponents\Delete.cshtml" />
-    <Content Include="Views\SearchComponents\Details.cshtml" />
-    <Content Include="Views\SearchComponents\Edit.cshtml" />
     <Content Include="Views\SearchComponents\Index.cshtml" />
     <Content Include="Views\SearchComponents\ShowResult.cshtml" />
     <Content Include="Views\SearchAnalogs\Index.cshtml" />
@@ -350,8 +346,6 @@
     <Content Include="Views\Components\Delete.cshtml" />
     <Content Include="Views\Components\Details.cshtml" />
     <Content Include="Views\Components\Edit.cshtml" />
-    <Content Include="Views\Components\Index.cshtml" />
-    <Content Include="Views\Components\GetSubcategories.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

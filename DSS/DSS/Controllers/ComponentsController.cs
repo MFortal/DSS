@@ -153,7 +153,7 @@ namespace DSS.Controllers
             {
                 db.Entry(component).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "SearchComponents", new { subcategoryId = component.SubcategoryId });
             }
             ViewBag.CountryId = new SelectList(db.Countries, "Id", "Name", component.CountryId);
             ViewBag.SubcategoryId = new SelectList(db.Subcategories, "Id", "Name", component.SubcategoryId);
@@ -178,12 +178,12 @@ namespace DSS.Controllers
         // POST: Components/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, int subcategoryId)
         {
             Component component = db.Components.Find(id);
             db.Components.Remove(component);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "SearchComponents", new { subcategoryId = subcategoryId});
         }
 
         protected override void Dispose(bool disposing)

@@ -2,7 +2,7 @@
 @model DSS.Models.Property
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = HeaderTexts.Create + HeaderTexts.ForProperty;
 }
 
 <h2>@HeaderTexts.Create@HeaderTexts.ForProperty</h2>
@@ -56,7 +56,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink(@ButtonTexts.Back, "Index", "SearchComponents")
 </div>
 
 @section Scripts {
