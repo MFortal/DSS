@@ -50,10 +50,13 @@ textarea {
         text-indent: 25px;
     }
 
-h2 {
+h2, h3 {
     margin: 35px;
 }
 
+h3{
+    margin-top:150px;
+}
 
 /*Styles for Home/Contact*/
 .flex-cntct {
@@ -163,7 +166,7 @@ h3 {
     margin: 0 auto;
 }
 
-p {
+p, label {
     font-size: 16px;
 }
 
@@ -193,7 +196,7 @@ p {
 }
 
 .flex-btn {
-    margin: 5px;
+    margin-left: 5px;
 }
 
 .nameProperty {
@@ -205,8 +208,12 @@ sup {
     cursor: help;
 }
 
-#results {
-    margin-top: 50px;
+#results, .table-component {
+    margin-top: 20px;
+}
+
+.font-weight-normal {
+    font-weight:normal;
 }
 
 .component {
