@@ -1,62 +1,37 @@
 ﻿@model DSS.ViewModels.SearchResultViewModel
 
 <table id="results">
-    <tr>
-        <th>
-            @Html.Label(Model.TableHeader.ComponentNameColumnName)
-        </th>
-        <th>
-            @Html.Label(Model.TableHeader.CountryColumnName)
-        </th>
-        @foreach (var propertyName in Model.TableHeader.PropertyColumnNames)
-        {
-            <th>
-                @Html.Label(propertyName)
-            </th>
-        }
-    </tr>
-
-    <tr class="thisComponent">
-        <td>
-            <a href="@Url.Action("Details", "SearchComponents", new { id = Model.ThisComponentRow.ComponentId })" class="component">
-                @Html.DisplayFor(x => Model.ThisComponentRow.ComponentName)
-            </a>
-        </td>
-        <td>
-            <sup>
-                <img src="../../Images/Countries/@Html.DisplayFor(x => Model.ThisComponentRow.CountryFlag)" width="20" height="20" />
-            </sup>
-            @Model.ThisComponentRow.CountryName
-        </td>
-
-        @foreach (var cell in Model.ThisComponentRow.Cells)
-        {
-            <td>
-                @cell.Value
-                @if (@cell.Unit != null)
-                {
-                    <span> [@cell.Unit]</span>
-                }
-            </td>
-        }
-    </tr>
-
-    @foreach (var row in Model.Rows)
+    @if (Model != null)
     {
         <tr>
+            <th>
+                @Html.Label(Model.TableHeader.ComponentNameColumnName)
+            </th>
+            <th>
+                @Html.Label(Model.TableHeader.CountryColumnName)
+            </th>
+            @foreach (var propertyName in Model.TableHeader.PropertyColumnNames)
+            {
+                <th>
+                    @Html.Label(propertyName)
+                </th>
+            }
+        </tr>
+
+        <tr class="thisComponent">
             <td>
-                <a href="@Url.Action("Details", "SearchComponents", new { id = row.ComponentId })" class="component">
-                    @Html.DisplayFor(x => row.ComponentName)
+                <a href="@Url.Action("Details", "SearchComponents", new { id = Model.ThisComponentRow.ComponentId })" class="component">
+                    @Html.DisplayFor(x => Model.ThisComponentRow.ComponentName)
                 </a>
             </td>
             <td>
                 <sup>
-                    <img src="../../Images/Countries/@Html.DisplayFor(x => row.CountryFlag)" width="20" height="20" />
+                    <img src="../../Images/Countries/@Html.DisplayFor(x => Model.ThisComponentRow.CountryFlag)" width="20" height="20" />
                 </sup>
-                @row.CountryName
+                @Model.ThisComponentRow.CountryName
             </td>
 
-            @foreach (var cell in row.Cells)
+            @foreach (var cell in Model.ThisComponentRow.Cells)
             {
                 <td>
                     @cell.Value
@@ -66,6 +41,42 @@
                     }
                 </td>
             }
+        </tr>
+
+        foreach (var row in Model.Rows)
+        {
+            <tr>
+                <td>
+                    <a href="@Url.Action("Details", "SearchComponents", new { id = row.ComponentId })" class="component">
+                        @Html.DisplayFor(x => row.ComponentName)
+                    </a>
+                </td>
+                <td>
+                    <sup>
+                        <img src="../../Images/Countries/@Html.DisplayFor(x => row.CountryFlag)" width="20" height="20" />
+                    </sup>
+                    @row.CountryName
+                </td>
+
+                @foreach (var cell in row.Cells)
+                {
+                    <td>
+                        @cell.Value
+                        @if (@cell.Unit != null)
+                        {
+                            <span> [@cell.Unit]</span>
+                        }
+                    </td>
+                }
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td>
+                <p class="text-info text-center">Такого компонента нет!</p>
+            </td>
         </tr>
     }
 </table>

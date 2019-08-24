@@ -10,16 +10,6 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-    <style>
-        .li-menu:hover {
-            background-color: rgb(66,64,64);
-        }
-
-        .li-brand {
-            padding-left: 15px;
-        }
-    </style>
-
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -54,7 +44,6 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("Scripts", required: false)
 </body>

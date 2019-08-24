@@ -32,6 +32,13 @@ namespace DSS.Controllers
 
         public ActionResult ShowResult(Component component)
         {
+            var c = db.Components.Select(x => x.Name).ToList();
+
+            if (!c.Contains(component.Name))
+            {
+                return PartialView(null);
+            }
+
             var subcategoryId = db.Components
                 .Where(x => x.Name == component.Name)
                 .Select(x => x.SubcategoryId)

@@ -266,3 +266,11 @@ dd, dt {
     font-size: 16px;
 }
 
+
+.li-menu:hover {
+    background-color: rgb(66,64,64);
+}
+
+.li-brand {
+    padding-left: 15px;
+}
