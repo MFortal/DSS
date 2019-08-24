@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Web.Mvc;
 using DSS.Common;
 using DSS.Models;
@@ -114,6 +113,7 @@ namespace DSS.Controllers
                     PropertyId = x.Id,
                     Description = x.Description,
                     PropertyName = x.Name,
+                    IsEnum = x.IsEnum,
                     Unit = x.Unit,
                     ValueChecked = values
                     .Where(v => v.PropertyId == x.Id)
@@ -122,7 +122,7 @@ namespace DSS.Controllers
                     {
                         Id = v.Id,
                         Name = v.PropertyValue,
-                        Checked = false
+                        Checked = false   
                     })
                     .ToArray()
                 })
@@ -199,16 +199,26 @@ namespace DSS.Controllers
 
         private bool CheckByProperty(Component component, FilterPropertyViewModel filterProperty)
         {
-            if (!filterProperty.ValueChecked.Any(x => x.Checked))
+            var value = component.Cells.FirstOrDefault(x => x.Value.PropertyId == filterProperty.PropertyId)?.Value;
+            if (value == null)
             {
                 return true;
             }
-            var value = component.Cells.FirstOrDefault(x => x.Value.PropertyId == filterProperty.PropertyId)?.Value;
 
-            return value == null
-                || filterProperty.ValueChecked
-                .Where(x => x.Checked)
-                .Any(x => x.Id == value.Id);
+            if (filterProperty.IsEnum)
+            {
+                if (!filterProperty.ValueChecked.Any(x => x.Checked))
+                {
+                    return true;
+                }               
+                return filterProperty.ValueChecked
+                           .Where(x => x.Checked)
+                           .Any(x => x.Id == value.Id);
+            }
+
+            return double.TryParse(value.PropertyValue, out var doubleValue) 
+                   && (!filterProperty.Min.HasValue || doubleValue >= filterProperty.Min) 
+                   && (!filterProperty.Max.HasValue || doubleValue <= filterProperty.Max);
         }
         private bool CheckByCountry(Component component, FilterPropertyViewModel filterCountry)
         {
@@ -220,21 +230,6 @@ namespace DSS.Controllers
             return filterCountry.ValueChecked
                 .Where(x => x.Checked)
                 .Any(x => x.Id == component.CountryId);
-        }
-
-        // GET: SearchComponents/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Component component = db.Components.Find(id);
-            if (component == null)
-            {
-                return HttpNotFound();
-            }
-            return View(component);
         }
 
         protected override void Dispose(bool disposing)

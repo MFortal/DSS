@@ -43,5 +43,9 @@
         public const string IsEnum = "Перечисляемое";
 
         public const string Description = "Описание";
+
+        public const string Min = "От";
+
+        public const string Max = "До";
     }
 }

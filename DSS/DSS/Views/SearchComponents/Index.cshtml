@@ -56,7 +56,7 @@
                 var value = Model.CountryProperty.ValueChecked[i];
                 <p>
                     @Html.CheckBoxFor(m => m.CountryProperty.ValueChecked[i].Checked, false)
-                    @Html.LabelFor(m => m.CountryProperty.ValueChecked[i].Checked, value.Name,  new { @class = "font-weight-normal" } )
+                    @Html.LabelFor(m => m.CountryProperty.ValueChecked[i].Checked, value.Name, new { @class = "font-weight-normal" })
                     @Html.HiddenFor(m => m.CountryProperty.ValueChecked[i].Id)
                 </p>
             }
@@ -68,6 +68,7 @@
                 <p class="nameProperty">
                     @Html.Label(Model.Properties[p].PropertyName)
                     @Html.HiddenFor(m => m.Properties[p].PropertyId)
+                    @Html.HiddenFor(m => m.Properties[p].IsEnum)
                     @Html.HiddenFor(m => m.Properties[p].PropertyName)
                     @if (Model.Properties[p].Description != null)
                     {
@@ -77,15 +78,32 @@
                         </sup>
                     }
                 </p>
-                @for (var i = 0; i < Model.Properties[p].ValueChecked.Length; i++)
+
+                @if (Model.Properties[p].IsEnum)
                 {
-                    var value = Model.Properties[p].ValueChecked[i];
+                    for (var i = 0; i < Model.Properties[p].ValueChecked.Length; i++)
+                    {
+                        var value = Model.Properties[p].ValueChecked[i];
+                        <p>
+                            @Html.CheckBoxFor(m => m.Properties[p].ValueChecked[i].Checked, false)
+                            @Html.LabelFor(m => m.Properties[p].ValueChecked[i].Checked, value.Name, new { @class = "font-weight-normal" })
+                            @Html.HiddenFor(m => m.Properties[p].ValueChecked[i].Id)
+                        </p>
+                    }
+                }
+                else
+                {
                     <p>
-                        @Html.CheckBoxFor(m => m.Properties[p].ValueChecked[i].Checked, false)
-                        @Html.LabelFor(m => m.Properties[p].ValueChecked[i].Checked, value.Name, new { @class = "font-weight-normal" })
-                        @Html.HiddenFor(m => m.Properties[p].ValueChecked[i].Id)
+                        @Html.LabelFor(m => m.Properties[p].Min, DefaultNames.Min, new { @class = "font-weight-normal" })
+                        @Html.EditorFor(m => m.Properties[p].Min) [ @Model.Properties[p].Unit ]
+                    </p>
+                    <p>
+                        @Html.LabelFor(m => m.Properties[p].Max, DefaultNames.Max, new { @class = "font-weight-normal" })
+                        @Html.EditorFor(m => m.Properties[p].Max) [ @Model.Properties[p].Unit ]
                     </p>
                 }
+
+
             </div>
         }
     </div>
