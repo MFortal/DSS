@@ -99,6 +99,8 @@
 
 <div>
     <button type="button" class="btn btn-light">
-        @Html.ActionLink(ButtonTexts.Create + ButtonTexts.ForComponent, "Create", "Components", new { subcategoryId = Model.DropDown.ThisSubcategory.Id}, null)
+        @Html.ActionLink(ButtonTexts.Create + ButtonTexts.ForComponent, "Create", "Components", new { subcategoryId = Model.DropDown.ThisSubcategory.Id }, null)
     </button>
 </div>
+
+@Scripts.Render("~/bundles/jquery")

@@ -35,7 +35,7 @@
                 @foreach (var subcategory in Model.Subcategories)
                 {
                     <li>
-                            @subcategory.Name
+                        @subcategory.Name
                     </li>
                     <p>
                         <a class="btn btn-primary a-text" href="@Url.Action("Edit", "Subcategories", new { id = subcategory.Id})">@ButtonTexts.Edit</a>
@@ -52,3 +52,6 @@
     @Html.ActionLink(ButtonTexts.Back, "Index") |
     <a class="btn btn-success a-text" href="@Url.Action("Create", "Subcategories")">@ButtonTexts.Create @ButtonTexts.ForSubcategory</a>
 </div>
+
+
+@Scripts.Render("~/bundles/jquery")
