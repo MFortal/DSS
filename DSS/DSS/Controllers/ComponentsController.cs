@@ -141,7 +141,7 @@ namespace DSS.Controllers
                     Name = x.Name,
                     Description = x.Description,
                     Unit = x.Unit,
-                    Value = component.Cells.AsEnumerable().FirstOrDefault(c => c.Value.PropertyId == x.Id).Value.PropertyValue,
+                    Value = component.Cells.AsEnumerable().FirstOrDefault(c => c.Value.PropertyId == x.Id)?.Value.PropertyValue,
                 })
                 .OrderBy(x => x.Name)
                 .ToArray();
