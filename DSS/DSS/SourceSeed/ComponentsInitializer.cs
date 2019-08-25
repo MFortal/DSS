@@ -25,6 +25,10 @@ namespace DSS.SourceSeed
                 new Component{Id=20, Name="LMH6734MQ/NOPB", Image="6.gif", SubcategoryId=2, CountryId=3 },
                 new Component{Id=21, Name="LMH6738MQ/NOPB", Image="6.gif", SubcategoryId=2, CountryId=3 },
                 new Component{Id=22, Name="UPC3221GV-IOY98", Image="6.gif", SubcategoryId=2, CountryId=5 },
+                new Component{Id=30, Name="221GV-IOY98", Image="6.gif", SubcategoryId=2, CountryId=1 },
+                new Component{Id=31, Name="PC398", Image="6.gif", SubcategoryId=2, CountryId=1 },
+                new Component{Id=32, Name="IOY98", Image="6.gif", SubcategoryId=2, CountryId=1 },
+                new Component{Id=33, Name="TY3221G8", Image="6.gif", SubcategoryId=2, CountryId=1 },
 
                 new Component{Id=10, Name="AD1940YST", Image="7.gif", SubcategoryId=3, CountryId=5 },
                 new Component{Id=11, Name="AD1941YSTZ-76", Image="8.gif", SubcategoryId=3, CountryId=3 },
