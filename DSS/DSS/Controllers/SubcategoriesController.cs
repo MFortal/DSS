@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -34,10 +35,11 @@ namespace DSS.Controllers
             var subcategory = new Subcategory()
             {
                 Name = subcategoryViewModel.Name,
-                CategoryId = subcategoryViewModel.SelectedCategoryId
+                CategoryId = subcategoryViewModel.SelectedCategoryId,
+                SubcategoryProperties = new List<SubcategoryProperty>()
             };
 
-            foreach (var selectedPropertyId in subcategoryViewModel.SelectedPropertyIds)
+            foreach (var selectedPropertyId in subcategoryViewModel.SelectedPropertyIds ?? Array.Empty<int>())
             {
                 db.SubcategoryProperties.Add(
                     new SubcategoryProperty()
@@ -55,7 +57,7 @@ namespace DSS.Controllers
             }
 
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", subcategory.CategoryId);
-            return View(subcategory);
+            return View(subcategoryViewModel);
         }
 
         [Authorize(Roles = DefaultRoles.Admin)]

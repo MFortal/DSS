@@ -95,11 +95,19 @@
                 {
                     <p>
                         @Html.LabelFor(m => m.Properties[p].Min, DefaultNames.Min, new { @class = "font-weight-normal" })
-                        @Html.EditorFor(m => m.Properties[p].Min) [ @Model.Properties[p].Unit ]
+                        @Html.EditorFor(m => m.Properties[p].Min)
+                        @if (!string.IsNullOrEmpty(Model.Properties[p].Unit))
+                        {
+                            <span>[ @Model.Properties[p].Unit ]</span>
+                        }
                     </p>
                     <p>
                         @Html.LabelFor(m => m.Properties[p].Max, DefaultNames.Max, new { @class = "font-weight-normal" })
-                        @Html.EditorFor(m => m.Properties[p].Max) [ @Model.Properties[p].Unit ]
+                        @Html.EditorFor(m => m.Properties[p].Max)
+                        @if (!string.IsNullOrEmpty(Model.Properties[p].Unit))
+                        {
+                            <span>[ @Model.Properties[p].Unit ]</span>
+                        }
                     </p>
                 }
 
