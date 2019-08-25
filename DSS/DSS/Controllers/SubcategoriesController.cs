@@ -107,9 +107,9 @@ namespace DSS.Controllers
                 Id = subcategory.Id,
                 Name = subcategory.Name,
                 Categories = new SelectList(db.Categories, "Id", "Name", categoryId),
-                Properties = new SelectList(db.Properties, "Id", "Name", propertyIds),
+                Properties = new SelectList(db.Properties.OrderBy(x => x.Name), "Id", "Name", propertyIds),
                 SelectedCategoryId = subcategory.CategoryId,
-                SelectedPropertyIds = propertyIds,
+                SelectedPropertyIds = propertyIds
             };
 
             return View(model);
