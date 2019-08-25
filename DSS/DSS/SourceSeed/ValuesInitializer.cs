@@ -173,40 +173,61 @@ namespace DSS.SourceSeed
 
                 #endregion
 
-                //new Value{PropertyId=3, PropertyValue="Наушники, 1 канал (Моно)"},
-                //new Value{PropertyId=3, PropertyValue="Наушники, 2 канала (Стерео)"},
-                //new Value{PropertyId=3, PropertyValue="Differential"},
-                //new Value{PropertyId=3, PropertyValue="Push-Pull"},
+                //Обработка звука
+                #region 20
+                
+                new Value{PropertyId=20, PropertyValue="ADPCM Processor"},
+                new Value{PropertyId=20, PropertyValue="Amplifier"},
+                new Value{PropertyId=20, PropertyValue="Audio"},
+                new Value{PropertyId=20, PropertyValue="Audio Amp"},
+                new Value{PropertyId=20, PropertyValue="Audio Attenuator"},
+                new Value{PropertyId=20, PropertyValue="Audio Limiter"},
+                new Value{PropertyId=20, PropertyValue="Audio Processor"},
+                new Value{PropertyId=20, PropertyValue="Audio Suppressor"},
 
-                //new Value{PropertyId=5, PropertyValue="CATV"},
-                //new Value{PropertyId=5, PropertyValue="Driver"},
+                #endregion
 
-                //new Value{PropertyId=6, PropertyValue="1"},
-                //new Value{PropertyId=6, PropertyValue="2"},
-                //new Value{PropertyId=6, PropertyValue="3"},
-                //new Value{PropertyId=6, PropertyValue="4"},
-                //new Value{PropertyId=6, PropertyValue="5"},
+                #region 21
 
-                //new Value{PropertyId=9, PropertyValue="450"},
-                //new Value{PropertyId=9, PropertyValue="550"},
-                //new Value{PropertyId=9, PropertyValue="600"},
-                //new Value{PropertyId=9, PropertyValue="1250"},
+                new Value{PropertyId=21, PropertyValue="Amplifiers, Consoles, Processers, Receivers"},
+                new Value{PropertyId=21, PropertyValue="Audio routing, processing"},
+                new Value{PropertyId=21, PropertyValue="Automotive Audio"},
+                new Value{PropertyId=21, PropertyValue="Cell Phones, PC, MIDI"},
+                new Value{PropertyId=21, PropertyValue="Desktop Audio, MP3, USB"},
+                new Value{PropertyId=21, PropertyValue="TV, HI-FI Systems"},
 
-                //new Value{PropertyId=2, PropertyValue="Apex Precision Power™"},
-                //new Value{PropertyId=2, PropertyValue="LT®"},
-                //new Value{PropertyId=2, PropertyValue="VIP10™"},
+                #endregion
 
-                //new Value{PropertyId=3, PropertyValue="Rail-to-Rail"},
+                #region 22
 
-                //new Value{PropertyId=5, PropertyValue="Buffer"},
-                //new Value{PropertyId=5, PropertyValue="DC Restoration"},
+                new Value{PropertyId=22, PropertyValue="Поверхностный монтаж"},
+                new Value{PropertyId=22, PropertyValue="Through Hole"},
 
-                //new Value{PropertyId=10, PropertyValue="800"},
-                //new Value{PropertyId=10, PropertyValue="1000"},
-                //new Value{PropertyId=10, PropertyValue="2000"},
-                //new Value{PropertyId=10, PropertyValue="9000"},
-                //new Value{PropertyId=10, PropertyValue="100"}
-            };
+                #endregion
+
+                #region 23
+
+                new Value{PropertyId=23, PropertyValue="8-DIP"},
+                new Value{PropertyId=23, PropertyValue="8-SOP"},
+                new Value{PropertyId=23, PropertyValue="10-UMLP"},
+                new Value{PropertyId=23, PropertyValue="16-DIP"},
+                new Value{PropertyId=23, PropertyValue="16-DMP"},
+                new Value{PropertyId=23, PropertyValue="16-QFN"},
+                new Value{PropertyId=23, PropertyValue="16-SOIC"},
+                new Value{PropertyId=23, PropertyValue="20-DIP"},
+                new Value{PropertyId=23, PropertyValue="24-DIP"},
+                new Value{PropertyId=23, PropertyValue="24-SOP"},
+                new Value{PropertyId=23, PropertyValue="24-TSSOP"},
+                new Value{PropertyId=23, PropertyValue="30-DMP"},
+                new Value{PropertyId=23, PropertyValue="30-SDMP"},
+                new Value{PropertyId=23, PropertyValue="32-QFN"},
+                new Value{PropertyId=23, PropertyValue="64-LQFP"},
+                new Value{PropertyId=23, PropertyValue="64-QFP"},
+                new Value{PropertyId=23, PropertyValue="64-TQFP"},
+                new Value{PropertyId=23, PropertyValue="128-FBGA"},
+
+                #endregion
+        };
         }
     }
 }

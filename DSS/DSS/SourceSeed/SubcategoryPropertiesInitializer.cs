@@ -23,6 +23,12 @@ namespace DSS.SourceSeed
                 new SubcategoryProperty{SubcategoryId=2, PropertyId=13},
                 new SubcategoryProperty{SubcategoryId=2, PropertyId=14},
                 new SubcategoryProperty{SubcategoryId=2, PropertyId=15},
+
+                //Обработка звука
+                new SubcategoryProperty{SubcategoryId=3, PropertyId=20},
+                new SubcategoryProperty{SubcategoryId=3, PropertyId=21},
+                new SubcategoryProperty{SubcategoryId=3, PropertyId=22},
+                new SubcategoryProperty{SubcategoryId=3, PropertyId=23},
             };
         }
     }
