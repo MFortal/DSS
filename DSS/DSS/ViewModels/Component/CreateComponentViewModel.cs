@@ -3,8 +3,10 @@ using System.Web.Mvc;
 
 namespace DSS.ViewModels.Component
 {
-    public class CreateComponentViewModel
+    public class ComponentViewModel
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public int SubcategoryId { get; set; }
