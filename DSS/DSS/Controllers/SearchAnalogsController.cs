@@ -32,23 +32,36 @@ namespace DSS.Controllers
 
         public ActionResult ShowResult(Component component)
         {
-            var c = db.Components.Select(x => x.Name).ToList();
+            var allComponents = db.Components
+                .Where(x => x.SubcategoryId == component.SubcategoryId);
 
-            if (!c.Contains(component.Name))
+            var firstSubstring = db.Components
+                .Where(c => c.Name.ToLower().Contains(component.Name.ToLower()) && c.Country.Id != DefaultNames.RusId)
+                .FirstOrDefault();
+
+            if (firstSubstring == null)
             {
                 return PartialView(null);
             }
 
             var subcategoryId = db.Components
-                .Where(x => x.Name == component.Name)
+                .Where(x => x.Name.ToLower() == component.Name.ToLower())
                 .Select(x => x.SubcategoryId)
                 .FirstOrDefault();
 
-            var allComponents = db.Components
-                .Where(x => x.SubcategoryId == subcategoryId);
-
             var thisComponent = db.Components
-                .FirstOrDefault(x => x.Name == component.Name);
+                .FirstOrDefault(x => x.Name.ToLower() == component.Name.ToLower());
+
+            if (thisComponent == null)
+            {
+                thisComponent = firstSubstring;
+                allComponents = db.Components
+                .Where(x => x.SubcategoryId == firstSubstring.SubcategoryId);
+                subcategoryId = db.Components
+                .Where(x => x.Name.ToLower() == firstSubstring.Name.ToLower())
+                .Select(x => x.SubcategoryId)
+                .FirstOrDefault();
+            }
 
             var otherComponents = db.Components
                 .Where(x => x.CountryId == DefaultNames.RusId)

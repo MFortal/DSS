@@ -32,6 +32,7 @@
                 @Model.ThisComponentRow.CountryName
             </td>
 
+
             @foreach (var cell in Model.ThisComponentRow.Cells)
             {
                 <td>
@@ -44,31 +45,43 @@
             }
         </tr>
 
-        foreach (var row in Model.Rows)
+
+        if (Model.Rows.Count() != 0)
+        {
+            foreach (var row in Model.Rows)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("Details", "SearchComponents", new { id = row.ComponentId })" class="component">
+                            @Html.DisplayFor(x => row.ComponentName)
+                        </a>
+                    </td>
+                    <td>
+                        <sup>
+                            <img src="../../Images/Countries/@Html.DisplayFor(x => row.CountryFlag)" width="20" height="20" />
+                        </sup>
+                        @row.CountryName
+                    </td>
+
+                    @foreach (var cell in row.Cells)
+                    {
+                        <td>
+                            @cell.Value
+                            @if (@cell.Unit != null)
+                            {
+                                <span> [@cell.Unit]</span>
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        }
+        else
         {
             <tr>
-                <td>
-                    <a href="@Url.Action("Details", "SearchComponents", new { id = row.ComponentId })" class="component">
-                        @Html.DisplayFor(x => row.ComponentName)
-                    </a>
+                <td colspan="100%">
+                    <p class="text-info text-center">Аналогов не найдено!</p>
                 </td>
-                <td>
-                    <sup>
-                        <img src="../../Images/Countries/@Html.DisplayFor(x => row.CountryFlag)" width="20" height="20" />
-                    </sup>
-                    @row.CountryName
-                </td>
-
-                @foreach (var cell in row.Cells)
-                {
-                    <td>
-                        @cell.Value
-                        @if (@cell.Unit != null)
-                        {
-                            <span> [@cell.Unit]</span>
-                        }
-                    </td>
-                }
             </tr>
         }
     }
@@ -76,7 +89,7 @@
     {
         <tr>
             <td>
-                <p class="text-info text-center">Такого компонента нет!</p>
+                <p class="text-info text-center">Нет совпадений!</p>
             </td>
         </tr>
     }
