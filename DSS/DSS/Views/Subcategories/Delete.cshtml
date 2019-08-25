@@ -31,6 +31,7 @@
     {
         @Html.AntiForgeryToken()
         <div class="form-actions no-color">
+            <a class="btn btn-default" href="@Url.Action("Details", "Categories",new { id =  Model.CategoryId })">@ButtonTexts.Back</a>
             <input type="submit" value="@ButtonTexts.Delete" class="btn btn-danger" />
         </div>
     }
