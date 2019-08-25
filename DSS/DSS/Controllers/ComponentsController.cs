@@ -47,7 +47,7 @@ namespace DSS.Controllers
                 .OrderBy(x => x.Name)
                 .ToArray();
 
-            var componentViewModel = new CreateComponentViewModel()
+            var componentViewModel = new ComponentViewModel()
             {
                 SubcategoryId = subcategoryId,
                 Countries = new SelectList(db.Countries, "Id", "Name"),
@@ -60,7 +60,7 @@ namespace DSS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateComponentViewModel componentViewModel)
+        public ActionResult Create(ComponentViewModel componentViewModel)
         {
             var cells = new List<Cell>();
             foreach (var propertyViewModel in componentViewModel.Properties)
@@ -128,9 +128,35 @@ namespace DSS.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CountryId = new SelectList(db.Countries, "Id", "Name", component.CountryId);
-            ViewBag.SubcategoryId = new SelectList(db.Subcategories, "Id", "Name", component.SubcategoryId);
-            return View(component);
+            var propertyIds = db.SubcategoryProperties
+                .Where(x => x.SubcategoryId == component.SubcategoryId)
+                .Select(x => x.PropertyId);
+
+            var properties = db.Properties
+                .Where(x => propertyIds.Contains(x.Id))
+                .AsEnumerable()
+                .Select(x => new PropertyViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    Unit = x.Unit,
+                    Value = component.Cells.AsEnumerable().FirstOrDefault(c => c.Value.PropertyId == x.Id).Value.PropertyValue,
+                })
+                .OrderBy(x => x.Name)
+                .ToArray();
+
+            var componentViewModel = new ComponentViewModel()
+            {
+                Id = component.Id,
+                Name = component.Name,
+                SubcategoryId = component.SubcategoryId,
+                SelectedCountryId = component.CountryId,
+                Countries = new SelectList(db.Countries, "Id", "Name", component.CountryId),
+                Properties = properties,
+                PreviousUrl = Request.UrlReferrer.AbsoluteUri
+            };
+            return View(componentViewModel);
         }
 
         // POST: Components/Edit/5
@@ -138,17 +164,60 @@ namespace DSS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Image,CountryId,SubcategoryId")] Component component)
+        public ActionResult Edit(ComponentViewModel componentViewModel)
         {
+
+            var cells = new List<Cell>();
+            foreach (var propertyViewModel in componentViewModel.Properties)
+            {
+                var property = db.Properties.Find(propertyViewModel.Id);
+
+                if (string.IsNullOrEmpty(propertyViewModel.Value))
+                {
+                    continue;
+                }
+
+                if (property.IsEnum)
+                {
+                    var matchedValue = property.Values
+                        .FirstOrDefault(x => x.PropertyValue.ToLower().Trim() == propertyViewModel.Value.ToLower().Trim().Replace(".", ","));
+
+                    if (matchedValue != null)
+                    {
+                        cells.Add(
+                            new Cell
+                            {
+                                Value = matchedValue
+                            });
+                        continue;
+                    }
+                }
+                cells.Add(
+                    new Cell()
+                    {
+                        Value = new Value()
+                        {
+                            PropertyId = propertyViewModel.Id,
+                            PropertyValue = propertyViewModel.Value.Replace(".", ",")
+                        }
+                    });
+            }
+
+            var component = db.Components.Find(componentViewModel.Id);
+            component.Name = componentViewModel.Name;
+            component.CountryId = componentViewModel.SelectedCountryId;
+            component.SubcategoryId = componentViewModel.SubcategoryId;
+            db.Cells.RemoveRange(component.Cells);
+            //component.Cells.Clear();
+            component.Cells = cells;
+
             if (ModelState.IsValid)
             {
                 db.Entry(component).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", "SearchComponents", new { subcategoryId = component.SubcategoryId });
             }
-            ViewBag.CountryId = new SelectList(db.Countries, "Id", "Name", component.CountryId);
-            ViewBag.SubcategoryId = new SelectList(db.Subcategories, "Id", "Name", component.SubcategoryId);
-            return View(component);
+            return View(componentViewModel);
         }
 
         // GET: Components/Delete/5

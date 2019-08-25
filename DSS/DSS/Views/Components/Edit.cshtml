@@ -1,5 +1,5 @@
 ﻿@using DSS.Common
-@model DSS.Models.Component
+@model DSS.ViewModels.Component.ComponentViewModel
 
 @{
     ViewBag.Title = HeaderTexts.Edit + HeaderTexts.ForComponent;
@@ -12,42 +12,64 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.SubcategoryId)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, DefaultNames.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CountryId, DefaultNames.Country, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CountryId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SubcategoryId, DefaultNames.Subcategory, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("SubcategoryId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SubcategoryId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <a class="btn btn-default" href="@Url.Action("Details", new {id = Model.Id})">@ButtonTexts.Back</a>
-                <input type="submit" value="@ButtonTexts.Save" class="btn btn-success" />
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, DefaultNames.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.Label(DefaultNames.Country, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(x => x.SelectedCountryId, @Model.Countries, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Countries, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <table class="table table-responsive table-component">
+            <tr>
+                @for (var i = 0; i < Model.Properties.Length; i++)
+                {
+                    <th>
+                        @Model.Properties[i].Name
+                        @if (@Model.Properties[i].Description != null)
+                        {
+                            <sup>
+                                <img src="@(DefaultPaths.BlobsImagesPath + "question.png")"
+                                     width="15px" height="15px" title="@Model.Properties[i].Description" />
+                            </sup>
+                        }
+                    </th>
+                }
+            </tr>
+            <tr>
+                @for (var i = 0; i < Model.Properties.Length; i++)
+                {
+                    <th>
+                        @Html.HiddenFor(x => Model.Properties[i].Id)
+                        @Html.EditorFor(x => Model.Properties[i].Value, new { htmlAttributes = new { @class = "form-control"} })
+                    </th>
+                }
+            </tr>
+        </table>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <a class="btn btn-default" href="@Url.Action("Details", new {id = Model.Id})">@ButtonTexts.Back</a>
+            <input type="submit" value="@ButtonTexts.Save" class="btn btn-success" />
+        </div>
+    </div>
+</div>
 }
 
 @section Scripts {
