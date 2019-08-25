@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using DSS.Models;
 using DSS.ViewModels.Component;
@@ -14,13 +11,6 @@ namespace DSS.Controllers
     public class ComponentsController : Controller
     {
         private DssContext db = new DssContext();
-
-        // GET: Components
-        public ActionResult Index()
-        {
-            var components = db.Components.Include(c => c.Country).Include(c => c.Subcategory);
-            return View(components.ToList());
-        }
 
         // GET: Components/Details/5
         public ActionResult Details(int? id)
@@ -54,6 +44,7 @@ namespace DSS.Controllers
                     Description = x.Description,
                     Unit = x.Unit
                 })
+                .OrderBy(x => x.Name)
                 .ToArray();
 
             var componentViewModel = new CreateComponentViewModel()
@@ -84,7 +75,7 @@ namespace DSS.Controllers
                 if (property.IsEnum)
                 {                    
                     var matchedValue = property.Values
-                        .FirstOrDefault(x => x.PropertyValue.ToLower().Trim() == propertyViewModel.Value.ToLower().Trim());
+                        .FirstOrDefault(x => x.PropertyValue.ToLower().Trim() == propertyViewModel.Value.ToLower().Trim().Replace(".", ","));
 
                     if (matchedValue != null)
                     {
@@ -102,7 +93,7 @@ namespace DSS.Controllers
                         Value = new Value()
                         {
                             PropertyId = propertyViewModel.Id,
-                            PropertyValue = propertyViewModel.Value
+                            PropertyValue = propertyViewModel.Value.Replace(".", ",")
                         }
                     });
             }

@@ -85,14 +85,15 @@ namespace DSS.Controllers
                 PropertyName = DefaultNames.CountryColumnName,
                 Unit = null,
                 ValueChecked = countries
-                .Select(x =>
-                new SelectionViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Checked = false
-                })
-                .ToArray()
+                    .Select(x =>
+                        new SelectionViewModel
+                        {
+                            Id = x.Id,
+                            Name = x.Name,
+                            Checked = false
+                        })
+                    .OrderBy(x => x.Name)
+                    .ToArray()
             };
 
             var properties = components
@@ -116,14 +117,15 @@ namespace DSS.Controllers
                     IsEnum = x.IsEnum,
                     Unit = x.Unit,
                     ValueChecked = values
-                    .Where(v => v.PropertyId == x.Id)
-                    .Select(v =>
-                    new SelectionViewModel
-                    {
-                        Id = v.Id,
-                        Name = v.PropertyValue,
-                        Checked = false   
-                    })
+                        .Where(v => v.PropertyId == x.Id)
+                        .Select(v =>
+                            new SelectionViewModel
+                            {
+                                Id = v.Id,
+                                Name = v.PropertyValue,
+                                Checked = false
+                            })
+                        .OrderBy(v => v.Name)
                     .ToArray()
                 })
                 .ToArray();
@@ -191,7 +193,7 @@ namespace DSS.Controllers
             var searchResult = new SearchResultViewModel
             {
                 TableHeader = tableHeader,
-                Rows = rows
+                Rows = rows.OrderBy(r => r.ComponentName)
             };
 
             return PartialView(searchResult);
@@ -210,14 +212,14 @@ namespace DSS.Controllers
                 if (!filterProperty.ValueChecked.Any(x => x.Checked))
                 {
                     return true;
-                }               
+                }
                 return filterProperty.ValueChecked
                            .Where(x => x.Checked)
                            .Any(x => x.Id == value.Id);
             }
 
-            return double.TryParse(value.PropertyValue, out var doubleValue) 
-                   && (!filterProperty.Min.HasValue || doubleValue >= filterProperty.Min) 
+            return double.TryParse(value.PropertyValue, out var doubleValue)
+                   && (!filterProperty.Min.HasValue || doubleValue >= filterProperty.Min)
                    && (!filterProperty.Max.HasValue || doubleValue <= filterProperty.Max);
         }
         private bool CheckByCountry(Component component, FilterPropertyViewModel filterCountry)
