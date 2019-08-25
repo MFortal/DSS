@@ -8,12 +8,15 @@ namespace DSS.SourceSeed
         {
             return new Value[]
             {
+                #region 1                               
                 new Value{PropertyId=1, PropertyValue="Класс АB"},
                 new Value{PropertyId=1, PropertyValue="Класс В"},
                 new Value{PropertyId=1, PropertyValue="Класс H"},
                 new Value{PropertyId=1, PropertyValue="Класс G"},
                 new Value{PropertyId=1, PropertyValue="Класс D"},
+                #endregion
 
+                #region 2                               
                 new Value{PropertyId=2, PropertyValue="Наушники, 1 канал (Моно)"},
                 new Value{PropertyId=2, PropertyValue="Наушники, 2 канала (Стерео)"},
                 new Value{PropertyId=2, PropertyValue="1-канальный (Моно)"},
@@ -30,6 +33,55 @@ namespace DSS.SourceSeed
                 new Value{PropertyId=2, PropertyValue="3-Channel"},
                 new Value{PropertyId=2, PropertyValue="4-Channel (Quad)"},
                 new Value{PropertyId=2, PropertyValue="6-Channel"},
+                #endregion
+
+                #region 3                                
+                new Value{PropertyId=3, PropertyValue="8"},
+                new Value{PropertyId=3, PropertyValue="8,5"},
+                new Value{PropertyId=3, PropertyValue="9"},
+                new Value{PropertyId=3, PropertyValue="10"},
+                new Value{PropertyId=3, PropertyValue="15"},
+                new Value{PropertyId=3, PropertyValue="16"},
+                new Value{PropertyId=3, PropertyValue="23"},
+                new Value{PropertyId=3, PropertyValue="24"},
+                new Value{PropertyId=3, PropertyValue="25"},
+                new Value{PropertyId=3, PropertyValue="25,6"},
+                new Value{PropertyId=3, PropertyValue="32"},
+                new Value{PropertyId=3, PropertyValue="35"},
+                new Value{PropertyId=3, PropertyValue="37"},
+                new Value{PropertyId=3, PropertyValue="40"},                    
+                new Value{PropertyId=3, PropertyValue="42"},
+                #endregion
+
+                #region 4
+                new Value{PropertyId=4, PropertyValue="8"},
+                new Value{PropertyId=4, PropertyValue="16"},
+                new Value{PropertyId=4, PropertyValue="32"},
+                #endregion
+
+                #region 5                
+                new Value{PropertyId=5, PropertyValue="1"},
+                new Value{PropertyId=5, PropertyValue="1,5"},
+                new Value{PropertyId=5, PropertyValue="1,8"},
+                new Value{PropertyId=5, PropertyValue="2"},
+                new Value{PropertyId=5, PropertyValue="2,5"},
+                new Value{PropertyId=5, PropertyValue="3"},
+                new Value{PropertyId=5, PropertyValue="4"},
+                new Value{PropertyId=5, PropertyValue="5"},
+                new Value{PropertyId=5, PropertyValue="10"},
+                #endregion
+
+                #region 6              
+                new Value{PropertyId=6, PropertyValue="5"},
+                new Value{PropertyId=6, PropertyValue="10"},
+                new Value{PropertyId=6, PropertyValue="12"},
+                new Value{PropertyId=6, PropertyValue="15"},
+                new Value{PropertyId=6, PropertyValue="16"},
+                new Value{PropertyId=6, PropertyValue="18"},
+                new Value{PropertyId=6, PropertyValue="20"},
+                new Value{PropertyId=6, PropertyValue="30"},
+                new Value{PropertyId=6, PropertyValue="40"},
+                #endregion
 
 
                 //new Value{PropertyId=3, PropertyValue="Наушники, 1 канал (Моно)"},
