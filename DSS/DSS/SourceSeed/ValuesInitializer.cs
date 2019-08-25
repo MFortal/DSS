@@ -10,6 +10,9 @@ namespace DSS.SourceSeed
             {
                 new Value{Id=1, PropertyId=1, PropertyValue="Класс АB"},
                 new Value{Id=2, PropertyId=1, PropertyValue="Класс В"},
+                new Value{Id=101, PropertyId=1, PropertyValue="Класс H"},
+                new Value{Id=102, PropertyId=1, PropertyValue="Класс G"},
+                new Value{Id=103, PropertyId=1, PropertyValue="Класс D"},
 
                 new Value{Id=3, PropertyId=2, PropertyValue="Bash®"},
                 new Value{Id=4, PropertyId=2, PropertyValue="AudioMAX™"},
