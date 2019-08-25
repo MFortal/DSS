@@ -23,7 +23,7 @@ namespace DSS.SourceSeed
                 new Property{Id=13, Name="Полоса пропускания -3 Дб",Unit="Гц", Description=null, IsEnum=false},
                 new Property{Id=14, Name="Скорость нарастания выходного напряжения", Unit="В/мкс", Description=null, IsEnum=false},
                 new Property{Id=15, Name="Ток выходной",Unit="мА", Description=null, IsEnum=true},
-                new Property{Id=16, Name="Полоса пропускания -3 Дб",Unit=null, Description=null, IsEnum=true},
+                //new Property{Id=16, Name="Полоса пропускания -3 Дб",Unit=null, Description=null, IsEnum=true},
                 //new Property{Id=13, Name="Полоса пропускания -3 Дб",Unit=null, Description=null, IsEnum=true},
 
 
