@@ -11,7 +11,7 @@ namespace DSS.Controllers
     public class SearchAnalogsController : Controller
     {
         private DssContext db = new DssContext();
-        
+
         [HttpGet]
         // GET: SearchAnalogsViewModels
         public ActionResult Index()
@@ -20,52 +20,35 @@ namespace DSS.Controllers
             return View();
         }
 
-        [HttpPost]
-        public JsonResult Index(string prefix)
-        {
-            var componentsList = db.Components
-                .Where (c => c.Name.ToLower().Contains(prefix.ToLower()) && c.Country.Id != DefaultNames.RusId)
-                .Select(c => c.Name);
-
-            return Json(componentsList, JsonRequestBehavior.AllowGet);
-        }
 
         public ActionResult ShowResult(Component component)
         {
-            var allComponents = db.Components
-                .Where(x => x.SubcategoryId == component.SubcategoryId);
-
             var firstSubstring = db.Components
-                .Where(c => c.Name.ToLower().Contains(component.Name.ToLower()) && c.Country.Id != DefaultNames.RusId)
-                .FirstOrDefault();
+                .FirstOrDefault(c => c.Name.ToLower().Contains(component.Name.ToLower()));
 
             if (firstSubstring == null)
             {
                 return PartialView(null);
             }
 
-            var subcategoryId = db.Components
-                .Where(x => x.Name.ToLower() == component.Name.ToLower())
-                .Select(x => x.SubcategoryId)
-                .FirstOrDefault();
-
             var thisComponent = db.Components
-                .FirstOrDefault(x => x.Name.ToLower() == component.Name.ToLower());
+               .FirstOrDefault(x => x.Name.ToLower() == component.Name.ToLower());
+
+            var allComponents = db.Components
+               .Where(x => x.SubcategoryId == thisComponent.SubcategoryId);
+
 
             if (thisComponent == null)
             {
                 thisComponent = firstSubstring;
                 allComponents = db.Components
                 .Where(x => x.SubcategoryId == firstSubstring.SubcategoryId);
-                subcategoryId = db.Components
-                .Where(x => x.Name.ToLower() == firstSubstring.Name.ToLower())
-                .Select(x => x.SubcategoryId)
-                .FirstOrDefault();
             }
+            
 
             var otherComponents = db.Components
-                .Where(x => x.CountryId == DefaultNames.RusId)
-                .Where(x => x.SubcategoryId == subcategoryId).ToArray();
+                .Where(x => x.CountryId == DefaultNames.RusId && x.Id != thisComponent.Id)
+                .Where(x => x.SubcategoryId == thisComponent.SubcategoryId).ToArray();
 
             var properties = allComponents
                 .SelectMany(x => x.Cells)
@@ -105,7 +88,7 @@ namespace DSS.Controllers
             };
 
             var filteredComponent = otherComponents.AsEnumerable();
-          
+
             var rows = new List<TableRowViewModel>();
             foreach (var filterComponent in filteredComponent)
             {
@@ -130,7 +113,7 @@ namespace DSS.Controllers
                     Cells = cells
                 };
 
-                
+
                 if (CheckByAnalog(row, thisCoomponentRow))
                 {
                     rows.Add(row);
@@ -151,10 +134,10 @@ namespace DSS.Controllers
         {
             var kol = 0;
             for (var i = 0; i < anotherComponent.Cells.Count(); i++)
-            { 
+            {
                 var anotherValue = anotherComponent.Cells[i]?.Value;
                 var thisValue = thisCoomponentRow.Cells[i]?.Value;
-                
+
                 if (!(anotherValue == thisValue))
 
                 {
@@ -163,7 +146,7 @@ namespace DSS.Controllers
             }
             return kol <= DefaultNames.CountVariance ? true : false;
         }
-        
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
