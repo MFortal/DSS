@@ -19,23 +19,31 @@ namespace DSS.SourceSeed
                     .Where(x => component.SubcategoryId == x.SubcategoryId)
                     .Select(x => x.PropertyId);
                 var properties = db.Properties
-                    .Where(x => propertyIds.Contains(x.Id))
-                    .Where(x => x.IsEnum);
+                    .Where(x => propertyIds.Contains(x.Id));
+                    //.Where(x => x.IsEnum);
 
                 foreach (var property in properties)
                 {
-                    var values = db.Values
+                    var valuesList = db.Values
                         .Where(x => property.Id == x.PropertyId)
-                        .Select(x => x.Id)
-                        .ToArray();
+                        .Select(x => (int?) x.Id)
+                        .ToList();
+
+                    valuesList.Add(null);
+                    var values = valuesList.ToArray();
 
                     if (values.Any())
                     {
-                        result.Add(new Cell()
+                        var valueId = values[rand.Next(0, values.Length)];
+
+                        if (valueId.HasValue)
                         {
-                            ComponentId = component.Id,
-                            ValueId = values[rand.Next(0, values.Length)]
-                        });
+                            result.Add(new Cell()
+                            {
+                                ComponentId = component.Id,
+                                ValueId = (int)valueId
+                            });
+                        }                        
                     }                    
                 }
             }
