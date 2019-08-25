@@ -1,5 +1,5 @@
 ﻿@using DSS.Common
-@model DSS.Models.Component
+@model DSS.ViewModels.Component.EditComponentViewModel
 
 @{
     ViewBag.Title = HeaderTexts.Details + HeaderTexts.ForComponent;
@@ -11,38 +11,49 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @DefaultNames.Country
+            @DefaultNames.Name
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.Country.Name)
+            @Html.DisplayFor(model => model.Component.Name)
         </dd>
-
         <dt>
             @DefaultNames.Subcategory
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.Subcategory.Name)
+            @Html.DisplayFor(model => model.SubcategoryName)
         </dd>
-
         <dt>
-            @DefaultNames.Name
+            @DefaultNames.Country
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.CountryName)
         </dd>
+        @for (var i = 0; i < Model.Component.Properties.Length; i++)
+        {
+            <dt>
+                @Model.Component.Properties[i].Name
+                @if (@Model.Component.Properties[i].Description != null)
+                {
+                    <sup>
+                        <img src="@(DefaultPaths.BlobsImagesPath + "question.png")"
+                             width="15px" height="15px" title="@Model.Component.Properties[i].Description" />
+                    </sup>
+                }
+            </dt>
+            <dd>
+                @Html.DisplayFor(x => Model.Component.Properties[i].Value)
+            </dd>
+        }
     </dl>
 </div>
 
 <td>
-    <a class="btn btn-default" href="@Url.Action("Index", "SearchComponents", new {subcategoryId = Model.SubcategoryId})">@ButtonTexts.Back</a>
+    <a class="btn btn-default" href="@Url.Action("Index", "SearchComponents", new {subcategoryId = Model.Component.SubcategoryId})">@ButtonTexts.Back</a>
 
     @if (User.IsInRole(DefaultRoles.Admin))
     {
-        <a class="btn btn-primary" href="@Url.Action("Edit", new {id = Model.Id})">@ButtonTexts.Edit</a>
-        <a class="btn btn-danger" href="@Url.Action("Delete", new {id = Model.Id})">@ButtonTexts.Delete</a>
+        <a class="btn btn-primary" href="@Url.Action("Edit", new {id = Model.Component.Id})">@ButtonTexts.Edit</a>
+        <a class="btn btn-danger" href="@Url.Action("Delete", new {id = Model.Component.Id})">@ButtonTexts.Delete</a>
     }
 
 </td>
