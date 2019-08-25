@@ -21,7 +21,7 @@
 
         <tr class="thisComponent">
             <td>
-                <a href="@Url.Action("Details", "SearchComponents", new { id = Model.ThisComponentRow.ComponentId })" class="component">
+                <a href="@Url.Action("Details", "Components", new { id = Model.ThisComponentRow.ComponentId })" class="component">
                     @Html.DisplayFor(x => Model.ThisComponentRow.ComponentName)
                 </a>
             </td>
@@ -52,7 +52,7 @@
             {
                 <tr>
                     <td>
-                        <a href="@Url.Action("Details", "SearchComponents", new { id = row.ComponentId })" class="component">
+                        <a href="@Url.Action("Details", "Components", new { id = row.ComponentId })" class="component">
                             @Html.DisplayFor(x => row.ComponentName)
                         </a>
                     </td>
