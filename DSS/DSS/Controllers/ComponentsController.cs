@@ -12,20 +12,6 @@ namespace DSS.Controllers
     {
         private DssContext db = new DssContext();
 
-        // GET: Components/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Component component = db.Components.Find(id);
-            if (component == null)
-            {
-                return HttpNotFound();
-            }
-            return View(component);
-        }
 
         // GET: Components/Create
         public ActionResult Create(int subcategoryId)
@@ -52,7 +38,7 @@ namespace DSS.Controllers
                 SubcategoryId = subcategoryId,
                 Countries = new SelectList(db.Countries, "Id", "Name"),
                 Properties = properties,
-                PreviousUrl = Request.UrlReferrer.AbsoluteUri                
+                PreviousUrl = Request.UrlReferrer.AbsoluteUri
             };
 
             return View(componentViewModel);
@@ -73,7 +59,7 @@ namespace DSS.Controllers
                 }
 
                 if (property.IsEnum)
-                {                    
+                {
                     var matchedValue = property.Values
                         .FirstOrDefault(x => x.PropertyValue.ToLower().Trim() == propertyViewModel.Value.ToLower().Trim().Replace(".", ","));
 
@@ -116,6 +102,41 @@ namespace DSS.Controllers
             return View(componentViewModel);
         }
 
+        // GET: Components/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Component component = db.Components.Find(id);
+            if (component == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(GetEditComponentViewModel(ReturnComponentViewModel(component)));
+        }
+
+        public EditComponentViewModel GetEditComponentViewModel(ComponentViewModel componentModel)
+        {
+            return new EditComponentViewModel
+            {
+                Component = componentModel,
+
+                CountryName = db.Countries
+                .Where(x => x.Id == componentModel.SelectedCountryId)
+                .Select(x => x.Name)
+                .FirstOrDefault()
+                .ToString(),
+
+                SubcategoryName = db.Subcategories
+                .Where(x => x.Id == componentModel.SubcategoryId)
+                .Select(x => x.Name)
+                .FirstOrDefault()
+                .ToString()
+            };
+        }
         // GET: Components/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -128,6 +149,12 @@ namespace DSS.Controllers
             {
                 return HttpNotFound();
             }
+            return View(ReturnComponentViewModel(component));
+        }
+
+
+        public ComponentViewModel ReturnComponentViewModel(Component component)
+        {
             var propertyIds = db.SubcategoryProperties
                 .Where(x => x.SubcategoryId == component.SubcategoryId)
                 .Select(x => x.PropertyId);
@@ -156,7 +183,8 @@ namespace DSS.Controllers
                 Properties = properties,
                 PreviousUrl = Request.UrlReferrer.AbsoluteUri
             };
-            return View(componentViewModel);
+
+            return componentViewModel;
         }
 
         // POST: Components/Edit/5
@@ -243,7 +271,7 @@ namespace DSS.Controllers
             Component component = db.Components.Find(id);
             db.Components.Remove(component);
             db.SaveChanges();
-            return RedirectToAction("Index", "SearchComponents", new { subcategoryId = subcategoryId});
+            return RedirectToAction("Index", "SearchComponents", new { subcategoryId = subcategoryId });
         }
 
         protected override void Dispose(bool disposing)
