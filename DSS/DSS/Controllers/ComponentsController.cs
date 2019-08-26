@@ -30,7 +30,6 @@ namespace DSS.Controllers
                     Description = x.Description,
                     Unit = x.Unit
                 })
-                .OrderBy(x => x.Name)
                 .ToArray();
 
             var componentViewModel = new ComponentViewModel()
@@ -115,7 +114,9 @@ namespace DSS.Controllers
                 return HttpNotFound();
             }
 
-            return View(GetEditComponentViewModel(ReturnComponentViewModel(component)));
+            var componentViewModel = ReturnComponentViewModel(component);
+            var editComponentViewModel = GetEditComponentViewModel(componentViewModel);
+            return View(editComponentViewModel);
         }
 
         public EditComponentViewModel GetEditComponentViewModel(ComponentViewModel componentModel)
@@ -149,7 +150,9 @@ namespace DSS.Controllers
             {
                 return HttpNotFound();
             }
-            return View(ReturnComponentViewModel(component));
+
+            var componentViewModel = ReturnComponentViewModel(component);
+            return View(componentViewModel);
         }
 
 
@@ -170,7 +173,6 @@ namespace DSS.Controllers
                     Unit = x.Unit,
                     Value = component.Cells.AsEnumerable().FirstOrDefault(c => c.Value.PropertyId == x.Id)?.Value.PropertyValue,
                 })
-                .OrderBy(x => x.Name)
                 .ToArray();
 
             var componentViewModel = new ComponentViewModel()

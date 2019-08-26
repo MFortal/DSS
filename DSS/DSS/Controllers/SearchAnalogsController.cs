@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using DSS.Common;
@@ -34,27 +33,24 @@ namespace DSS.Controllers
             var thisComponent = db.Components
                .FirstOrDefault(x => x.Name.ToLower() == component.Name.ToLower());
 
-            var allComponents = db.Components
-               .Where(x => x.SubcategoryId == thisComponent.SubcategoryId);
-
-
             if (thisComponent == null)
             {
                 thisComponent = firstSubstring;
-                allComponents = db.Components
-                .Where(x => x.SubcategoryId == firstSubstring.SubcategoryId);
             }
-            
 
             var otherComponents = db.Components
                 .Where(x => x.CountryId == DefaultNames.RusId && x.Id != thisComponent.Id)
                 .Where(x => x.SubcategoryId == thisComponent.SubcategoryId).ToArray();
 
-            var properties = allComponents
-                .SelectMany(x => x.Cells)
+            var filteredComponents = otherComponents
+                .Where(x => CheckByAnalog(x, thisComponent))
+                .ToArray();
+
+            var properties = thisComponent.Cells
                 .Select(x => x.Value.Property)
                 .Distinct()
-                .OrderBy(x => x.Id);
+                .OrderBy(x => x.Id)
+                .ToArray();
 
             var tableHeader = new TableHeaderViewModel
             {
@@ -87,16 +83,14 @@ namespace DSS.Controllers
                 Cells = cells1
             };
 
-            var filteredComponent = otherComponents.AsEnumerable();
-
             var rows = new List<TableRowViewModel>();
-            foreach (var filterComponent in filteredComponent)
+            foreach (var filteredComponent in filteredComponents)
             {
                 var cells = new CellValueViewModel[properties.Count()];
                 var indexCounter = 0;
                 foreach (var property in properties)
                 {
-                    var cell = filterComponent.Cells.FirstOrDefault(x => x.Value.PropertyId == property.Id);
+                    var cell = filteredComponent.Cells.FirstOrDefault(x => x.Value.PropertyId == property.Id);
                     cells[indexCounter] = new CellValueViewModel
                     {
                         Value = cell?.Value.PropertyValue,
@@ -104,20 +98,14 @@ namespace DSS.Controllers
                     };
                     indexCounter++;
                 }
-                var row = new TableRowViewModel
+                rows.Add(new TableRowViewModel
                 {
-                    ComponentId = filterComponent.Id,
-                    ComponentName = filterComponent.Name,
-                    CountryName = filterComponent.Country.Name,
-                    CountryFlag = filterComponent.Country.Flag,
+                    ComponentId = filteredComponent.Id,
+                    ComponentName = filteredComponent.Name,
+                    CountryName = filteredComponent.Country.Name,
+                    CountryFlag = filteredComponent.Country.Flag,
                     Cells = cells
-                };
-
-
-                if (CheckByAnalog(row, thisCoomponentRow))
-                {
-                    rows.Add(row);
-                }
+                });
             }
 
             var searchResult = new SearchResultViewModel
@@ -130,21 +118,25 @@ namespace DSS.Controllers
             return PartialView(searchResult);
         }
 
-        private bool CheckByAnalog(TableRowViewModel anotherComponent, TableRowViewModel thisCoomponentRow)
+        private bool CheckByAnalog(Component anotherComponent, Component thisComponent)
         {
-            var kol = 0;
-            for (var i = 0; i < anotherComponent.Cells.Count(); i++)
+            var count = 0;
+            foreach (var cell in thisComponent.Cells)
             {
-                var anotherValue = anotherComponent.Cells[i]?.Value;
-                var thisValue = thisCoomponentRow.Cells[i]?.Value;
-
-                if (!(anotherValue == thisValue))
-
+                var propertyId = cell.Value.PropertyId;
+                var thisValue = cell.Value.PropertyValue;
+                var anotherValue = anotherComponent.Cells.FirstOrDefault(x => x.Value.PropertyId == propertyId)?.Value.PropertyValue;
+                if (thisValue != anotherValue && !string.IsNullOrEmpty(anotherValue))
                 {
-                    kol++;
+                    count++;
+                    if (count > DefaultNames.CountVariance)
+                    {
+                        return false;
+                    }
                 }
             }
-            return kol <= DefaultNames.CountVariance ? true : false;
+
+            return true;
         }
 
         protected override void Dispose(bool disposing)
