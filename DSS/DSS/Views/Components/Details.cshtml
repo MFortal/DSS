@@ -50,7 +50,7 @@
 <td>
     <a class="btn btn-default" href="@Url.Action("Index", "SearchComponents", new {subcategoryId = Model.Component.SubcategoryId})">@ButtonTexts.Back</a>
 
-    @if (User.IsInRole(DefaultRoles.Admin))
+    @if (User.Identity.IsAuthenticated)
     {
         <a class="btn btn-primary" href="@Url.Action("Edit", new {id = Model.Component.Id})">@ButtonTexts.Edit</a>
         <a class="btn btn-danger" href="@Url.Action("Delete", new {id = Model.Component.Id})">@ButtonTexts.Delete</a>
