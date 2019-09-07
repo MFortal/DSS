@@ -20,7 +20,7 @@ namespace DSS.Controllers
             var model = new CreateSubcategoryViewModel
             {
                 Categories = new SelectList(db.Categories, "Id", "Name"),
-                Properties = new SelectList(db.Properties, "Id", "Name"),
+                Properties = new SelectList(db.Properties.OrderBy(x => x.Name), "Id", "Name"),
             };
             return View(model);
         }

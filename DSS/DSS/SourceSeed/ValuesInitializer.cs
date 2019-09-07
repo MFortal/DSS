@@ -125,17 +125,17 @@ namespace DSS.SourceSeed
 
                 #region 13
 
-                new Value{PropertyId=13, PropertyValue="800 *10^2"},
-                new Value{PropertyId=13, PropertyValue="1 *10^3"},
-                new Value{PropertyId=13, PropertyValue="2 *10^3"},
-                new Value{PropertyId=13, PropertyValue="3,5 *10^3"},
-                new Value{PropertyId=13, PropertyValue="5 *10^3"},
-                new Value{PropertyId=13, PropertyValue="6 *10^3"},
-                new Value{PropertyId=13, PropertyValue="8 *10^3"},
-                new Value{PropertyId=13, PropertyValue="10 *10^3"},
-                new Value{PropertyId=13, PropertyValue="20 *10^3"},
-                new Value{PropertyId=13, PropertyValue="40 *10^3"},
-                new Value{PropertyId=13, PropertyValue="80 *10^3"},
+                new Value{PropertyId=13, PropertyValue="800"},
+                new Value{PropertyId=13, PropertyValue="1000"},
+                new Value{PropertyId=13, PropertyValue="2000"},
+                new Value{PropertyId=13, PropertyValue="3500"},
+                new Value{PropertyId=13, PropertyValue="5000"},
+                new Value{PropertyId=13, PropertyValue="6000"},
+                new Value{PropertyId=13, PropertyValue="8000"},
+                new Value{PropertyId=13, PropertyValue="10000"},
+                new Value{PropertyId=13, PropertyValue="20000"},
+                new Value{PropertyId=13, PropertyValue="40000"},
+                new Value{PropertyId=13, PropertyValue="80000"},
 
                 #endregion
 
