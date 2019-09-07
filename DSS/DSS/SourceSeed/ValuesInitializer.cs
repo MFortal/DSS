@@ -158,9 +158,9 @@ namespace DSS.SourceSeed
 
                 #region 15
                 
-                new Value{PropertyId=15, PropertyValue="0.5"},
+                new Value{PropertyId=15, PropertyValue="0,5"},
                 new Value{PropertyId=15, PropertyValue="1"},
-                new Value{PropertyId=15, PropertyValue="1.5"},
+                new Value{PropertyId=15, PropertyValue="1,5"},
                 new Value{PropertyId=15, PropertyValue="2"},
                 new Value{PropertyId=15, PropertyValue="3"},
                 new Value{PropertyId=15, PropertyValue="5"},
