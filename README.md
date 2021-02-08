@@ -2,4 +2,4 @@
 Приложение по подбору товара с помощью фильтров.
 
 ## Стек
-C#, EntityFramework, SQL, MVC
+C#, EntityFramework, MS SQL, MVC
